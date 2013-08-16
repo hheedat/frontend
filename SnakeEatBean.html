@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SnakeEatBean</title>
+<script>
+
+console.log("大三了，暑假想找一份Web前端实习生的工作，邮箱：yuxiang.zhao5342@gmail.com ，求收留 >_< ");
+
+window.onload=function(){
+    //生成一个50x50的表格
+    var tableString = "";
+    for(var i=0;i<50;i++){
+        tableString +="<tr>";
+        for(var j=0;j<50;j++){
+            tableString +="<td></td>"
+        }
+        tableString += "</tr>";
+    }
+    var thisTable = document.getElementById("main");
+    thisTable.innerHTML = tableString;
+
+    var theScore = document.getElementById("score");
+    //注册事件
+    function addEvent(target,type,handler){
+        if(target.addEventListener){
+            target.addEventListener(type,handler,false);
+        }
+        else if(target.attachEvent){
+            target.attachEvent("on" + type,function(event){
+                                                return handler.call(target,event);
+                                            });
+        }
+        else{
+            target['on' + type] = handler;
+        }
+    }
+    //Snake对象
+    var Snake = {
+
+        body:[{x:25,y:25}],//每一节身体都用{x:x,y:y}表示
+
+        direction:0,//移动方向 0，1，2，3 分别表示 上，右，下，左
+
+        directionBuffer:[], //速度缓存数组
+
+        speed:125, //当前速度
+
+        all_speed:{ // 三种不同的速度
+
+            slow:200,
+
+            middle:125,
+
+            fast:75,
+        },
+
+        colorNow:'#666', //现在蛇的颜色
+
+        colors:['#d54e21','#f70','#ffc414','#78a300','#0e76a8','#6a5a8c'], //豆子的颜色
+
+        timer:null, //把定时器加到这里，消除的时候用
+
+        runflag:true,  //是否在运行
+
+        initflag:false,  //是否已经初始化
+
+        aliveflag:true, //是否还活着
+
+        //初始化蛇
+        init:function(){
+            this.direction = Math.floor(Math.random()*4);
+            thisTable.rows[25].cells[25].style.backgroundColor = "#666";
+            for(var i=0;i<3;i++){
+                this.createBean();
+            }
+            addEvent(document,"keydown",Snake.moveSwitch);
+            this.move();
+            this.initflag = true;
+        },
+
+        //产生豆子
+        createBean:function(){        
+            while(true){
+                var x = Math.floor(Math.random()*50),
+                    y = Math.floor(Math.random()*50),
+                    colorIndex = Math.floor(Math.random()*6);
+                if(!this.isCellFilled(x,y)){ 
+                    thisTable.rows[y].cells[x].style.backgroundColor = this.colors[colorIndex];
+                    break;
+                } 
+            }    
+        },
+
+        //变换方向
+        moveSwitch:function(event){
+            var code = event.keyCode;
+            switch(code){
+                case 65://左
+                case 37:{
+                    Snake.directionBuffer.push(3);
+                    break;
+                }
+                case 87://上
+                case 38:{
+                    Snake.directionBuffer.push(0);
+                    break;
+                }
+                case 68://右
+                case 39:{
+                    Snake.directionBuffer.push(1);
+                    break;
+                }
+                case 83://下
+                case 40:{
+                    Snake.directionBuffer.push(2);
+                    break;
+                }
+                case 32:{//暂停
+                    Snake.suspend();
+                    break;
+                }
+            }
+        },
+
+        //确定方向
+        confirmDirection:function(){
+            var directionWill;
+            if(this.directionBuffer.length === 0){
+                ;
+            }
+            else{
+                directionWill = this.directionBuffer.shift();
+                if(Math.abs(directionWill-this.direction) === 2){
+                    ;
+                }
+                else{
+                    this.direction = directionWill;
+                }
+            }
+        },
+
+        //移动功能
+        move: function(){
+            this.timer = setInterval(function(){
+                                        Snake.confirmDirection();
+                                        var nextPod = Snake.getNextPos(),
+                                            x = nextPod.x,
+                                            y = nextPod.y,
+                                            check = Snake.checkNextStep();
+                                        if(check === -1){                   //死亡
+                                            clearInterval(Snake.timer);
+                                            document.getElementById("game_over_blank").style.display = "block";
+                                            Snake.aliveflag = false;
+                                        }
+                                        else if(check === 1){        //前面有豆子
+                                            Snake.addNode(x,y);
+                                            Snake.colorNow = thisTable.rows[y].cells[x].style.backgroundColor;
+                                            Snake.eraseNode();
+                                            Snake.paintAllNode();
+                                            Snake.createBean();
+                                            Score.addScore();
+                                            
+                                        }
+                                        else{                          //正常行进
+                                            Snake.addNode(x,y);
+                                            Snake.eraseNode();
+                                            Snake.popNode();
+                                            Snake.paintNode(x,y);
+                                        }
+                                    }, this.speed);
+        },
+
+        //暂停功能
+        suspend:function(){
+            if(Snake.aliveflag){
+                if (this.runflag) {
+                    clearInterval(this.timer);
+                    this.runflag = false;
+                    document.getElementById("suspend_blank").style.display = "block";
+                }
+                else{
+                    document.getElementById("suspend_blank").style.display = "none";
+                    this.move();
+                    this.runflag = true;
+                }
+            }         
+        },
+
+        //蛇头前添加节点
+        addNode:function(x,y){
+            this.body.unshift({x:x,y:y});
+        },
+
+        //抛弃蛇尾巴
+        popNode:function(){
+            this.body.pop();
+        },
+
+        //擦除最后一个节点
+        eraseNode: function(){
+            var bodylength = this.body.length,
+                node_y = this.body[bodylength-1].y,
+                node_x = this.body[bodylength-1].x;         
+            thisTable.rows[node_y].cells[node_x].style.backgroundColor = ""; 
+        },
+
+        //绘制新节点
+        paintNode: function(x,y){
+            thisTable.rows[y].cells[x].style.backgroundColor = this.colorNow; 
+        },
+
+        paintAllNode:function(){
+            for (x in this.body){
+                this.paintNode(this.body[x].x,this.body[x].y);
+            }
+        },
+
+        //检测一个格子是不是被填充
+        isCellFilled:function(x,y){
+            if(thisTable.rows[y].cells[x].style.backgroundColor == ""){
+                return false;
+            }
+            return true;
+        },
+
+        //检查下一步状态
+        checkNextStep: function(){
+            var nextPod = this.getNextPos();
+            var x = nextPod.x;
+            var y = nextPod.y;
+            if(x<0||x>49||y<0||y>49){
+                return -1;
+            }
+            for(var i=0; i<this.body.length; i++){
+                if(this.body[i].x==x&&this.body[i].y==y){
+                    return -1;
+                }
+            }
+            if(this.isCellFilled(x,y)){
+                return 1;
+            }
+            return 0;
+        },
+
+        //得到将要到达的位置
+        getNextPos: function(){ 
+            var x = this.body[0].x;
+            var y = this.body[0].y;
+
+            if(this.direction==0){ 
+                y--; 
+            } 
+            else if(this.direction==1){ 
+                x++; 
+            } 
+            else if(this.direction==2){ 
+                y++; 
+            }  
+            else{ 
+                x--; 
+            } 
+            return {x:x,y:y}; 
+        }
+
+    }
+
+    //计分系统
+    var Score = {
+
+        score:0,
+
+        addScore:function(){
+            this.score+=1;
+            theScore.innerHTML = "分数: "+this.score;
+        }
+
+    }
+
+    //开始按钮以及功能
+    var start_button = document.getElementById("start_button");
+    addEvent(start_button,"click",function(){Snake.init();});
+
+    //速度系统
+    var speed_all = document.querySelectorAll("#speed_radio li"),
+        speed_all_length = speed_all.length;
+
+    for(var i = speed_all_length-1 ; i>=0 ; i--){
+        addEvent(speed_all[i],"click",switchSpeed);
+    }
+
+    function switchSpeed(event){
+        for(var i = 0;i<speed_all_length;i++){
+            if(speed_all[i].className==="selected"){
+                speed_all[i].className = "";
+            }
+        }
+        Snake.speed = Snake.all_speed[this.id]
+        if(Snake.initflag === false){
+            ;
+        }
+        else{
+            if(Snake.runflag === true){
+                clearInterval(Snake.timer);
+                Snake.move();
+            }
+            else{
+                clearInterval(Snake.timer);
+            }           
+        }    
+        this.className = "selected";
+    }
+
+    //死亡时候出现的div，离开和再试一次功能
+    var leave_game = document.getElementById("leave_game"),
+        retry_game = document.getElementById("retry_game");
+
+    addEvent(leave_game,"click",leaveGameFun);
+    addEvent(retry_game,"click",retryGameFun);
+
+    function leaveGameFun(){
+		window.open('','_self');
+        window.close();
+    }
+    function retryGameFun(){
+        window.location.reload();
+    }
+
+}
+</script>
+<style>
+    #wrapper{
+        position:relative;
+        width:500px;
+        height:700px;
+        margin:0 auto;
+    }
+    #content{
+        position: relative;
+        top: 40px;
+        width:500px;
+        height:500px;
+    }
+    table{
+        margin: 0px;
+        width: 500px;
+        height: 500px;
+        border-collapse: collapse;
+        border: solid #777 1px;
+    }
+    td{
+        height: 10px;
+        width: 10px;
+        padding: 0px;
+        margin: 0px;
+        border:0px;
+    }
+    #score_blank{
+        position:absolute;
+        width:500px;
+        height:40px;
+        top:0px;
+        left:0px;
+    }
+    #score{
+        position: absolute;
+        height: 30px;
+        width: 100px;
+        left:0px;
+        top:0px;
+        padding: 5px;
+        margin: 5px;
+        font-size: 20px;
+    }
+    #start_button{
+        position:absolute;
+        height:30px;
+        width: 60px;
+        top:0px;
+        left:425px;
+        margin: 5px;
+        border:none;
+        color:white;
+        background-color: #3A8000;
+    }
+    #start_button:hover{
+        background-color: #3A9000;
+    }
+    #footer{
+        position: relative;
+        top:40px;
+        padding: 5px;
+        font: 12px Helvetica,Arial,sans-serif;
+        color: #666;
+    }
+    #footer a{
+        text-decoration: none;
+        color: #666;
+    }
+    #footer a:hover{
+        text-decoration: underline;
+        color: #666;
+    }
+
+    #speed_radio{
+        position:relative;
+        top:5px;
+        left:300px;
+        height:30px;
+        width:90px;
+    }
+    ul{
+        display: inline;
+        list-style: none;
+        padding: 0px;
+        margin: 5px;
+    }
+    li{
+        position: relative;
+        float: left;
+        list-style: none;
+        margin:2px 5px 0 0;
+        padding: 2px;
+        color:white;
+    }
+    #slow{
+        background-color: #fc0;
+    }
+    #slow:hover{
+        background-color: #fd0;
+    }
+    #middle{
+        background-color: #f70;
+    }
+    #middle:hover{
+        background-color: #f80;
+    }
+    #fast{
+        background-color: #d54e21;
+    }
+    #fast:hover{
+        background-color: #d55f21;
+    }
+    .selected{
+        margin:-2px 5px 0 0;
+        padding:2px 2px 6px 2px;
+    }
+
+    #game_over_blank{
+        display: none;
+        position:absolute;
+        z-index: 1;
+        width:200px;
+        height:100px;
+        top:200px;
+        left:50%;
+        margin-left: -100px;
+        text-align: center;
+        border: solid #777 1px;
+        background-color: white;
+    }
+    #game_over_blank span{
+        display: block;
+        margin:5px auto;
+    }
+    #retry_game{
+        position:absolute;
+        height:30px;
+        width: 70px;
+        top:35px;
+        left:20px;
+        margin: 0px;
+        border:none;
+        color:white;
+        background-color: #1b7e5a;
+    }
+    #retry_game:hover{
+        background-color: #78a300;
+    }
+    #leave_game{
+        position:absolute;
+        height:30px;
+        width: 70px;
+        top:35px;
+        left:110px;
+        margin: 0px;
+        border:none;
+        color:white;
+        background-color: #d54e21;
+    }
+    #leave_game:hover{
+        background-color: #e56c69;
+    }
+    #suspend_blank{
+        display: none;
+        position:absolute;
+        z-index: 1;
+        width:200px;
+        height:100px;
+        top:200px;
+        left:50%;
+        margin-left: -100px;
+        text-align: center;
+        border: solid #777 1px;
+        background-color: white;
+    }
+    #suspend_blank span{
+        display: block;
+        margin:15px auto;
+    }
+</style>
+</head>
+
+<body>
+
+<div id = "wrapper">
+
+    <div id = "score_blank">
+        <div id="score">分数：0</div>
+        <div id="speed_radio">            
+            <ul>
+                <li id="slow" class="">慢</li>
+                <li id="middle" class="selected">中</li>
+                <li id="fast" class="">快</li>
+            </ul>
+        </div>
+        <button id="start_button">开始</button>
+    </div>
+
+    <div id = "content">
+        <div id = "game_over_blank">
+            <span>游戏结束</span>
+            <button id = "retry_game">再试一次</button>
+            <button id = "leave_game">离开游戏</button>
+        </div>
+        <div id = "suspend_blank">
+            <span>暂停</span>
+            <span>按下空格继续</span>
+        </div>
+        <table id="main"></table>
+    </div>
+
+    <div id = "footer">
+        <p>点击开始按钮开始游戏，上下左右或wsad键控制小蛇，按空格暂停/继续</p>
+        <p>吃掉五颜六色的豆子得分,并且蛇的身体会变成豆子的颜色</p>
+        <p>点击上方的速度按钮可以选择速度</p>
+        <p>撞到墙和自己会死</p>
+        <a href="http://weibo.com/zyxcomeon">点此到我的微博</a>
+    </div>
+
+</div> 
+
+</body> 
+</html>
