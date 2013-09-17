@@ -83,6 +83,8 @@ window.onload=function(){
 
         aliveflag:true, //是否还活着
 
+        startflag:false, //是否已经开始
+
         //初始化蛇
         init:function(){
             this.direction = Math.floor(Math.random()*4);
@@ -285,7 +287,14 @@ window.onload=function(){
 
     //开始按钮以及功能
     var start_button = document.getElementById("start_button");
-    addEvent(start_button,"click",function(){Snake.init();});
+    addEvent(start_button,"click",function(){
+        if(Snake.startflag){
+            ;
+        }else{
+            Snake.init();
+            Snake.startflag = true;
+        }
+    });
 
     //速度系统
     var speed_all = document.querySelectorAll("#speed_radio li"),
