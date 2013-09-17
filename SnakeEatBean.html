@@ -337,13 +337,12 @@ window.onload=function(){
 <style>
     #wrapper{
         width:500px;
-        height:700px;
-        margin:0 auto;
+        margin:10px auto;
     }
     #content{
-        margin-top: 10px;
+        position: relative;
+        margin-top:10px;
         width:500px;
-        height:500px;
     }
     table{
         margin: 0px;
@@ -377,13 +376,25 @@ window.onload=function(){
     #speed_radio{
         float: right;
         height: 30px;
-        width: 90px;
+        width: 130px;
+    }
+    ul{
+        overflow: hidden;
+        list-style: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        float: left;
+        margin:2px 5px 0 0;
+        padding: 2px;
+        color:white;
     }
     #start_button:hover{
         background-color: #3A9000;
     }
     #footer{
-        position: relative;
         padding: 5px;
         font-size: 12px;
         color: #666;
@@ -395,21 +406,6 @@ window.onload=function(){
     #footer a:hover{
         text-decoration: underline;
         color: #666;
-    }
-    ul{
-        overflow:hidden;
-        display: inline;
-        list-style: none;
-        padding: 0px;
-        margin: 5px;
-    }
-    li{
-        position: relative;
-        float: left;
-        list-style: none;
-        margin:2px 5px 0 0;
-        padding: 2px;
-        color:white;
     }
     #slow{
         background-color: #fc0;
@@ -446,10 +442,10 @@ window.onload=function(){
         text-align: center;
         border: solid #777 1px;
         background-color: white;
+        text-align: center;
     }
-    #game_over_blank span{
-        display: block;
-        margin:5px auto;
+    #game_over_blank p{
+        margin:5px;
     }
     #retry_game{
         position:absolute;
@@ -491,10 +487,10 @@ window.onload=function(){
         text-align: center;
         border: solid #777 1px;
         background-color: white;
+        text-align: center;
     }
-    #suspend_blank span{
-        display: block;
-        margin:15px auto;
+    #suspend_blank p{
+        margin:15px 0px;
     }
 </style>
 </head>
@@ -517,13 +513,13 @@ window.onload=function(){
 
     <div id = "content">
         <div id = "game_over_blank">
-            <span>游戏结束</span>
+            <p>游戏结束</p>
             <button id = "retry_game">再试一次</button>
             <button id = "leave_game">离开游戏</button>
         </div>
         <div id = "suspend_blank">
-            <span>暂停</span>
-            <span>按下空格继续</span>
+            <p>暂停</p>
+            <p>按下空格继续</p>
         </div>
         <table id="main"></table>
     </div>
