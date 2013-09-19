@@ -65,7 +65,7 @@ window.onload=function(){
 
         speed:125, //当前速度
 
-        all_speed:{ // 三种不同的速度
+        allSpeed:{ // 三种不同的速度
 
             slow:200,
 
@@ -78,13 +78,13 @@ window.onload=function(){
 
         timer:null, //把定时器加到这里，消除的时候用
 
-        runflag:true,  //是否在运行
+        runFlag:true,  //是否在运行
 
-        initflag:false,  //是否已经初始化
+        initFlag:false,  //是否已经初始化
 
-        aliveflag:true, //是否还活着
+        aliveFlag:true, //是否还活着
 
-        startflag:false, //是否已经开始
+        startFlag:false, //是否已经开始
 
         //初始化蛇
         init:function(){
@@ -95,7 +95,7 @@ window.onload=function(){
             }
             addEvent(document,"keydown",Snake.moveSwitch);
             this.move();
-            this.initflag = true;
+            this.initFlag = true;
         },
 
         //变换方向
@@ -157,7 +157,7 @@ window.onload=function(){
                                         if(check === -1){                   //死亡
                                             clearInterval(Snake.timer);
                                             document.getElementById("game_over_blank").style.display = "block";
-                                            Snake.aliveflag = false;
+                                            Snake.aliveFlag = false;
                                         }
                                         else if(check === 1){        //前面有豆子
                                             Snake.addNode(x,y);
@@ -179,16 +179,16 @@ window.onload=function(){
 
         //暂停功能
         suspend:function(){
-            if(Snake.aliveflag){
-                if (this.runflag) {
+            if(Snake.aliveFlag){
+                if (this.runFlag) {
                     clearInterval(this.timer);
-                    this.runflag = false;
+                    this.runFlag = false;
                     document.getElementById("suspend_blank").style.display = "block";
                 }
                 else{
                     document.getElementById("suspend_blank").style.display = "none";
                     this.move();
-                    this.runflag = true;
+                    this.runFlag = true;
                 }
             }         
         },
@@ -239,7 +239,7 @@ window.onload=function(){
             if(x<0||x>49||y<0||y>49){
                 return -1;
             }
-            for(var i=0; i<this.body.length; i++){
+            for(i in this.body){
                 if(this.body[i].x==x&&this.body[i].y==y){
                     return -1;
                 }
@@ -289,11 +289,11 @@ window.onload=function(){
     //开始按钮以及功能
     var start_button = document.getElementById("start_button");
     addEvent(start_button,"click",function(){
-        if(Snake.startflag){
+        if(Snake.startFlag){
             ;
         }else{
             Snake.init();
-            Snake.startflag = true;
+            Snake.startFlag = true;
         }
     });
 
@@ -311,12 +311,12 @@ window.onload=function(){
                 speed_all[i].className = "";
             }
         }
-        Snake.speed = Snake.all_speed[event.target.id]
-        if(Snake.initflag === false){
+        Snake.speed = Snake.allSpeed[event.target.id]
+        if(Snake.initFlag === false){
             ;
         }
         else{
-            if(Snake.runflag === true){
+            if(Snake.runFlag === true){
                 clearInterval(Snake.timer);
                 Snake.move();
             }
