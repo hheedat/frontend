@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  
+    <div class="navbar">
+      <ul class="nav clearfix">
+          <li><a class="nav-title" href="/">blog-demo</a></li>
+          <li class="active"><a href="/">首页</a></li>
+        <% if (!user) { %>
+          <li><a href="/login">登录</a></li>
+          <li><a href="/reg">注册</a></li>
+        <% } else { %>
+	        <li><a href="/u/<%= user.name %>"><%= user.name%></a></li>
+          <li><a href="/logout">退出</a></li>
+        <% } %>
+      </ul>
+    </div>
+    <div class="alert-bar">
+      <% if (success) { %>
+        <div class="alert alert-success">
+          <p><%= success %></p>
+        </div>
+      <% } %>
+      <% if (error) { %>
+        <div class="alert alert-error">
+          <p><%= error %></p>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="container">
+      <%- body %>
+    </div>
+
+    <footer>
+        <p>a practice</p>
+    </footer>
+
+  </body>
+</html>
