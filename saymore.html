@@ -19,8 +19,40 @@
 				document.getElementById("timer").innerHTML = u
 			}
 		}
+
 		$(function() {
 			window.setInterval(timer, 1e3);
+
+			var canvas = document.body.appendChild(document.createElement('canvas')),
+		    context = canvas.getContext('2d'),
+		    t = 0,
+		    w, h;
+			context.globalCompositeOperation = 'lighter';
+			window.addEventListener('resize', resize, false);
+			resize();
+			animate();
+
+			function resize() {
+			    w = canvas.width = window.innerWidth;
+			    h = canvas.height = window.innerHeight;
+			}
+
+			function animate() {
+			    context.clearRect(0, 0, w, h);
+			    t += 0.1;
+			    for (var i = 0; i < 10000; i++) {
+
+			        var f = 0.05 + ((Math.sin(t * 0.00002) / Math.PI) * 0.2);
+
+			        var r = (Math.min(w, h)) * (Math.cos((t + i) * f) / Math.PI * 1.5);
+			        var x = Math.sin(i) * r + (canvas.width / 2);
+			        var y = Math.cos(i) * r + (canvas.height / 2);
+
+			        context.fillStyle = 'rgba(225,255,255,0.5)';
+			        context.fillRect(x, y, 1.5, 1.5);
+			    }
+			    setTimeout(animate, 16);
+			}
 		});
 	</script>
 	<style type="text/css">
@@ -30,7 +62,6 @@
 		.wrapper{
 		    width:800px;
 		    height:600px;
-		    background-color:black;
 		    margin: auto;
 		    position: absolute;
 		    top: 0; left: 0; bottom: 0; right: 0;
