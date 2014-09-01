@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title>wish we could say more</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script type="text/javascript">
+		function timer() {
+			var e = new Date,
+				t = new Date(2014, 8, 2, 15, 40, 0),
+				n = (t - e) / 1e3;
+			if (n > 0) {
+				var r = Math.floor(n / 3600 / 24),
+					i = Math.floor(n % 86400 / 3600),
+					s = Math.floor(n % 86400 % 60 / 60),
+					o = Math.floor(n % 86400 % 60 % 60);
+				r = r || "", r = r < 10 && typeof r == "number" ? "0" + r : r, i = i < 10 ? "0" + i : i, s = s < 10 ? "0" + s : s, o = o < 10 ? "0" + o : o;
+				var u = i + ":" + s + ":" + o;
+				document.getElementById("timer").innerHTML = u
+			}
+		}
+		$(function() {
+			window.setInterval(timer, 1e3);
+		});
+	</script>
+	<style type="text/css">
+		body{
+			background:black;
+		}
+		.wrapper{
+		 	width:600px;
+		    height:400px;
+		    background-color:black;
+		    margin: auto;
+		    position: absolute;
+		    top: 0; left: 0; bottom: 0; right: 0;
+		}
+		.box-1 p,.box-2 p,#timer{
+			line-height: 100px;
+			text-align: center;
+			color: white;
+		}
+		.box-1 p{
+			font-size: 28px;
+		}
+		.box-2 p,#timer{
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="box-1"><p>如何做出一个人见人爱的手机助手？</p></div>
+		<div id="timer"></div>
+		<div class="box-2"><p>DR.King为你娓娓道来</p></div>
+	</div>
+</body>
+</html>
