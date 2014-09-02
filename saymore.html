@@ -5,54 +5,40 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
 	<script type="text/javascript">
-		function timer() {
-			var e = new Date,
-				t = new Date(2014, 8, 2, 15, 40, 0),
-				n = (t - e) / 1e3;
-			if (n > 0) {
-				var r = Math.floor(n / 3600 / 24),
-					i = Math.floor(n % 86400 / 3600),
-					s = Math.floor(n % 86400 % 60 / 60),
-					o = Math.floor(n % 86400 % 60 % 60);
-				r = r || "", r = r < 10 && typeof r == "number" ? "0" + r : r, i = i < 10 ? "0" + i : i, s = s < 10 ? "0" + s : s, o = o < 10 ? "0" + o : o;
-				var u = i + ":" + s + ":" + o;
-				document.getElementById("timer").innerHTML = u
-			}
-		}
+		
 
 		$(function() {
-			window.setInterval(timer, 1e3);
 
-			var canvas = document.body.appendChild(document.createElement('canvas')),
-		    context = canvas.getContext('2d'),
-		    t = 0,
-		    w, h;
-			context.globalCompositeOperation = 'lighter';
-			window.addEventListener('resize', resize, false);
-			resize();
-			animate();
+			// var canvas = document.body.appendChild(document.createElement('canvas')),
+		 //    context = canvas.getContext('2d'),
+		 //    t = 0,
+		 //    w, h;
+			// context.globalCompositeOperation = 'lighter';
+			// window.addEventListener('resize', resize, false);
+			// resize();
+			// animate();
 
-			function resize() {
-			    w = canvas.width = window.innerWidth;
-			    h = canvas.height = window.innerHeight;
-			}
+			// function resize() {
+			//     w = canvas.width = window.innerWidth;
+			//     h = canvas.height = window.innerHeight;
+			// }
 
-			function animate() {
-			    context.clearRect(0, 0, w, h);
-			    t += 0.1;
-			    for (var i = 0; i < 10000; i++) {
+			// function animate() {
+			//     context.clearRect(0, 0, w, h);
+			//     t += 0.1;
+			//     for (var i = 0; i < 10000; i++) {
 
-			        var f = 0.05 + ((Math.sin(t * 0.00002) / Math.PI) * 0.2);
+			//         var f = 0.05 + ((Math.sin(t * 0.00002) / Math.PI) * 0.2);
 
-			        var r = (Math.min(w, h)) * (Math.cos((t + i) * f) / Math.PI * 1.5);
-			        var x = Math.sin(i) * r + (canvas.width / 2);
-			        var y = Math.cos(i) * r + (canvas.height / 2);
+			//         var r = (Math.min(w, h)) * (Math.cos((t + i) * f) / Math.PI * 1.5);
+			//         var x = Math.sin(i) * r + (canvas.width / 2);
+			//         var y = Math.cos(i) * r + (canvas.height / 2);
 
-			        context.fillStyle = 'rgba(200,200,200,0.7)';
-			        context.fillRect(x, y, 1.5, 1.5);
-			    }
-			    setTimeout(animate, 1);
-			}
+			//         context.fillStyle = 'rgba(200,200,200,0.7)';
+			//         context.fillRect(x, y, 1.5, 1.5);
+			//     }
+			//     setTimeout(animate, 1);
+			// }
 		});
 	</script>
 	<style type="text/css">
@@ -84,9 +70,9 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div class="box-1"><p>如何做一个手机助手</p></div>
+		<div class="box-1"><p>hackathon</p></div>
 		<div id="timer"></div>
-		<div class="box-2"><p>DR.King 为你娓娓道来</p></div>
+		<div class="box-2"><p>come on DR.King</p></div>
 	</div>
 </body>
 </html>
