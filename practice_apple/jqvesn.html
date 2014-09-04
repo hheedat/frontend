@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>demo</title>
+<script type="text/javascript"	src="jquery-1.7.1.js" type="text/css"></script>
+<script type="text/javascript">
+	$(function(){
+		var show_box_position = [0,-980,-1960,-2940,-3920];
+		var nav_styles_length = $("#nav span").length;
+		function rePosition(i){
+			return function(){
+				$('#show_box ul').animate({left:show_box_position[i]+"px"},500);
+				$("#nav span").removeClass('moved');
+				$(this).addClass('moved');
+			};
+		}
+		for(var i = 0;i<nav_styles_length;i++){
+			$("#nav span:eq("+i+")").click(rePosition(i));
+		}
+	});
+</script>
+<style type="text/css">
+*{
+	margin:0px;
+}
+body{
+	background:#F2F2F2 url(bg.png);
+	background-repeat:repeat-x;			
+}
+#content{
+	width:980px;
+	height:590px;
+	margin:30px auto auto auto;
+	background-color:#FFF;
+	overflow:visible;
+	padding:0px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+#show_box{
+	position:relative;
+	height:565px;
+	margin:0px;
+	top:-15px;
+	overflow:hidden;
+}
+ul{
+	position:relative;
+	list-style:none;
+	padding:0;
+}
+li{
+	position:relative;
+	display:block;
+	float:left;
+}
+#show_box ul{	
+	left:0px;
+	width:5000px;
+}
+#show_box li{
+	width:980px;
+	height:565px;
+	overflow:hidden;
+}
+#part1 img{
+	position:relative;
+	left:-300px;
+}
+#part2 img{
+	position:relative;
+	top:43px;
+}
+#part3 img{
+	position:relative;
+	top:500px;
+	left:20px;
+}
+#part4 img{
+	position:relative;
+	top:60px;
+	left:-70px;
+}
+#part5 img{
+	position:relative;
+	top:200px;
+	left:-150px;
+}
+#nav{
+	height:25px;
+}
+#nav ul{
+	height:25px;
+	width:100px;
+	margin:auto;
+}
+#nav li{
+	margin-right:5px;
+}
+span.navDisc{
+	display:block;
+	width:15px;
+	height:15px;
+	background-image:url(disc.png);
+}
+span.navDisc:hover{
+	background-position:0px -15px;
+}
+.moved{
+	background-position:0px -30px;
+	cursor:default;
+}
+.navDisc.moved:hover{
+	background-position:0px -30px;
+}
+</style>
+
+</head>
+<body>
+	<div id="content">
+		<div id="show_box">
+			<ul id="show_box_move">
+				<li id="part1"><img src="1.png" alt="全新的、更快的 Macbook Air" />
+				</li>
+				<li id="part2"><img src="2.png" alt="日常用笔记本的理想形态" />
+				</li>
+				<li id="part3"><img src="3.png" alt="轻却坚如磐石" />
+				</li>
+				<li id="part4"><img src="4.png" alt="现在预装 OS X" />
+				</li>
+				<li id="part5"><img src="5.png" alt="轻却坚如磐石" />
+				</li>
+			</ul>
+		</div>
+		<div id="nav">
+			<ul>
+				<li><span id = "nav1" class="navDisc moved" href="#"></span></li>
+				<li><span id = "nav2" class="navDisc" href="#"></span></li>
+				<li><span id = "nav3" class="navDisc" href="#"></span></li>
+				<li><span id = "nav4" class="navDisc" href="#"></span></li>
+				<li><span id = "nav5" class="navDisc" href="#"></span></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
