@@ -68,6 +68,14 @@
   color: #666666;
   font: 16px;
 }
+.footer .info a {
+  text-decoration: none;
+  color: #666666;
+  font: 16px;
+}
+.footer .info a:hover {
+  text-decoration: underline;
+}
 .clear {
   clear: both;
   overflow: hidden;
