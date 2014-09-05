@@ -50,6 +50,11 @@ body {
   font-size: 45px;
   line-height: 86px;
 }
+.box-3 h2 {
+  font-size: 14px;
+  line-height: 86px;
+  color: #666666;
+}
 .box-3 .download {
   margin: 50px auto;
 }
