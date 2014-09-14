@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>range</title>
+	<meta charset="UTF-8">
+</head>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var lst = $(".lst");
+
+		$("#range-s-to-b").click(function(){
+			lst.sort(function(a,b){
+				return parseInt(a.id.slice(4)) > parseInt(b.id.slice(4)) ? 1 : -1 ;
+			});
+			updateLst();
+		});
+
+		$("#range-b-to-s").click(function(){
+			lst.sort(function(a,b){
+				return parseInt(b.id.slice(4)) > parseInt(a.id.slice(4)) ? 1 : -1 ;
+			});
+			updateLst();
+		});
+
+		function updateLst(){
+			$("#range-lst").html(lst);
+		}
+
+	});
+</script>
+<body>
+	<div id="wrapper">
+		<div>
+			<a id="range-s-to-b" href="javascript:void(0)">从小到大</a>
+			<a id="range-b-to-s" href="javascript:void(0)">从大到小</a>
+		</div>
+		<ul id="range-lst">
+			<li class="lst" id="lst-1">一</li>
+			<li class="lst" id="lst-5">五</li>
+			<li class="lst" id="lst-3">三</li>
+			<li class="lst" id="lst-4">四</li>
+			<li class="lst" id="lst-2">二</li>
+		</ul>
+	</div>
+</body>
+</html>
