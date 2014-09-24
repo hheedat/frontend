@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2014 by hheedat (http://jsbin.com/yonaqe/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+.a{
+  width:30px;
+  height:30px;
+  background:red;
+  margin:10px 0px;
+}
+#info-box{
+  position:absolute;
+  visibility: hidden;
+  background:yellow;
+  padding:2px;
+}
+</style>
+</head>
+<body>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div id="info-box">info</div>
+<script id="jsbin-javascript">
+$(function(){
+  $(".a").mouseover(function(){
+    console.log(this);
+    var x = $(this).offset();
+    $("#info-box").css({
+      "left":x.left+40+"px",
+      "top":x.top+"px",
+      "visibility":"visible"
+    });
+    $.get("http://127.0.0.1:1337/req",{
+        user_id:"1",
+      },
+      function(data,status){
+        console.log("Data: " + data + "\nStatus: " + status);
+    });
+  });
+  $(".a").mouseout(function(){
+    $("#info-box").css("visibility","hidden");
+  });
+});
+
+</script>
+</body>
+</html>
