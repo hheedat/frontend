@@ -1,4 +1,7 @@
 ﻿//
+var SCOPE_LENGTH = 1000;
+var DELETE_TIME = 1000*20;
+
 var req_count = 0;
 var user_change_list = {};
 
@@ -33,7 +36,7 @@ http.createServer(function(req,res){
             for(var i in res_buffer){
             	(function(this_user){
 	            	var len = lenBtwGps(user_info.longitude,user_info.latitude,this_user.longitude,this_user.latitude);
-	            	if(len<1000){
+	            	if(len<SCOPE_LENGTH){
 	            		res_info.user_list.push(this_user);
 	            	}
             	})(res_buffer[i]);
@@ -76,14 +79,14 @@ http.createServer(function(req,res){
 
     function deleteSetTimeout(obj1,str1,str2,str3,obj2,str4,str5) {
 		setTimeout(function() { 
-			//console.log("delete : "+obj1[str1][str2][str3]);
+			console.log("delete : "+obj1[str1][str2][str3]);
 			delete obj1[str1][str2][str3]; 
 			if(isEmptyObject(obj2[str4][str5])){
-				//console.log("delete : "+obj2[str4]);
+				console.log("delete : "+obj2[str4]);
 				delete obj2[str4];	
 			}
 			//console.log("list : \n"+util.inspect(user_change_list,null));
-		}, 1000*60*10);
+		}, DELETE_TIME);
 	}
 
     function clone(old_obj){
