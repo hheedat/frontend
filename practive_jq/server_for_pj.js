@@ -1,4 +1,4 @@
-//在windows下测试乱码
+//
 var req_count = 0;
 
 var http = require('http');
