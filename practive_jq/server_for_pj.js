@@ -40,7 +40,7 @@ http.createServer(function(req,res){
     setTimeout(function() {
         res.writeHead(200,{'Content-Type':'text/plain'});
         res.end(""+res_info);
-    }, 1000);
+    }, 500);
 
     req_count++;
     console.log("req : \n"+util.inspect(url_info));
