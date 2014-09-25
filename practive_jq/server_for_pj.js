@@ -14,6 +14,14 @@ http.createServer(function(req,res){
     //http://127.0.0.1:1337/req?user_id=1
     if(req_path==="/req"){
         res_info.user_name = checkInfo(url_info.user_id);
+        res_info = JSON.stringify(res_info);
+    }
+
+    if(req_path==="/req2"){
+        res_info.user_name = checkInfo(url_info.user_id);
+        var callback = url_info.callback;
+        res_info = JSON.stringify(res_info);
+        res_info = callback+"("+res_info+")";
     }
 
     function checkInfo(id){
@@ -25,8 +33,9 @@ http.createServer(function(req,res){
         }
     }
 
-    res.writeHead(200,{'Content-Type':'text/plain','Access-Control-Allow-Origin':'*'});
-    res.end(JSON.stringify(res_info));
+    //res.writeHead(200,{'Content-Type':'text/plain','Access-Control-Allow-Origin':'*'});
+    res.writeHead(200,{'Content-Type':'text/plain'});
+    res.end(""+res_info);
 
     req_count++;
     console.log("req : \n"+util.inspect(url_info));
