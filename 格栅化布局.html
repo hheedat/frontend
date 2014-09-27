@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>栅格化布局</title>
+<style type="text/css">
+/* 栅格化布局 */
+.grid { margin-right:8px; float: left; display: inline;}
+.grid-6{ width:232px; }
+.grid-8{ width:312px; }
+.grid-9{ width:352px; }
+.grid-12{ width:472px; }
+.grid-16{ width:632px; }
+.grid-18{ width:712px; }
+.grid-24{ width:952px; }
+.grid.grid-fixed {margin-right:0;}
+/* End 栅格化布局 */
+.wrap {
+    width: 952px;
+    margin: 0 auto;
+}
+div div { margin-top: 8px; height:145px;}
+div div div { background:#CCC; height:145px; margin-top:0; }
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+  <div>
+    <div class="grid-6 grid"></div>
+    <div class="grid-6 grid"></div>
+    <div class="grid-6 grid"></div>
+    <div class="grid-6 grid grid-fixed"></div>
+  </div>
+  <div>
+    <div class="grid-6 grid"></div>
+    <div class="grid-6 grid"></div>
+    <div class="grid-12 grid grid-fixed"></div>
+  </div>
+  <div>
+    <div class="grid-8 grid"></div>
+    <div class="grid-8 grid"></div>
+    <div class="grid-8 grid grid-fixed"></div>
+  </div>
+  <div>
+    <div class="grid-12 grid"></div>
+    <div class="grid-12 grid grid-fixed"></div>
+  </div>
+  <div>
+    <div class="grid-16 grid"></div>
+    <div class="grid-8 grid grid-fixed"></div>
+  </div>
+</div>
+
+</body>
+</html>
