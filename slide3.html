@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slide 3</title>
+	<meta charset="UTF-8">
+</head>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var win_height	= $(window).height();
+		var win_width = $(window).width();
+		var slide_now = 1;
+		var color_list = ["#00b0e8","#00b0e8","#00b0e8","#00b0e8","#00b0e8"];
+
+		$(".slide").css({
+			"width":win_width,
+			"height":win_height,
+			"top":win_height
+		});
+
+		$("#slide-"+slide_now).css({
+			"opacity":"1",
+			"background":color_list[slide_now],
+			"top":"0px"
+		});
+		
+		$(document).keydown(function(event){
+			var slide_direction = switchSlide(event);
+			if(slide_direction === "down" || slide_direction === "right"){
+				if(slide_now<4){
+
+					$("#slide-"+slide_now).css({
+						"opacity":"0",
+						"background":color_list[slide_now],
+						"top":-win_height
+					});
+
+					slide_now++;
+
+					$("#slide-"+slide_now).css({
+						"opacity":"1",
+						"background":color_list[slide_now],
+						"top":"0px"
+					});
+
+				}
+			}else if(slide_direction === "up" || slide_direction === "left"){
+				if(slide_now>1){
+
+					$("#slide-"+slide_now).css({
+						"opacity":"0",
+						"background":color_list[slide_now],
+						"top":win_height
+					});
+
+					slide_now--;
+
+					$("#slide-"+slide_now).css({
+						"opacity":"1",
+						"background":color_list[slide_now],
+						"top":"0px"
+					});
+
+				}
+			}
+		});
+
+
+		function switchSlide(event){
+            var code = event.keyCode;
+            switch(code){
+                case 65://left
+                case 37:{
+                    return "left";
+                }
+                case 87://up
+                case 38:{
+                    return "up";
+                }
+                case 68://right
+                case 39:{
+                    return "right";
+                }
+                case 83://down
+                case 40:{
+                    return "down";
+                }
+                case 32:{//space
+                    return "down";
+                }
+            }
+        }
+	});
+</script>
+<style type="text/css">
+	.slide{
+		position: fixed;
+		opacity: 0;
+		transition: all 0.618s linear;
+	}
+	.slide p{
+	 	width:600px;
+	    height:300px;
+	    margin: auto;
+	    position: absolute;
+	    top: 0; left: 0; bottom: 0; right: 0;
+	    text-align: center;
+	    font-size: 50px;
+	    color: white;
+	}
+	.slide p span{
+		line-height: 300px;
+	}
+	
+	body,
+	div,
+	ul,
+	ol,
+	li,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	form,
+	input,
+	p,
+	th,
+	td {
+	  padding: 0;
+	  margin: 0;
+	}
+	fieldset,
+	img {
+	  border: 0;
+	}
+	ul,
+	li {
+	  list-style: none;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+	  font-weight: normal;
+	  font-size: 100%;
+	}
+</style>
+<body>
+	<div id="wrapper">
+		<div class="slide" id="slide-1"><p><span>content 1</span></p></div>
+		<div class="slide" id="slide-2"><p><span>content 2</span></p></div>
+		<div class="slide" id="slide-3"><p><span>content 3</span></p></div>
+		<div class="slide" id="slide-4"><p><span>content 4</span></p></div>
+	</div>
+</body>
+</html>
