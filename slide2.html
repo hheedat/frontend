@@ -13,7 +13,7 @@
 		var color_list = ["white","yellow","orange","red","green"];
 
 		$(".slide").css({"width":win_width,"height":win_height});
-		$("#slide-"+slide_now).css({"opacity":"1"});
+		$("#slide-"+slide_now).css({"opacity":"1","background":color_list[slide_now]});
 		
 		$(document).keydown(function(event){
 			var slide_direction = switchSlide(event);
