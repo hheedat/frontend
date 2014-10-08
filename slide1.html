@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>幻灯片</title>
+	<title>slide 1</title>
 	<meta charset="UTF-8">
 </head>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
@@ -13,11 +13,19 @@
 
 		$(".slide").css({"width":win_width,"height":win_height});
 		$("#slide-"+slide_now).css("display","block");
+		
 		$(document).keydown(function(event){
-			if(switchSlide(event)==="down"){
+			var slide_direction = switchSlide(event);
+			if(slide_direction === "down" || slide_direction === "right"){
 				if(slide_now<4){
 					$("#slide-"+slide_now).css("display","none");
 					slide_now++;
+					$("#slide-"+slide_now).css("display","block");
+				}
+			}else if(slide_direction === "up" || slide_direction === "left"){
+				if(slide_now>1){
+					$("#slide-"+slide_now).css("display","none");
+					slide_now--;
 					$("#slide-"+slide_now).css("display","block");
 				}
 			}
