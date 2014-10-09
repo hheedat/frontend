@@ -36,50 +36,62 @@
 		$(document).keydown(function(event){
 			var slide_direction = switchSlide(event);
 			if(slide_direction === "down" || slide_direction === "right"){
-				if(slide_now<4){
-
-					$("#slide-"+slide_now).css({
-						"opacity":"0",
-						"background":color_list[slide_now],
-						"top":-win_height
-					});
-
-					slide_now++;
-
-					$("#slide-"+slide_now).css({
-						"opacity":"1",
-						"background":color_list[slide_now],
-						"top":"0px"
-					});
-
-				}
+				slideDown();
 			}else if(slide_direction === "up" || slide_direction === "left"){
-				if(slide_now>1){
-
-					$("#slide-"+slide_now).css({
-						"opacity":"0",
-						"background":color_list[slide_now],
-						"top":win_height
-					});
-
-					slide_now--;
-
-					$("#slide-"+slide_now).css({
-						"opacity":"1",
-						"background":color_list[slide_now],
-						"top":"0px"
-					});
-
-				}
+				slideUp();
 			}
 		});
 
+		wheel(document,slideUp,slideDown);
 
-		function wheel(obj,upFn,downFn) {
+		function slideDown(){
+			if(slide_now<4){
+
+				$("#slide-"+slide_now).css({
+					"opacity":"0",
+					"background":color_list[slide_now],
+					"top":-win_height
+				});
+
+				slide_now++;
+
+				$("#slide-"+slide_now).css({
+					"opacity":"1",
+					"background":color_list[slide_now],
+					"top":"0px"
+				});
+
+			}
+		}
+
+		function slideUp(){
+			if(slide_now>1){
+
+				$("#slide-"+slide_now).css({
+					"opacity":"0",
+					"background":color_list[slide_now],
+					"top":win_height
+				});
+
+				slide_now--;
+
+				$("#slide-"+slide_now).css({
+					"opacity":"1",
+					"background":color_list[slide_now],
+					"top":"0px"
+				});
+
+			}
+		}
+
+
+		function wheel(obj,upFn,downFn,whell_level,timeout) {
 
 		    if(arguments.length < 3){
-		        return "error";
+		        return "wheel error : lack of arguments";
 		    }
+
+		    var bool = true;
 
 		    obj.onmousewheel = fn;  
 
@@ -89,18 +101,27 @@
 
 		        var ev = ev || window.event;
 
-		        var bool = true;
+		        var flag=false;
+
+		        var level = whell_level || 1;
+
+		        var time = timeout || 618;
+
 
 		        if(ev.wheelDelta){
 		            console.log(ev.wheelDelta);
-		            bool = ev.wheelDelta > 0 ? true : false;
+		            (Math.abs(ev.wheelDelta)/120>=level) && (flag = ev.wheelDelta > 0 ? "up" : "down");
 		        }else if(ev.detail){
 		            console.log(ev.detail);
-		            bool = ev.detail < 0 ? true : false;
+		            (Math.abs(ev.detail)/3>=level) && (flag = ev.detail < 0 ? "up" : "down");
 		        }
 
-		        bool && upFn();
-		        (!bool) && downFn();
+		        if(bool&&flag){
+		        	flag==="up" && upFn();
+		        	flag==="down" && downFn();
+		        	bool = false;
+		        	setTimeout(function() { bool=true; }, time);
+		        }
 
 		        prevent(ev);
 
