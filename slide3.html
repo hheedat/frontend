@@ -75,6 +75,48 @@
 		});
 
 
+		function wheel(obj,upFn,downFn) {
+
+		    if(arguments.length < 3){
+		        return "error";
+		    }
+
+		    obj.onmousewheel = fn;  
+
+		    obj.addEventListener && obj.addEventListener('DOMMouseScroll',fn,false);
+
+		    function fn(ev){
+
+		        var ev = ev || window.event;
+
+		        var bool = true;
+
+		        if(ev.wheelDelta){
+		            console.log(ev.wheelDelta);
+		            bool = ev.wheelDelta > 0 ? true : false;
+		        }else if(ev.detail){
+		            console.log(ev.detail);
+		            bool = ev.detail < 0 ? true : false;
+		        }
+
+		        bool && upFn();
+		        (!bool) && downFn();
+
+		        prevent(ev);
+
+		    }
+		}
+
+		function prevent(ev){
+
+		    if(ev.preventDefault){
+		        ev.preventDefault();
+		    }else{
+		        ev.returnValue = false;
+		    }
+
+		}
+
 		function switchSlide(event){
             var code = event.keyCode;
             switch(code){
