@@ -23,6 +23,15 @@
 			"background":color_list[slide_now],
 			"top":"0px"
 		});
+
+		$(window).resize(function(){
+			win_height = $(window).height();
+			win_width = $(window).width();
+			$(".slide").css({
+				"width":win_width,
+				"height":win_height
+			});
+		});
 		
 		$(document).keydown(function(event){
 			var slide_direction = switchSlide(event);
