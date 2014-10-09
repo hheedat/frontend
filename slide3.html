@@ -10,6 +10,8 @@
 		var win_height	= $(window).height();
 		var win_width = $(window).width();
 		var slide_now = 1;
+		var slide_first = 1;
+		var slide_last = $(".slide").length;
 		var color_list = ["#00b0e8","#00b0e8","#00b0e8","#00b0e8","#00b0e8"];
 
 		$(".slide").css({
@@ -45,7 +47,7 @@
 		wheel(document,slideUp,slideDown);
 
 		function slideDown(){
-			if(slide_now<4){
+			if(slide_now<slide_last){
 
 				$("#slide-"+slide_now).css({
 					"opacity":"0",
@@ -65,7 +67,7 @@
 		}
 
 		function slideUp(){
-			if(slide_now>1){
+			if(slide_now>slide_first){
 
 				$("#slide-"+slide_now).css({
 					"opacity":"0",
@@ -109,10 +111,10 @@
 
 
 		        if(ev.wheelDelta){
-		            console.log(ev.wheelDelta);
+		            //console.log(ev.wheelDelta);
 		            (Math.abs(ev.wheelDelta)/120>=level) && (flag = ev.wheelDelta > 0 ? "up" : "down");
 		        }else if(ev.detail){
-		            console.log(ev.detail);
+		            //console.log(ev.detail);
 		            (Math.abs(ev.detail)/3>=level) && (flag = ev.detail < 0 ? "up" : "down");
 		        }
 
