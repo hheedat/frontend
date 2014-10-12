@@ -58,6 +58,8 @@
 			border-radius: 10px;
 		}
 		#pull-box{
+			position: relative;
+			display: block;
 			width: 20px;
 			height: 20px;
 			border-radius: 10px;
@@ -114,12 +116,47 @@
 	    </div>
 	    <div id="pull-box-wrapper">
 	    	<div id="pull-box-range">
-		    	<div id="pull-box"></div>
+		    	<a id="pull-box" href="#"></a>
 		    </div>
 	    </div>
 	</div>
 	<script>
+		$(function(){
+			var move_flag = false;
+			var box_left = 0;
+			var box_left_now;
+			var mouse_left;
+			var $pull_box = $("#pull-box");
+			var $face = $("#circle");
 
+			$pull_box.mousedown(function(e){
+				mouse_left = e.pageX;
+				// console.log("mouse_left : " + mouse_left);
+				$(document).mousemove(function(e){
+					var mouse_left_now = e.pageX;
+					var diff = mouse_left_now - mouse_left;
+					box_left_now = box_left + diff;
+					// console.log("mouse_left_now : " + mouse_left_now);
+					// console.log("box_left_now : " + box_left_now);
+					// console.log("box_left : " + box_left);
+					if(box_left_now>940){
+						box_left_now = 940;
+					}else if(box_left_now<0){
+						box_left_now = 0;
+					}
+					$pull_box.css({
+						"left":box_left_now+"px"
+					});
+					$face.css({
+						"top":box_left_now/2+100+"px"
+					});
+				});
+			});
+			$(document).mouseup(function(){
+				box_left = box_left_now;
+				$(document).unbind("mousemove");
+			});
+		});
 	</script>
 </body>
 </html>
