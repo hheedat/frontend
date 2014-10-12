@@ -56,11 +56,12 @@
 			font-weight: bold;
 			background: #F0F0F0;
 			color: gray;
+			display: none;
 		}
 		.triangle{
 			border-color: white #F0F0F0 #F0F0F0 white;
 			border-style: solid;
-			border-width: 10px 15px;
+			border-width: 7px 15px;
 			height: 0px;
 			width: 0px;
 		}
@@ -75,7 +76,9 @@
 			width: 960px;
 			height: 20px;
 			background: #F0F0F0;
-			border-radius: 10px;
+			border-radius: 15px;
+			padding: 3px;
+			box-shadow: 0px 0px 5px #000 inset;
 		}
 		#pull-box{
 			position: relative;
@@ -135,7 +138,7 @@
 	    	</div>
 	    	<div id="content">
 	    		<div class="triangle" id="tri1"></div>
-	    		<p>臭蕾头！别乱动！</p>
+	    		<p>臭蕾头！动动看！</p>
 	    	</div>
 	    </div>
 	    <div id="pull-box-wrapper">
@@ -152,8 +155,9 @@
 			var mouse_left;
 			var $pull_box = $("#pull-box");
 			var $face = $("#circle");
-
+			var $say = $("#content");
 			$pull_box.mousedown(function(e){
+				$say.css("display","block");
 				mouse_left = e.pageX;
 				// console.log("mouse_left : " + mouse_left);
 				$(document).mousemove(function(e){
@@ -172,12 +176,13 @@
 						"left":box_left_now+"px"
 					});
 					$face.css({
-						"top":box_left_now/2+100+"px"
+						"top":box_left_now/5+100+"px"
 					});
 				});
 			});
 			$(document).mouseup(function(){
 				box_left = box_left_now;
+				$say.css("display","none");
 				$(document).unbind("mousemove");
 			});
 		});
