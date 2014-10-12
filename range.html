@@ -3,32 +3,32 @@
 <head>
 	<title>range</title>
 	<meta charset="UTF-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var lst = $(".lst");
+
+			$("#range-s-to-b").click(function(){
+				lst.sort(function(a,b){
+					return parseInt(a.id.slice(4)) > parseInt(b.id.slice(4)) ? 1 : -1 ;
+				});
+				updateLst();
+			});
+
+			$("#range-b-to-s").click(function(){
+				lst.sort(function(a,b){
+					return parseInt(b.id.slice(4)) > parseInt(a.id.slice(4)) ? 1 : -1 ;
+				});
+				updateLst();
+			});
+
+			function updateLst(){
+				$("#range-lst").html(lst);
+			}
+
+		});
+	</script>
 </head>
-<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
-<script type="text/javascript">
-	$(function(){
-		var lst = $(".lst");
-
-		$("#range-s-to-b").click(function(){
-			lst.sort(function(a,b){
-				return parseInt(a.id.slice(4)) > parseInt(b.id.slice(4)) ? 1 : -1 ;
-			});
-			updateLst();
-		});
-
-		$("#range-b-to-s").click(function(){
-			lst.sort(function(a,b){
-				return parseInt(b.id.slice(4)) > parseInt(a.id.slice(4)) ? 1 : -1 ;
-			});
-			updateLst();
-		});
-
-		function updateLst(){
-			$("#range-lst").html(lst);
-		}
-
-	});
-</script>
 <body>
 	<div id="wrapper">
 		<div>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>faceup</title>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<style type="text/css">
+		#wrapper{
+			width: 960px;
+			margin: 0 auto;
+		}
+		#circle{
+			position:relative;
+			top:100px;
+			margin:0 auto;
+			width:200px;
+			height:200px;
+			background:yellow;
+			border-radius:100px;
+		}
+		#eye-1,#eye-2{
+			position:absolute;
+			top:45px;
+			width:50px;
+			height:50px;
+			background:black;
+			border-radius:25px;
+		}
+		#eye-1{
+		  	left:35px;
+		}
+		#eye-2{
+		  	right:35px;
+		}
+		#mouth{
+			position:relative;
+			width:100px;
+			height:30px;
+			background:yellow;
+			top:135px;
+			margin:0 auto;
+			overflow: hidden;
+		}
+		#mouth-2{
+			width: 120px;
+			height: 120px;
+			background: red;
+			border-radius: 60px;
+			margin-left: -10px;
+			margin-top: -93px;
+		}
+		#pull-box-range{
+			position: fixed;
+			bottom: 100px;
+			width: 960px;
+			height: 20px;
+			background: #F0F0F0;
+			border-radius: 10px;
+		}
+		#pull-box{
+			width: 20px;
+			height: 20px;
+			border-radius: 10px;
+			background: gray;
+		}
+
+
+		body,
+		div,
+		ul,
+		ol,
+		li,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		form,
+		input,
+		p,
+		th,
+		td {
+		  padding: 0;
+		  margin: 0;
+		}
+		fieldset,
+		img {
+		  border: 0;
+		}
+		ul,
+		li {
+		  list-style: none;
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+		  font-weight: normal;
+		  font-size: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+	    <div id="circle">
+	      	<div id="eye-1"></div>
+	      	<div id="eye-2"></div>
+	    	<div id="mouth">
+	    		<div id="mouth-2"></div>
+	    	</div>
+	    </div>
+	    <div id="pull-box-wrapper">
+	    	<div id="pull-box-range">
+		    	<div id="pull-box"></div>
+		    </div>
+	    </div>
+	</div>
+	<script>
+
+	</script>
+</body>
+</html>

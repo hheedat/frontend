@@ -3,40 +3,40 @@
 <head>
 	<title>通讯录</title>
 	<meta charset="UTF-8">
-</head>
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
-<script>
-	$(function(){
-		var $all_lst = $("#name-list");
-		var $lst = $("#name-list li");
-		var $search_input = $("#search-input");
-		$search_input.focus(function(){
-			var str = $search_input.val().trim();
-			//$search_input.keydown(check);
-			$search_input.keyup(check);
-			function check(){
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script>
+		$(function(){
+			var $all_lst = $("#name-list");
+			var $lst = $("#name-list li");
+			var $search_input = $("#search-input");
+			$search_input.focus(function(){
+				var str = $search_input.val().trim();
+				//$search_input.keydown(check);
+				$search_input.keyup(check);
+				function check(){
 
-				var temp = $search_input.val().trim();console.log(temp);
+					var temp = $search_input.val().trim();console.log(temp);
 
-				var str_new = $search_input.val().trim();
-				if(str!==str_new){
-					str = str_new;
-					var reg = new RegExp(str);
-					var result = [];
-					for(var i = 0,j = $lst.length;i<j;i++){
-						if($($lst[i]).text().match(reg)){
-							result.push($lst[i])
+					var str_new = $search_input.val().trim();
+					if(str!==str_new){
+						str = str_new;
+						var reg = new RegExp(str);
+						var result = [];
+						for(var i = 0,j = $lst.length;i<j;i++){
+							if($($lst[i]).text().match(reg)){
+								result.push($lst[i])
+							}
 						}
+						$all_lst.html(result);
 					}
-					$all_lst.html(result);
 				}
-			}
+			});
+			$search_input.blur(function(){
+				$search_input.unbind("keydown keyup");
+			});
 		});
-		$search_input.blur(function(){
-			$search_input.unbind("keydown keyup");
-		});
-	});
-</script>
+	</script>
+</head>
 <body>
 	<div class="wrapper">
 		<div id="search-box">
