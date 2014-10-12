@@ -4,6 +4,50 @@
 	<title>faceup</title>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script>
+		$(function(){
+			var move_flag = false;
+			var box_left = 0;
+			var box_left_now;
+			var mouse_left;
+			var $pull_box = $("#pull-box");
+			var $face = $("#circle");
+			var $say = $("#content");
+
+			$pull_box.mousedown(function(e){
+				$say.css("display","block");
+				mouse_left = e.pageX;
+				// console.log("mouse_left : " + mouse_left);
+				$(document).mousemove(function(e){
+					var mouse_left_now = e.pageX;
+					var diff = mouse_left_now - mouse_left;
+					box_left_now = box_left + diff;
+					// console.log("mouse_left_now : " + mouse_left_now);
+					// console.log("box_left_now : " + box_left_now);
+					// console.log("box_left : " + box_left);
+					if(box_left_now>940){
+						box_left_now = 940;
+					}else if(box_left_now<0){
+						box_left_now = 0;
+					}
+					$pull_box.css({
+						"left":box_left_now+"px"
+					});
+					$face.css({
+						"top":box_left_now/5+100+"px"
+					});
+
+				});
+			});
+
+			$(document).mouseup(function(){
+				box_left = box_left_now;
+				$say.css("display","none");
+				$(document).unbind("mousemove");
+			});
+
+		});
+	</script>
 	<style type="text/css">
 		#wrapper{
 			width: 960px;
@@ -82,11 +126,12 @@
 		}
 		#pull-box{
 			position: relative;
-			display: block;
 			width: 20px;
 			height: 20px;
 			border-radius: 10px;
 			background: gray;
+			border-style: none;
+			cursor:move;
 		}
 
 
@@ -143,49 +188,9 @@
 	    </div>
 	    <div id="pull-box-wrapper">
 	    	<div id="pull-box-range">
-		    	<a id="pull-box" href="#"></a>
+		    	<button type="button" id="pull-box"></button>
 		    </div>
 	    </div>
 	</div>
-	<script>
-		$(function(){
-			var move_flag = false;
-			var box_left = 0;
-			var box_left_now;
-			var mouse_left;
-			var $pull_box = $("#pull-box");
-			var $face = $("#circle");
-			var $say = $("#content");
-			$pull_box.mousedown(function(e){
-				$say.css("display","block");
-				mouse_left = e.pageX;
-				// console.log("mouse_left : " + mouse_left);
-				$(document).mousemove(function(e){
-					var mouse_left_now = e.pageX;
-					var diff = mouse_left_now - mouse_left;
-					box_left_now = box_left + diff;
-					// console.log("mouse_left_now : " + mouse_left_now);
-					// console.log("box_left_now : " + box_left_now);
-					// console.log("box_left : " + box_left);
-					if(box_left_now>940){
-						box_left_now = 940;
-					}else if(box_left_now<0){
-						box_left_now = 0;
-					}
-					$pull_box.css({
-						"left":box_left_now+"px"
-					});
-					$face.css({
-						"top":box_left_now/5+100+"px"
-					});
-				});
-			});
-			$(document).mouseup(function(){
-				box_left = box_left_now;
-				$say.css("display","none");
-				$(document).unbind("mousemove");
-			});
-		});
-	</script>
 </body>
 </html>
