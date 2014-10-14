@@ -34,12 +34,16 @@ http.createServer(function(req,res){
             delete res_buffer[user_info.phone];
 
             for(var i in res_buffer){
-            	(function(this_user){
-	            	var len = lenBtwGps(user_info.longitude,user_info.latitude,this_user.longitude,this_user.latitude);
-	            	if(len<SCOPE_LENGTH){
-	            		res_info.user_list.push(this_user);
-	            	}
-            	})(res_buffer[i]);
+            	// (function(this_user){
+	            // 	var len = lenBtwGps(user_info.longitude,user_info.latitude,this_user.longitude,this_user.latitude);
+	            // 	if(len<SCOPE_LENGTH){
+	            // 		res_info.user_list.push(this_user);
+	            // 	}
+            	// })(res_buffer[i]);
+                var len = lenBtwGps(user_info.longitude,user_info.latitude,res_buffer[i].longitude,res_buffer[i].latitude);
+                if(len<SCOPE_LENGTH){
+                    res_info.user_list.push(res_buffer[i]);
+                }
             }
         }
 
