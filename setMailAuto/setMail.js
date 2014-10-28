@@ -4,18 +4,22 @@ var http = require('http');
 var SET_TIMEOUT =  1000*60;  
 
 
+var user_form = "0@qq.com";
+var password = "0";
+var user_to = "0@163.com";
 var set_count = 0;
+
 var transport = nodemailer.createTransport({  
     service:"QQ",
     auth: {  
-        user: "*****@qq.com",  
-        pass: "*****"  
+        user: user_form,  
+        pass: password  
     }  
 });  
   
 var mailOption = {
-    from : "*****@qq.com",  
-    to : "*****@163.com",  
+    from : user_form,  
+    to : user_to,  
     subject: "主题test",  
     text:"hello test !",
     html:"<p>这是一封自动发出的测试邮件</p>"  
