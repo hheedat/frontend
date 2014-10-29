@@ -3,9 +3,9 @@ var cheerio = require('cheerio');
 var http = require('http');
 var util = require('util');
 
-var SENTMAIL_TIMEOUT = 1000*45;
-var LA_URL = 1000*10;
-var LA_POSTS = 1000*5;
+var SENDMAIL_TIMEOUT = 1000*45;
+var LA_URL = 1000*45;
+var LA_POSTS = 1000*30;
 
 var user_form = "0@qq.com";
 var password = "0";
@@ -116,7 +116,7 @@ setInterval(function(){
 	if(len > 0){
 		sendMail(mail_opt_list.shift());
 	}
-},SENTMAIL_TIMEOUT);
+},SENDMAIL_TIMEOUT);
 
 console.log("send mail auto start ...");
 
