@@ -3,17 +3,17 @@ var cheerio = require('cheerio');
 var http = require('http');
 var util = require('util');
 
-var SENTMAIL_TIMEOUT = 1000*45;
-var LA_URL = 1000*10;
-var LA_POSTS = 1000*5;
+var SENDMAIL_TIMEOUT = 1000*30;
+var LA_URL = 1000*30;
+var LA_POSTS = 1000*15;
 
-var user_form = "0@qq.com";
-var password = "0";
-var user_to = "0@163.com";
+var user_form = "teesst12345@163.com";
+var password = "837139670";
+var user_to = "teesst1234@163.com";
 var set_count = 0;
 
 var transport = nodemailer.createTransport({  
-    service:"QQ",
+    service:"163",
     auth: {  
         user: user_form,  
         pass: password  
@@ -75,10 +75,10 @@ function la(t_url,callback){
 
 setInterval(function(){
     var this_url = my_url+num_url;
-    console.log("num_url : " + num_url);
     num_url++;
-    if(num_url<100){
+    if(num_url<150){
         var re = la(this_url,function(re){
+        	console.log("num_url : " + num_url);
             if(re){
                 var $ = cheerio.load(re);
                 var url_list = $(".entry-name a");
@@ -94,7 +94,7 @@ setInterval(function(){
 
 setInterval(function(){
     var len = posts_url_list.length;
-    console.log("posts_url_list len : " + len);
+    console.log("posts_url_list length : " + len);
     if(len>0){
         var this_url = posts_url_list.shift();
         var re = la(this_url,function(re){
@@ -116,7 +116,7 @@ setInterval(function(){
 	if(len > 0){
 		sendMail(mail_opt_list.shift());
 	}
-},SENTMAIL_TIMEOUT);
+},SENDMAIL_TIMEOUT);
 
 console.log("send mail auto start ...");
 
