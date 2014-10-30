@@ -3,13 +3,15 @@ var cheerio = require('cheerio');
 var http = require('http');
 var util = require('util');
 
-var SENDMAIL_TIMEOUT = 1000*30;
-var LA_URL = 1000*30;
-var LA_POSTS = 1000*15;
+var SENDMAIL_TIMEOUT = 1000*60*2;
+var LA_URL_TIMEOUT = 1000*60*2;
+var LA_POSTS_TIMEOUT = 1000*45*2;
 
-var user_form = "teesst12345@163.com";
+
+
+var user_form = "zhegewentia@163.com";
 var password = "837139670";
-var user_to = "teesst1234@163.com";
+var user_to = "teesst123@163.com";
 var set_count = 0;
 
 var transport = nodemailer.createTransport({  
@@ -23,14 +25,12 @@ var transport = nodemailer.createTransport({
 var mailOption = {
     from : user_form,  
     to : user_to,  
-    subject: "主题测试",  
-    text:"hello test",
-    html:"<p>这是一封自动发出的测试邮件</p>"
+    subject: "邮件主题",  
+    text:"邮件描述预览",
+    html:"<p>邮件内容</p>"
 };
 
 var mail_opt_list = [];
-
-mail_opt_list.push(mailOption);
 
 function sendMail(mailOpt){
 
@@ -73,12 +73,12 @@ function la(t_url,callback){
     });
 };
 
-setInterval(function(){
+function laURL(){
     var this_url = my_url+num_url;
     num_url++;
     if(num_url<150){
         var re = la(this_url,function(re){
-        	console.log("num_url : " + num_url);
+            console.log("num_url : " + num_url);
             if(re){
                 var $ = cheerio.load(re);
                 var url_list = $(".entry-name a");
@@ -90,9 +90,9 @@ setInterval(function(){
             }
         });
     }
-},LA_URL);
+}
 
-setInterval(function(){
+function laPosts(){
     var len = posts_url_list.length;
     console.log("posts_url_list length : " + len);
     if(len>0){
@@ -108,7 +108,13 @@ setInterval(function(){
             }    
         });    
     }
-},LA_POSTS);
+}
+
+
+
+setInterval(laURL,LA_URL_TIMEOUT);
+
+setInterval(laPosts,LA_POSTS_TIMEOUT);
 
 setInterval(function(){
 	var len = mail_opt_list.length;
@@ -121,5 +127,6 @@ setInterval(function(){
 console.log("send mail auto start ...");
 
 
-
+laURL();
+laPosts();
 
