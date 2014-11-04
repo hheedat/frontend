@@ -1,0 +1,134 @@
+
+@font_gray:#666;
+@hd_bg_color:#f7f7f7;
+@hd_input_bg_color:white; //#fcfcfc;
+@body_bg_color:#e0e0e0;
+
+.icon{
+	display: block;
+	height: 20px;
+	width: 20px;
+	background: orange;
+}
+
+a{
+	text-decoration: none;
+}
+
+body{
+	background-color: @body_bg_color;
+}
+
+header{
+	width: 100%;
+	height: 45px;
+	background: @hd_bg_color;
+	.header-main{
+		position: relative;
+		//background: yellow;
+		width: 945px;
+		margin: 0 auto;
+		height: 45px;
+
+		.header-text{
+			line-height: 45px;
+		}
+
+		.home{
+			margin-left: 10px;
+		}
+
+		.icon{
+			margin-top: 13px;
+		}
+
+		.header-left{
+			a{
+				float: left;
+				margin-left: 10px;
+			}
+		}
+
+		.header-right{
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			height: 45px;
+			a{
+				float: right;
+				margin-right: 10px;
+			}
+		}
+
+		.search-box{
+			width: 300px;
+			height: 25px;
+			display: block;
+			margin: 10px auto;
+			input{
+				display: block;
+				border: 0px;
+				height: 100%;
+				width: 100%;
+				padding-left: 10px;
+				background: @hd_input_bg_color;
+			}
+		}
+
+		.header-username{
+			margin-right: 10px;
+		}
+
+		.header-avatar{
+			img{
+				margin-top: 8px;
+				height: 30px;
+				width: 30px;
+			}
+		}
+	}
+}
+
+
+
+.clear {
+  clear: both;
+  overflow: hidden;
+  zoom:1;
+}
+body,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+input,
+p,
+th,
+td {
+  padding: 0;
+  margin: 0;
+}
+fieldset,
+img {
+  border: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-size: 100%;
+}
