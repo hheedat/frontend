@@ -3,6 +3,13 @@
 @hd_bg_color:#f7f7f7;
 @hd_input_bg_color:white; //#fcfcfc;
 @body_bg_color:#e0e0e0;
+@section_bg_color:white;
+
+.rounded-corners (@radius: 3px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
 
 .icon{
 	display: block;
@@ -89,6 +96,54 @@ header{
 	}
 }
 
+article{
+	width: 720px;
+	margin: 0 auto;
+	section{
+		width: 720px;
+		margin: 30px auto;
+		background-color: @section_bg_color;
+		.section-user-info{
+			height: 60px;
+			padding: 15px;
+			.section-user-avatar{
+				float: left;
+				display: block;
+				width: 60px;
+				height: 60px;
+				overflow: hidden;
+				.rounded-corners(30px);
+				img{
+					width: 60px;
+					height: 60px;
+				}
+			}
+			.section-user-info-content{
+				overflow: hidden;
+				zoom:1;
+				p{
+					margin-left: 10px;
+					line-height: 30px;
+					.icon{
+						display: inline;
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+		.section-main-pic{
+			img{
+				width: 720px;
+				height: 405px;
+			}
+		}
+		.section-describe{
+			height: 40px;
+			line-height: 40px;
+			padding-left: 15px;
+		}
+	}
+}
 
 
 .clear {
