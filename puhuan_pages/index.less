@@ -11,6 +11,35 @@
   -moz-border-radius: @radius;
 }
 
+.arrow-up(@x-px:9px,@y-px:15px,@color:black){
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) @color;
+  border-style: solid;
+  border-width:0px @x-px @y-px;
+  height: 0px;
+  width: 0px;
+}
+.arrow-right(@x-px:15px,@y-px:9px,@color:black){
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) @color;
+  border-style: solid;
+  border-width:@y-px 0px @y-px @x-px;
+  height: 0px;
+  width: 0px;
+}
+.arrow-down(@x-px:9px,@y-px:15px,@color:black){
+  border-color:@color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width:@y-px @x-px 0px;
+  height: 0px;
+  width: 0px;
+}
+.arrow-left(@x-px:15px,@y-px:9px,@color:black){
+  border-color: rgba(0, 0, 0, 0) @color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width:@y-px @x-px @y-px 0px;
+  height: 0px;
+  width: 0px;
+}
+
 .icon{
 	background: orange;
 }
@@ -24,6 +53,8 @@ body{
 }
 
 header{
+	position: fixed;
+	top: 0px;
 	width: 100%;
 	height: 45px;
 	background: @hd_bg_color;
@@ -72,7 +103,7 @@ header{
 				padding-left: 5%;
 				background: @hd_input_bg_color;
 			}
-			.search-button{
+			.search-btn{
 				position: absolute;
 				right: 3px;
 				top: 2px;
@@ -149,6 +180,61 @@ article{
 	}
 }
 
+#chat-wrapper{
+	position: fixed;
+	width: 1040px;
+	height: 90%;
+	top: 45px;
+	right: 0px;
+	background: white;
+	#chat-box{
+		position: absolute;
+		width: 720px;
+		height: 100%;
+		#chat-con{
+			width: 720px;
+		}
+		#chat-input-box{
+			position: absolute;
+			height: 235px;
+			width: 690px;
+			padding-left: 30px;
+			bottom: 0px;
+			background: gray;
+			#chat-rem{
+				height: 50px;
+				line-height: 50px;
+			}
+			#chat-input{
+				height: 120px;
+				width: 660px;
+			}
+			#chat-add-pic{
+				height: 50px;
+				line-height: 50px;
+			}
+			#chat-push-btn{
+				float: right;
+				margin-right: 25px;
+				margin-top: 8px;
+				padding: 0px;
+				border: 0px;
+				height: 30px;
+				width: 80px;				
+				text-align: center;
+				cursor: pointer;
+			}
+		}
+	}
+	#chat-aside{
+		position: absolute;
+		width: 320px;
+		height: 100%;
+		top: 0px;
+		right: 0px;
+		background: yellow;
+	}
+}
 
 .clear {
   clear: both;

@@ -6,6 +6,7 @@
 	<link type="text/css" rel="stylesheet" href="./index.css" />
 </head>
 <body>
+
 	<header>
 		<div class="header-main clear">
 			<div class="header-left">
@@ -17,7 +18,7 @@
 			
 			<form class="search-box">
 				<input type="text" class="search-input" placeholder="search">
-				<button type="submit" class="search-button"><span class="icon icon-search">icon</span></button>
+				<button type="submit" class="search-btn"><span class="icon icon-search">icon</span></button>
 			</form>
 
 			<div class="header-right">
@@ -28,6 +29,7 @@
 			</div>
 		</div>
 	</header>
+
 	<article>
 		<section>
 			<div class="section-user-info clear">
@@ -45,5 +47,26 @@
 			</p>
 		</section>
 	</article>
+
+	<div id="chat-wrapper">
+		<div id="chat-box">
+			<div id="chat-con"></div>
+			<form id="chat-input-box">
+				<p id="chat-rem">请输入聊天内容</p>
+				<textarea id="chat-input"></textarea>
+				<a id="chat-add-pic" href="">
+					<span class="icon icon-addpic">icon</span>
+					<span>添加图片</span>
+				</a>
+				<button type="submit" id="chat-push-btn">
+					<span>发送</span>
+				</button>
+			</form>
+		</div>
+		<div id="chat-aside">
+			
+		</div>
+	</div>
+
 </body>
 </html>
