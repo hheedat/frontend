@@ -1,14 +1,28 @@
 
 @font_gray:#666;
-@hd_bg_color:#f7f7f7;
+@hd_bg_color:#fff;
 @hd_input_bg_color:white; //#fcfcfc;
 @body_bg_color:#e0e0e0;
 @section_bg_color:white;
+@chat-box-bg-color:#fff;
+@chat-input-bg-color:#f3f3f3;
+@chat-push-btn-color:#3ad599;
+@chat-aside-co:black;
 
 .rounded-corners (@radius: 3px) {
   border-radius: @radius;
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
+}
+
+.com-buttom(@bg-co:#f3f3f3){
+	padding: 0px;
+	border: 0px;
+	height: 30px;
+	width: 80px;				
+	text-align: center;
+	cursor: pointer;
+	background-color: @bg-co;
 }
 
 .arrow-up(@x-px:9px,@y-px:15px,@color:black){
@@ -58,6 +72,7 @@ header{
 	width: 100%;
 	height: 45px;
 	background: @hd_bg_color;
+	border-bottom: 1px solid #e0e0e0;
 	.header-main{
 		position: relative;
 		//background: yellow;
@@ -184,13 +199,14 @@ article{
 	position: fixed;
 	width: 1040px;
 	height: 90%;
-	top: 45px;
+	top: 46px;
 	right: 0px;
 	background: white;
 	#chat-box{
 		position: absolute;
 		width: 720px;
 		height: 100%;
+		background-color: @chat-box-bg-color;
 		#chat-con{
 			width: 720px;
 		}
@@ -200,14 +216,20 @@ article{
 			width: 690px;
 			padding-left: 30px;
 			bottom: 0px;
-			background: gray;
+			border-top: 1px solid #e0e0e0;
 			#chat-rem{
 				height: 50px;
 				line-height: 50px;
 			}
 			#chat-input{
-				height: 120px;
-				width: 660px;
+				height: 110px;
+				width: 650px;
+				max-width: 650px;
+				max-height: 110px;
+				resize:none;
+				padding: 7px;
+				background-color: @chat-input-bg-color;
+				border: 0px;
 			}
 			#chat-add-pic{
 				height: 50px;
@@ -217,12 +239,8 @@ article{
 				float: right;
 				margin-right: 25px;
 				margin-top: 8px;
-				padding: 0px;
-				border: 0px;
-				height: 30px;
-				width: 80px;				
-				text-align: center;
-				cursor: pointer;
+				.com-buttom(@chat-push-btn-color);
+				color: white;
 			}
 		}
 	}
@@ -232,7 +250,7 @@ article{
 		height: 100%;
 		top: 0px;
 		right: 0px;
-		background: yellow;
+		background: @chat-aside-co;
 	}
 }
 
