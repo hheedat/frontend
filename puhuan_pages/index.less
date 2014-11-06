@@ -246,11 +246,58 @@ article{
 	}
 	#chat-aside{
 		position: absolute;
-		width: 320px;
+		width: 300px;
+		padding:0 10px;
 		height: 100%;
 		top: 0px;
 		right: 0px;
 		background: @chat-aside-co;
+		li.chat-hodplace{
+			height: 20px;
+		}
+		li.chat-partner{
+			position: relative;
+			height: 75px;
+			width: 100%;
+			border-bottom: 1px solid @chat-input-bg-color;
+			.chat-partner-avatar{
+				float: left;
+				margin-top: 18px;
+				height: 40px;
+				width: 40px;
+				overflow: hidden;
+				.rounded-corners(20px);
+				img{
+					width: 40px;
+					height: 40px;
+				}
+			}
+			p{
+				color: #fff;
+				zoom: 1;
+				overflow: hidden;
+				margin-top: 12px;
+				padding-left: 10px;
+				height: 18px;
+				line-height: 18px;
+			}
+			.chat-ing{
+				position: absolute;
+				right: 0px;
+				bottom: 25px;
+				color: white;
+				height: 18px;
+				width: 60px;
+				text-align: center;
+				border: 1px solid white;
+				.rounded-corners(2px);
+				padding: 2px;
+				span{
+					line-height: 18px;
+					font-size: 14px;
+				}
+			}
+		}
 	}
 }
 
