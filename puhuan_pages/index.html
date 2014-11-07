@@ -4,6 +4,7 @@
 	<title>home</title>
 	<meta charset="UTF-8">
 	<link type="text/css" rel="stylesheet" href="./index.css" />
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
 
 			<div class="header-right">
 				<a href="" class="icon icon-menu">icon</a>
-				<a href="" class="icon icon-dialog">ichat</a>
+				<a href="javascript:;" class="icon icon-chat">ichat</a>
 				<a href="" class="header-username header-text">Jack</a>
 				<a href="" class="header-avatar"><img src="./img/avatar_2.jpg"></a>
 			</div>
@@ -88,6 +89,7 @@
 	<div id="chat-wrapper">
 		<div id="chat-box">
 			<div id="chat-con">
+
 				<div class="chat-con-list">
 					<div class="chat-other-con clear">
 						<div class="chat-other-avatar">
@@ -110,7 +112,78 @@
 						</p>
 					</div>
 				</div>
+
+					<div class="chat-con-list">
+					<div class="chat-other-con clear">
+						<div class="chat-other-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-left"></div>
+						<p class="chat-real-con">
+							Jawbone 刚刚推出了两款面向个人健康的新品：Jawbone Up3 和 Up Move，问题是，在智能手表出现之后，智能腕带是否还有吸引力？
+						</p>
+					</div>
+				</div>
+				<div class="chat-con-list">
+					<div class="chat-self-con clear">
+						<div class="chat-self-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-right"></div>
+						<p class="chat-real-con">
+							毕竟，它们想要占据腕上空间，而且，智能手表也在主打健康功能。面对日益增多的智能手表，特别是即将到来的 Apple Watch，Jawbone 会不会感到很大的竞争压力呢？
+						</p>
+					</div>
+				</div>
+
+					<div class="chat-con-list">
+					<div class="chat-other-con clear">
+						<div class="chat-other-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-left"></div>
+						<p class="chat-real-con">
+							Jawbone 刚刚推出了两款面向个人健康的新品：Jawbone Up3 和 Up Move，问题是，在智能手表出现之后，智能腕带是否还有吸引力？
+						</p>
+					</div>
+				</div>
+				<div class="chat-con-list">
+					<div class="chat-self-con clear">
+						<div class="chat-self-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-right"></div>
+						<p class="chat-real-con">
+							毕竟，它们想要占据腕上空间，而且，智能手表也在主打健康功能。面对日益增多的智能手表，特别是即将到来的 Apple Watch，Jawbone 会不会感到很大的竞争压力呢？
+						</p>
+					</div>
+				</div>
+
+					<div class="chat-con-list">
+					<div class="chat-other-con clear">
+						<div class="chat-other-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-left"></div>
+						<p class="chat-real-con">
+							Jawbone 刚刚推出了两款面向个人健康的新品：Jawbone Up3 和 Up Move，问题是，在智能手表出现之后，智能腕带是否还有吸引力？
+						</p>
+					</div>
+				</div>
+				<div class="chat-con-list">
+					<div class="chat-self-con clear">
+						<div class="chat-self-avatar">
+							<img src="./img/avatar_3.jpg">
+						</div>
+						<div class="chat-arrow-right"></div>
+						<p class="chat-real-con">
+							毕竟，它们想要占据腕上空间，而且，智能手表也在主打健康功能。面对日益增多的智能手表，特别是即将到来的 Apple Watch，Jawbone 会不会感到很大的竞争压力呢？
+						</p>
+					</div>
+				</div>
+
 			</div>
+
 			<div id="chat-input-box">
 				<p id="chat-rem">请输入聊天内容</p>
 				<textarea id="chat-input"></textarea>
@@ -143,6 +216,32 @@
 			</li>
 		</ul>
 	</div>
+	<script>
+		$(function(){
+			var page_status = {
+				isChatWraShow : false
+			};
+			var $chat_wrapper = $("#chat-wrapper");
+			var $chat_con = $("#chat-con");
 
+			$(".icon-chat").click(function(){		
+				if(page_status.isChatWraShow){
+					$chat_wrapper.hide();
+					console.log("hide");
+					page_status.isChatWraShow = false;
+				}else{
+					var win_height	= $(window).height();
+					var chat_wrapper_height = win_height - 45;
+					var chat_con_height = chat_wrapper_height - 235;
+					$chat_con.css("height",chat_con_height+"px");
+					$chat_wrapper.css({
+						"height":chat_wrapper_height+"px"
+					}).show();
+					console.log("show");
+					page_status.isChatWraShow = true;
+				}
+			});
+		});
+	</script>
 </body>
 </html>
