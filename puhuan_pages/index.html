@@ -176,6 +176,7 @@
 			var page_status = {
 				isChatWraShow : false
 			};
+			var $window = $(window);
 			var $chat_wrapper = $("#chat-wrapper");
 			var $chat_con = $("#chat-con");
 			var $chat_push_btn = $("#chat-push-btn");
@@ -186,6 +187,7 @@
 					$chat_wrapper.hide();
 					console.log("hide");
 					page_status.isChatWraShow = false;
+					$window.unbind("resize");
 				}else{
 					var win_height	= $(window).height();
 					var chat_wrapper_height = win_height - 45;
@@ -195,6 +197,15 @@
 						"height":chat_wrapper_height+"px"
 					}).show();
 					console.log("show");
+					$window.resize(function(){
+						var win_height	= $(window).height();
+						var chat_wrapper_height = win_height - 45;
+						var chat_con_height = chat_wrapper_height - 235;
+						$chat_con.css("height",chat_con_height+"px");
+						$chat_wrapper.css({
+						"height":chat_wrapper_height+"px"
+						});
+					});
 					page_status.isChatWraShow = true;
 				}
 			});
