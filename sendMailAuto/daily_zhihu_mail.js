@@ -4,10 +4,13 @@ var http = require('http');
 var util = require('util');
 var iconv = require('iconv-lite');
 
-var SENDMAIL_TIMEOUT = 1000*60*6;
+var SENDMAIL_TIMEOUT = 1000*60*5;
 var LA_URL_TIMEOUT = 1000*60*20;
 var LA_POSTS_TIMEOUT = 1000*60*3;
 
+// var SENDMAIL_TIMEOUT = 1000;
+// var LA_URL_TIMEOUT = 1000;
+// var LA_POSTS_TIMEOUT = 1000;
 
 
 var user_form = "songminglinghang@163.com";
@@ -62,8 +65,8 @@ function la(t_url,callback){
         var size = 0;
 
         res.on('data', function (chunk) {
-               chunks.push(chunk);
-               size += chunk.length;
+           chunks.push(chunk);
+           size += chunk.length;
          });
 
         res.on('end', function () {
@@ -95,6 +98,7 @@ function laURL(){
                 		};
                 	};
                 	if(the_url){
+                        posts_url_list_already.push(the_url);
                 		posts_url_list.push(the_url);
                 	}
                 };
@@ -111,22 +115,24 @@ function laPosts(){
         var re = la(this_url,function(re){
             if(re){
                 var $ = cheerio.load(re);
+                //$(".content-wrap h1").remove();
+                $(".content-wrap .img-source").remove();
+                var con_style = '<link rel="stylesheet" href="' + $("link")[0].attribs.href + '">';
                 mailOption.subject = $('title').text();
                 mailOption.text = (new Date()).toString();
-                mailOption.html = $('.content-wrap').html();
+                mailOption.html = con_style + $('.content-wrap').html();
                 mail_opt_list.push(mailOption);
-                //console.log(util.inspect(mailOption));
-                posts_url_list_already.push(posts_url_list.shift());
+                posts_url_list.shift();
             }    
         });
     }
+    showMem();
 }
 
 setInterval(laURL,LA_URL_TIMEOUT);
 
 setInterval(laPosts,LA_POSTS_TIMEOUT);
 
-//send mail
 setInterval(function(){
 	var len = mail_opt_list.length;
 	console.log("mail_opt_list length : " + len);
@@ -141,3 +147,12 @@ laURL();
 laPosts();
 
 
+function showMem() {
+  var mem = process.memoryUsage();
+  var format = function (bytes) {
+    return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+  };
+  console.log('-----------------------------------------------------------');
+  console.log('Process: heapTotal ' + format(mem.heapTotal) + ' heapUsed ' + format(mem.heapUsed) + ' rss ' + format(mem.rss));
+  console.log('-----------------------------------------------------------');
+};
