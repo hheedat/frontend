@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>text-test</title>
+	<style>
+
+	</style>
+</head>
+<body>
+
+	<div id="text-wrapper">
+		
+	</div>
+
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function(){
+			var con_list = [
+				"你知道雪为什么是白色的么？",
+				"那是因为它早已经忘记了自己的颜色",
+				"我是你的共犯",
+				"忘却了，全部，任何都…",
+				"再说一次吧，我的名字",
+				"剩下的只有作为魔女的记忆，我连自己原来是不是人类都不知道。憎恨我的人，对我亲切的人，都随着时光的流逝而消失了，在永无止境的时光流逝中，我……一个人",
+				"真正不想失去的东西，就应该远离他",
+				"切，还真是个自大的小鬼呢",
+				"人 ，人类，是追寻幸福的存在。布里塔尼亚的少年，鲁鲁修所期盼的， 也只不过是小小的幸福，并不是什么特别的东西，至少他行动的根源，是作为一个人及其理所当然的非常细微的愿望。那样的梦想，那样的誓言又有谁能够否定呢？又有谁有那样的资格呢？但是，可是，无论是谁无论是否愿意都不得不和别人、和世界关联而约束自我注定自我的命运。那么，让个人的思念高于世界的意识的话，就只是个随波逐流虚无缥缈的存在而已。罪与罚，命运与审判，挡在鲁路修面前的是自己创造的过去，也是人之所以为人的仇恨。即便如此也应该感恩吧！对，至少，对于人是追寻幸福的存在这一事实 。一丝的愿望，隐约的期盼，乃是由绝望而生",
+				"曾经有这样的一个少年，利用能改变世界的力量，创造新秩序 。世界惧怕着他、憎恨着他，但是我知道，他笑容的背后隐藏着什么。那是将应当完成的事情顺利完成了的人才能理解的，伴随着满足背后的凄凉。但是这并不是悲剧。即使如此，伴随着悲伤，令人落泪的夜晚还是终将会到来。我歌唱着——镇魂的挽歌",
+				"GEASS这份王的力量会令人孤独，但有一点错了，是吧，鲁鲁修",
+				"因为我是C.C.啊",
+				"你以为你在对谁说话？",
+			];
+			var $text_wrapper = $("#text-wrapper");
+			var text_p_index = 0;
+
+			function addPAndReturnP(){
+				$text_wrapper.append("<p id='text_p_"+ text_p_index +"'></p>");
+				var $this_p = $("#text_p_"+text_p_index);
+				++text_p_index;
+				return $this_p;
+			}
+
+			function showCon(con,$obj){
+				var con_len = con.length;
+				var con_index = 0;
+				var show_time_out = 10;
+				function showConText(){
+					if(con_index<con_len){
+						$obj.append(con[con_index]);
+						++con_index;
+						// if(show_time_out>5){
+						// 	--show_time_out;
+						// }
+						setTimeout(function() {
+							showConText();
+						}, show_time_out);
+					}else{
+						console.log(" this p end ... ");
+					}
+				}
+				showConText();
+			}
+
+			var con_list_len = con_list.length;
+			var con_list_index = 0;
+			var show_time_out = 900;
+			function addPandShow(){
+				if(con_list_index<con_list_len){
+					showCon(con_list[con_list_index],addPAndReturnP());
+					++con_list_index;
+					setTimeout(function() {
+						addPandShow();
+					}, show_time_out);
+				}else{
+					console.log("all end ...");
+				}
+			}
+
+			addPandShow();
+			
+		});
+	</script>
+</body>
+</html>
