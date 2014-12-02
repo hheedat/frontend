@@ -3,6 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>free fall</title>
+	<style>
+		body{
+		  background:black;
+		}
+		#myCanvas{
+		  margin: auto;
+		  position: absolute;
+		  top: 0; left: 0; bottom: 0; right: 0;
+		  border:1px solid white;
+		}
+	</style>
 </head>
 <body>
 <canvas id="myCanvas" width="400" height="600">
@@ -10,13 +21,17 @@
 </canvas>
 <script>
 	window.onload = function(){
+	  var w_height = document.documentElement.clientHeight*0.95;
+	  var w_width = document.documentElement.clientWidth*0.95;
 	  var canvas = document.getElementById('myCanvas');
+	  canvas.setAttribute('width', w_width);
+	  canvas.setAttribute('height',w_height);
 	  if (canvas.getContext) {
 	    var ctx = canvas.getContext('2d');
 	  }
-	  var posX = 200,
+	  var posX = w_width/2-5,
 	      posY = 100,
-	      ym = 590,
+	      ym = w_height-10,
 	      g = 9.8/6,
 	      t = 0,
 	      g05 = (1/2)*g,
