@@ -10,54 +10,53 @@
 </canvas>
 <script>
 	window.onload = function(){
-		var canvas = document.getElementById('myCanvas');
+	  var canvas = document.getElementById('myCanvas');
+	  if (canvas.getContext) {
+	    var ctx = canvas.getContext('2d');
+	  }
+	  var posX = 200,
+	      posY = 100,
+	      ym = 590,
+	      g = 9.8/6,
+	      t = 0,
+	      g05 = (1/2)*g,
+	      vt = 0,
+	      v0 = 0,
+	      hm = ym,
+	      fraction = 0.75,
+	      flag = true;
+	  setInterval(function() {
+	    ctx.fillStyle = "black";
+	    ctx.fillRect(0,0,canvas.width, canvas.height);
+	    if(flag){
+	      posY = (ym-hm) + g05*t*t;
+	      if(posY<ym){  
+	        t+=0.1;
+	      }else{
+	        posY = ym;
+	        vt = v0 = g*t*fraction;
+	        flag = false;
+	        t=0;
+	      }
+	    }else{
+	      if(vt>0){
+	        t += 0.1;
+	        vt = v0 - g*t;
+	        posY = ym - (v0*t-g05*t*t);
+	      }else{
+	        t=0;
+	        hm = ym - posY;
+	        flag = true;
+	      }       
+	    }   
 
-		if (canvas.getContext) {
-		    var ctx = canvas.getContext('2d');
-		}
-
-		var posX = 200,
-		    posY = 100,
-		    ym = 590,
-		    g = 9.8/6,
-		    t = 0,
-		    g05 = (1/2)*g,
-		    vt = 0,
-		    hm = ym,
-		    flag = true;
-
-		setInterval(function() {
-		    ctx.fillStyle = "black";
-		    ctx.fillRect(0,0,canvas.width, canvas.height);
-
-		    if(flag){
-		      posY = (ym-hm) + g05*t*t;
-		      if(posY<ym){  
-		        t+=0.1;
-		      }else{
-		        posY = ym;
-		        vt = g*t;
-		        hm = vt*vt/(2*g)*0.5;
-		        flag = false;
-		        t=0;
-		      }
-		    }else{
-		      if(posY>(ym-hm)){
-		        t+=0.1;
-		        posY = ym - (vt*t-g05*t*t);
-		      }else{
-		        t=0;
-		        flag = true;
-		      }       
-		    }   
-		    
-		    ctx.beginPath();
-		    ctx.fillStyle = "white";
-		    ctx.arc(posX, posY, 10, 0, Math.PI*2, true); 
-		    ctx.fill();
-		    ctx.closePath();
-		}, 1);
-	}
+	    ctx.beginPath();
+	    ctx.fillStyle = "white";
+	    ctx.arc(posX, posY, 10, 0, Math.PI*2, true); 
+	    ctx.fill();
+	    ctx.closePath();
+	  }, 1);
+	};
 </script>
 </body>
 </html>
