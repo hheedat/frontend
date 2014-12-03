@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>canvas img test</title>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="1000">
+    您的浏览器不支持canvas！
+</canvas>
+<script>
+var canvas = document.getElementById('myCanvas');
+
+if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+}
+
+var image = new Image(); 
+
+image.onload = function() { 
+
+    ctx.drawImage(image, 0, 0);
+  
+    setTimeout(function(){
+      var imageData = ctx.getImageData(0,0,image.width,image.height);
+      console.log("data : " + imageData.data);
+      ctx.putImageData(imageData,0,400);
+    },1000);
+
+}; 
+
+image.src = "./cc_q.jpg";
+
+
+</script>
+</body>
+</html>
