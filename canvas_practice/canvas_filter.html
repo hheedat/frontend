@@ -1,0 +1,146 @@
+﻿<!-- 根据 http://javascript.ruanyifeng.com/htmlapi/canvas.html#toc8 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas img test</title>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="1000">
+	您的浏览器不支持canvas！
+</canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+
+if(canvas.getContext){
+	var ctx = canvas.getContext("2d");
+}
+
+var image = new Image(); 
+
+image.onload = function() { 
+
+	if (image.width != canvas.width)
+		canvas.width = image.width;
+	if (image.height != canvas.height)
+		canvas.height = image.height;
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.drawImage(image, 0, 0);
+	
+	var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+	
+	var i = 0;
+	var filter_len = filter_list.length;
+
+	(function filterStart(){
+		if(i<filter_len){
+			setTimeout(function(){
+				ctx.putImageData(filter_list[i](imageData),0,0);
+				++i;
+				filterStart();
+			},1000);
+		}
+	})();
+
+}; 
+
+image.src = "./cc_q.jpg";
+
+var filter_list = [filterGray,filterSepia,filterRed,filterBrightness,filterInvert];
+
+function filterGray(pixels) {
+
+	var d = pixels.data;
+
+	for (var i = 0; i < d.length; i += 4) {
+		var r = d[i];
+		var g = d[i + 1];
+		var b = d[i + 2];
+		d[i] = d[i + 1] = d[i + 2] = (r+g+b)/3;
+	}
+
+	return pixels;
+
+};
+
+function filterSepia(pixels) {
+
+	var d = pixels.data;
+
+	for (var i = 0; i < d.length; i += 4) {
+		var r = d[i];
+		var g = d[i + 1];
+		var b = d[i + 2];
+		d[i] = (r * 0.393)+(g * 0.769)+(b * 0.189); // red
+		d[i + 1] = (r * 0.349)+(g * 0.686)+(b * 0.168); // green
+		d[i + 2] = (r * 0.272)+(g * 0.534)+(b * 0.131); // blue
+	}
+
+	return pixels;
+
+};
+
+function filterRed(pixels) {
+    
+    var d = pixels.data;
+
+    for (var i = 0; i < d.length; i += 4) {
+      var r = d[i];
+      var g = d[i + 1];
+      var b = d[i + 2];
+      d[i] = (r+g+b)/3;        // 红色通道取平均值
+      d[i + 1] = d[i + 2] = 0; // 绿色通道和蓝色通道都设为0
+    }
+
+    return pixels;
+
+};
+
+// function filterBrightness(pixels, delta) {
+
+//     var d = pixels.data;
+
+//     for (var i = 0; i < d.length; i += 4) {
+//           d[i] += delta;     // red
+//           d[i + 1] += delta; // green
+//           d[i + 2] += delta; // blue   
+//     }
+
+//     return pixels;
+
+// };
+
+function filterBrightness(pixels) {
+
+    var d = pixels.data;
+
+    for (var i = 0; i < d.length; i += 4) {
+          d[i] += 50;     // red
+          d[i + 1] += 50; // green
+          d[i + 2] += 50; // blue   
+    }
+
+    return pixels;
+
+};
+
+function filterInvert(pixels) {
+
+    var d = pixels.data;
+
+    for (var i = 0; i < d.length; i += 4) {
+        d[i] = 255 - d[i];
+        d[i+1] = 255 - d[i + 1];
+        d[i+2] = 255 - d[i + 2];
+    }
+
+    return pixels;
+
+};
+
+
+
+</script>
+</body>
+</html>
