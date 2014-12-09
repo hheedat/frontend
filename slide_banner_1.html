@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slide_banner_1</title>
+	<style>
+		body,
+		div,
+		ul,
+		ol,
+		li,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		form,
+		input,
+		p,
+		th,
+		td {
+		  padding: 0;
+		  margin: 0;
+		}
+		fieldset,
+		img {
+		  border: 0;
+		}
+		ul,
+		li {
+		  list-style: none;
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+		  font-weight: normal;
+		  font-size: 100%;
+		}
+	</style>
+	<style>
+		#slide_banner{
+			position: relative;
+			width:80%;
+			height:300px;
+			margin:0 auto;
+			background: gray;
+		}
+		.slide_img_wrapper{
+			position: relative;
+			width: 100%;
+			height: 270px;
+		}
+		.slide_img_wrapper a{
+			position: absolute;
+			display: block;
+			width:640px;
+			height:270px;
+		}
+		.slide_img_wrapper img{
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="slide_banner">
+		<div class="slide_img_wrapper">
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+			<a href=""><img src="http://r4.ykimg.com/0510000054292F1B6737B3252A0B6270" alt="h"></a>
+		</div>
+		<div class="slide_control_arrow">
+			<div class="slide_left_arrow"></div>
+			<div class="slide_right_arrow"></div>
+		</div>
+		<div class="slide_control_dot">
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+			<div class="control_dots"></div>
+		</div>
+	</div>
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
+	<script>
+		$(function(){			
+			var slide_banner = {
+				slide_conf:{
+					num:$(".slide_img_wrapper a").length,
+					banner_width:$("#slide_banner").width,
+					banner_height:$("#slide_banner").height,
+					img_wrapper_width:$(".slide_img_wrapper").width,
+					img_wrapper_height:$(".slide_img_wrapper").height,
+					img_width:$(".slide_img_wrapper a").eq(0).width,
+					img_height:$(".slide_img_wrapper a").eq(0).height,
+				},
+
+				img_position:{
+					left_out:{
+
+					},
+					left:{
+
+					},
+					middle:{
+						"top":"0px",
+						"left":(slide_conf.img_wrapper_width - slide_conf.img_width)/2 +"px",
+					},
+					right:{
+
+					},
+					right_out:{
+
+					}
+				},
+
+				init:function(){
+
+				}
+			}
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
