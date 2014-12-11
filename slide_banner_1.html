@@ -26,7 +26,7 @@
 			width:80%;
 			height:300px;
 			margin:0 auto;
-			background: gray;
+			/*background: gray;*/
 		}
 		.slide-img-wrapper{
 			position: relative;
@@ -47,6 +47,49 @@
 			width: 100%;
 			height: 100%;
 		}
+		.slide-ctrl-arrow{
+			cursor: pointer;
+			background: url(http://p9.qhimg.com/d/inn/1bba4a9f/dd.png) no-repeat 6px 9px;
+			position: absolute;
+			top: 50%;
+			margin-top: -40px;
+			width: 41px;
+			height: 81px;
+			z-index: 1001;
+		}
+		.slide-left-arrow{
+			left: 5px;
+		}
+		.slide-right-arrow{
+			right: 5px;
+			background-position: -35px 9px;
+		}
+		.slide-ctrl-dot-wrapper{
+			position: absolute;
+			height: 30px;
+			width: 100%;
+			bottom: 0px;
+		}
+		.slide-ctrl-dots{
+			position:absolute;
+			height: 30px;
+			left: 50%;
+			margin-left: -7%;
+		}
+		.ctrl-dot{
+			cursor: pointer;
+			float: left;
+			width: 14px;
+			height: 14px;
+			margin-right: 10px;
+			margin-top: 8px;
+			border-radius: 7px;
+			background-color: #c3c3c3;
+		}
+		.ctrl-dot:hover{
+			background-color: #aaa;
+		}
+
 	</style>
 </head>
 <body>
@@ -59,19 +102,21 @@
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
+			<div class="slide-ctrl-arrow-wrapper">
+				<div class="slide-left-arrow slide-ctrl-arrow"></div>
+				<div class="slide-right-arrow slide-ctrl-arrow"></div>
+			</div>
 		</div>
-		<div class="slide-control-arrow">
-			<div class="slide-left-arrow"></div>
-			<div class="slide-right-arrow"></div>
-		</div>
-		<div class="slide-control-dot">
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
-			<div class="control-dots"></div>
+		<div class="slide-ctrl-dot-wrapper">
+			<div class="slide-ctrl-dots">
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+			</div>
 		</div>
 	</div>
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
@@ -80,6 +125,8 @@
 
 			function Slide(id){
 				this.$slideCon = $(".slide-img-wrapper a");
+				this.ctrlDots = $(".slide-ctrl-dots");
+				this.ctrlDotsWidth = $(".slide-ctrl-dots").width();
 				this.pageNum = this.$slideCon.length;
 				this.bannerWidth = $(id).width();
 				this.bannerHeight = $(id).height();
@@ -124,6 +171,7 @@
 			Slide.prototype = {
 				init:function(){
 					this.pageNow = 0;
+					this.ctrlDots.css({"margin-left":-this.ctrlDotsWidth/2 +"px"});
 					this.$slideCon.eq(this.pageNow).css(this.middleCss).css({"z-index":1000,"visibility":"visible"});
 					this.$slideCon.eq(this.nextPage(this.pageNow)).css(this.rightCss).css({"z-index":999,"visibility":"visible"});
 					this.$slideCon.eq(this.prevPage(this.pageNow)).css(this.leftCss).css({"z-index":998,"visibility":"visible"});
