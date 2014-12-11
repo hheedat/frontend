@@ -28,6 +28,13 @@
 			margin:0 auto;
 			/*background: gray;*/
 		}
+		#slide-banner-1{
+			position: relative;
+			width:85%;
+			height:300px;
+			margin:0 auto;
+			/*background: gray;*/
+		}
 		.slide-img-wrapper{
 			position: relative;
 			overflow: hidden;
@@ -125,24 +132,51 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="slide-banner-1">
+		<div class="slide-img-wrapper">
+			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
+			<a href=""><img src="http://p3.qhimg.com/t01c75f942add7c9f2d.png" alt="h"></a>
+			<a href=""><img src="http://p5.qhimg.com/t010551c78ee9877daa.jpg" alt="h"></a>
+			<a href=""><img src="http://p5.qhimg.com/t016ad521245e9ad4d1.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.qhimg.com/t01d40d2a0e9a8ac4cb.jpg" alt="h"></a>
+			<a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
+			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a>
+			<div class="slide-ctrl-arrow-wrapper">
+				<div class="slide-left-arrow slide-ctrl-arrow"></div>
+				<div class="slide-right-arrow slide-ctrl-arrow"></div>
+			</div>
+		</div>
+		<div class="slide-ctrl-dot-wrapper">
+			<div class="slide-ctrl-dots">
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+				<div class="ctrl-dot"></div>
+			</div>
+		</div>
+	</div>
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
 	<script>
 		$(function(){			
 
 			function Slide(id){
-				this.$slideCon = $(".slide-img-wrapper a");
-				this.$ctrlDots = $(".ctrl-dot"); 
-				this.$ctrlLeftArrow = $(".slide-left-arrow");
-				this.$ctrlRightArrow = $(".slide-right-arrow");
-				this.ctrlDotsAll = $(".slide-ctrl-dots");
-				this.ctrlDotsAllWidth = $(".slide-ctrl-dots").width();
+				this.$slideCon = $(id+" .slide-img-wrapper a");
+				this.$ctrlDots = $(id+" .ctrl-dot"); 
+				this.$ctrlLeftArrow = $(id+" .slide-left-arrow");
+				this.$ctrlRightArrow = $(id+" .slide-right-arrow");
+				this.ctrlDotsAll = $(id+" .slide-ctrl-dots");
+				this.ctrlDotsAllWidth = $(id+" .slide-ctrl-dots").width();
 				this.pageNum = this.$slideCon.length;
 				this.bannerWidth = $(id).width();
 				this.bannerHeight = $(id).height();
-				this.imgWrapperWidth = $(".slide-img-wrapper").width();
-				this.imgWrapperHeight = $(".slide-img-wrapper").height();
-				this.imgWidth = $(".slide-img-wrapper a").eq(0).width();
-				this.imgHeight = $(".slide-img-wrapper a").eq(0).height();
+				this.imgWrapperWidth = $(id+" .slide-img-wrapper").width();
+				this.imgWrapperHeight = $(id+" .slide-img-wrapper").height();
+				this.imgWidth = $(id+" .slide-img-wrapper a").eq(0).width();
+				this.imgHeight = $(id+" .slide-img-wrapper a").eq(0).height();
 				this.scale = 0.8;
 				this.scaleOut = 0.5;
 				this.leftOutCss = {
@@ -280,6 +314,10 @@
 			var slide  = new Slide("#slide-banner");
 
 			slide.init();
+
+			var slide1 = new Slide("#slide-banner-1");
+
+			slide1.init();
 
 		});
 	</script>
