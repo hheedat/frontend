@@ -223,12 +223,27 @@
 					this.$slideCon.eq(this.prevPage(this.pageNow)).css(this.leftCss).css({"z-index":998,"visibility":"visible"});
 					this.$slideCon.eq(this.nextPage(this.nextPage(this.pageNow))).css(this.rightOutCss).css({"z-index":997,"visibility":"visible"});
 					this.$slideCon.eq(this.prevPage(this.prevPage(this.pageNow))).css(this.leftOutCss).css({"z-index":996,"visibility":"visible"});
-					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-bot-this");					
+					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-bot-this");	
+
 					this.$ctrlRightArrow.on("click",function(){
 						self.slideLeft();
 						if(self.timer){clearInterval(self.timer)};
 						self.autoSlide();
 					});
+
+					// this.$ctrlRightArrow.on("click",$.proxy(function(){
+					// 	this.slideLeft();
+					// 	if(this.timer){clearInterval(this.timer)};
+					// 	this.autoSlide();
+					// },self));
+					
+					// this.$ctrlRightArrow.on("click",{self:this},function(event){
+					// 	console.log(event.data.self.timer);
+					// 	event.data.self.slideLeft();
+					// 	if(event.data.self.timer){clearInterval(event.data.self.timer)};
+					// 	event.data.self.autoSlide();
+					// });
+
 					this.$ctrlLeftArrow.on("click",function(){
 						self.slideRight();
 						if(self.timer){clearInterval(self.timer)};
@@ -249,7 +264,7 @@
 						}else{
 							self.pageNow = indexNum;
 							self.$slideCon.css("z-index",function(i,curval){
-							return curval-1;
+								return curval-1;
 							});
 							self.$slideCon.animate({
 								height:self.imgHeight*self.scaleOut + "px",
