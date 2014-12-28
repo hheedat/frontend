@@ -130,15 +130,18 @@
 					this.$slideWrapper.css({"left":-(this.pageNow+1)*this.slideConWidth+"px"});
 					this.$ctrlDots.eq(0).addClass("ctrl-bot-this");
 					this.autoSlide();
+					this.addTouchEvent();
+				},
+				addTouchEvent:function(){
 					this.$slideWrapper.on("touchstart", $.proxy(function(event) {
 						clearInterval(this.timer);
 						this.slideWrapperStartX = this.$slideWrapper.offset().left;
 						this.touchStartX = event.originalEvent.changedTouches[0].clientX;
-					},self)).on("touchmove",$.proxy(function(event){
+					},this)).on("touchmove",$.proxy(function(event){
 						this.slideWrapperX = this.slideWrapperStartX + (event.originalEvent.changedTouches[0].clientX-this.touchStartX);
 						this.slide(this.slideWrapperX,false);
 						event.preventDefault();
-					},self)).on("touchend",$.proxy(function(event){
+					},this)).on("touchend",$.proxy(function(event){
 						this.touchEndX = event.originalEvent.changedTouches[0].clientX;
 						this.slideWrapperEndX = this.$slideWrapper.offset().left;
 						if(this.touchEndX-this.touchStartX<-50){
@@ -149,8 +152,10 @@
 							this.slide(this.slideWrapperStartX,true);
 						}
 						this.autoSlide();
-					},self));
-					//this.$slideCon.on()
+					},this));
+				},
+				removeTouchEvent:function(){
+					this.$slideWrapper.off("touchstart touchmove touchend");
 				},
 				autoSlide:function(){
 					var self = this;
@@ -197,13 +202,20 @@
 						this.slideDots(this.pageNow);
 					}else if(this.pageNow === this.pageNum-1){
 						++this.pageNow;
+						this.removeTouchEvent();
 						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(0);
 						var self = this;
-						setTimeout(function(){
+						this.$slideWrapper.on("transitionend",function(){
 							self.pageNow = 0;
 							self.slide(self.slideX(self.pageNow),false);
-						},500);
+							self.$slideWrapper.off("transitionend");
+							self.addTouchEvent();
+						});
+						// setTimeout(function(){
+						// 	self.pageNow = 0;
+						// 	self.slide(self.slideX(self.pageNow),false);
+						// },500);
 					}
 				},
 				slideRight:function(){
@@ -213,13 +225,20 @@
 						this.slideDots(this.pageNow);
 					}else if(this.pageNow === 0){
 						--this.pageNow;
+						this.removeTouchEvent();
 						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(this.pageNum-1);
 						var self = this;
-						setTimeout(function(){
+						this.$slideWrapper.on("transitionend",function(){
 							self.pageNow = self.pageNum-1;
 							self.slide(self.slideX(self.pageNow),false);
-						},500);
+							self.$slideWrapper.off("transitionend");
+							self.addTouchEvent();
+						});
+						// setTimeout(function(){
+						// 	self.pageNow = self.pageNum-1;
+						// 	self.slide(self.slideX(self.pageNow),false);
+						// },500);
 					}
 				}
 			}
