@@ -141,9 +141,9 @@
 					},self)).on("touchend",$.proxy(function(event){
 						this.touchEndX = event.originalEvent.changedTouches[0].clientX;
 						this.slideWrapperEndX = this.$slideWrapper.offset().left;
-						if(this.touchEndX-this.touchStartX<-20){
+						if(this.touchEndX-this.touchStartX<-50){
 							this.slideLeft();
-						}else if(this.touchEndX-this.touchStartX>20){
+						}else if(this.touchEndX-this.touchStartX>50){
 							this.slideRight();
 						}else{
 							this.slide(this.slideWrapperStartX,true);
