@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>slide_banner_2</title>
+	<title>slide_banner_2 for mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
 	<style>
 		body, ul, ol, dl, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, button, textarea, p, blockquote, th, td{margin:0;padding:0;}
 		body{font:12px/1.5 Arial,SimSun,Tahoma,Microsoft YaHei;}
@@ -129,12 +130,32 @@
 					this.$slideWrapper.css({"left":-(this.pageNow+1)*this.slideConWidth+"px"});
 					this.$ctrlDots.eq(0).addClass("ctrl-bot-this");
 					this.autoSlide();
+					this.$slideWrapper.on("touchstart", $.proxy(function(event) {
+						clearInterval(this.timer);
+						this.slideWrapperStartX = this.$slideWrapper.offset().left;
+						this.touchStartX = event.originalEvent.changedTouches[0].clientX;
+					},self)).on("touchmove",$.proxy(function(event){
+						this.slideWrapperX = this.slideWrapperStartX + (event.originalEvent.changedTouches[0].clientX-this.touchStartX);
+						this.slide(this.slideWrapperX,false);
+						event.preventDefault();
+					},self)).on("touchend",$.proxy(function(event){
+						this.touchEndX = event.originalEvent.changedTouches[0].clientX;
+						this.slideWrapperEndX = this.$slideWrapper.offset().left;
+						if(this.touchEndX-this.touchStartX<-20){
+							this.slideLeft();
+						}else if(this.touchEndX-this.touchStartX>20){
+							this.slideRight();
+						}else{
+							this.slide(this.slideWrapperStartX,true);
+						}
+						this.autoSlide();
+					},self));
+					//this.$slideCon.on()
 				},
 				autoSlide:function(){
 					var self = this;
 					this.timer = setInterval(function() {
-						//self.slideLeft();
-						self.slideRight();
+						self.slideLeft();
 					}, this.timeout);
 				},
 				nextPage:function(pageNow){
@@ -143,14 +164,14 @@
 				prevPage:function(pageNow){
 					return pageNow-1;
 				},
-				slide:function(thisPage,isLiner){
+				slide:function(positionX,isLiner){
 					if(isLiner){
 						this.$slideWrapper.css({
 							"-moz-transition":"all 0.5s ease-out",
 						    "-webkit-transition":"all 0.5s ease-out",
 						    "-o-transition": "all 0.5s ease-out",
 						    "transition":"all 0.5s ease-out",
-						    "left":-(this.pageNow+1)*this.slideConWidth+"px"
+						    "left":positionX+"px"
 						});
 					}else{
 						this.$slideWrapper.css({
@@ -158,10 +179,12 @@
 						    "-webkit-transition":"none",
 						    "-o-transition": "none",
 						    "transition":"none",
-						    "left":-(this.pageNow+1)*this.slideConWidth+"px"
+						    "left":positionX+"px"
 						});
 					}
-					
+				},
+				slideX:function(thisPage){
+					return -(this.pageNow+1)*this.slideConWidth;
 				},
 				slideDots:function(thisPage){
 					this.$ctrlDots.removeClass("ctrl-bot-this");
@@ -170,32 +193,32 @@
 				slideLeft:function(){
 					if(this.pageNow<this.pageNum-1){
 						++this.pageNow;
-						this.slide(this.pageNow,true);
+						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(this.pageNow);
 					}else if(this.pageNow === this.pageNum-1){
 						++this.pageNow;
-						this.slide(this.pageNow,true);
+						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(0);
 						var self = this;
 						setTimeout(function(){
 							self.pageNow = 0;
-							self.slide(self.pageNow,false);
+							self.slide(self.slideX(self.pageNow),false);
 						},500);
 					}
 				},
 				slideRight:function(){
 					if(this.pageNow>0){
 						--this.pageNow;
-						this.slide(this.pageNow,true);
+						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(this.pageNow);
 					}else if(this.pageNow === 0){
 						--this.pageNow;
-						this.slide(this.pageNow,true);
+						this.slide(this.slideX(this.pageNow),true);
 						this.slideDots(this.pageNum-1);
 						var self = this;
 						setTimeout(function(){
 							self.pageNow = self.pageNum-1;
-							self.slide(self.pageNow,false);
+							self.slide(self.slideX(self.pageNow),false);
 						},500);
 					}
 				}
