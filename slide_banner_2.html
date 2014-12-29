@@ -42,18 +42,18 @@
 			width: 100%;
 			height: 100%;
 		}
-		.slide-ctrl-dot-wrapper{
+		.slide-slide-dot-wrapper{
 			position: absolute;
 			height: 30px;
 			width: 100%;
 			bottom: 0px;
 			text-align: center;
 		}
-		.slide-ctrl-dots{
+		.slide-slide-dots{
 			display: inline-block;
 			height: 30px;
 		}
-		.ctrl-dot{
+		.slide-dot{
 			cursor: pointer;
 			display: inline-block;
 			width: 10px;
@@ -63,13 +63,13 @@
 			border-radius: 5px;
 			background-color: #c3c3c3;
 		}
-		.ctrl-dot:hover{
+		.slide-dot:hover{
 			background-color: #aaa;
 		}
-		.ctrl-bot-this{
+		.slide-dot-this{
 			background-color: #00c9bd;
 		}
-		.ctrl-bot-this:hover{
+		.slide-dot-this:hover{
 			background-color: #00c9bd;
 		}
 
@@ -87,14 +87,14 @@
 			<!-- <a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
 			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a> -->
 		</div>
-		<div class="slide-ctrl-dot-wrapper">
-			<span class="ctrl-dot"></span>
-			<span class="ctrl-dot"></span>
-			<span class="ctrl-dot"></span>
-			<!-- <span class="ctrl-dot"></span>
-			<span class="ctrl-dot"></span> -->
-			<!-- <span class="ctrl-dot"></span>
-			<span class="ctrl-dot"></span> -->
+		<div class="slide-slide-dot-wrapper">
+			<span class="slide-dot"></span>
+			<span class="slide-dot"></span>
+			<span class="slide-dot"></span>
+			<!-- <span class="slide-dot"></span>
+			<span class="slide-dot"></span> -->
+			<!-- <span class="slide-dot"></span>
+			<span class="slide-dot"></span> -->
 		</div>
 	</div>
 
@@ -102,15 +102,15 @@
 	<script>
 		$(function(){			
 
-			function Slide(id){
-				this.$slideCon = $(".slide-img-wrapper a",id);
-				this.$ctrlDots = $(".ctrl-dot",id); 
-				this.$slideWrapper = $(".slide-img-wrapper",id);
+			function Slide(selector){
+				this.$slideCon = $(".slide-img-wrapper a",selector);
+				this.$slideDots = $(".slide-dot",selector); 
+				this.$slideWrapper = $(".slide-img-wrapper",selector);
 				this.pageNum = this.$slideCon.length;
 				this.winWidth = $(window).width();
 				this.$slideWrapper.prepend(this.$slideCon.eq(this.pageNum-1).clone());
 				this.$slideWrapper.append(this.$slideCon.eq(0).clone());
-				this.$slideCon = $(".slide-img-wrapper a",id);
+				this.$slideCon = $(".slide-img-wrapper a",selector);
 				this.imgWrapperWidth = this.winWidth*(this.pageNum+2);
 				this.$slideWrapper.css({"width":this.imgWrapperWidth+"px"});
 				this.slideConWidth = this.winWidth;
@@ -128,7 +128,7 @@
 					this.isLiner = true;
 					this.timeout = 3000;
 					this.$slideWrapper.css({"left":-(this.pageNow+1)*this.slideConWidth+"px"});
-					this.$ctrlDots.eq(0).addClass("ctrl-bot-this");
+					this.$slideDots.eq(0).addClass("slide-dot-this");
 					this.autoSlide();
 					this.addTouchEvent();
 				},
@@ -192,8 +192,8 @@
 					return -(this.pageNow+1)*this.slideConWidth;
 				},
 				slideDots:function(thisPage){
-					this.$ctrlDots.removeClass("ctrl-bot-this");
-					this.$ctrlDots.eq(thisPage).addClass("ctrl-bot-this");
+					this.$slideDots.removeClass("slide-dot-this");
+					this.$slideDots.eq(thisPage).addClass("slide-dot-this");
 				},
 				slideLeft:function(){
 					if(this.pageNow<this.pageNum-1){

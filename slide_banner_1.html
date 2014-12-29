@@ -96,10 +96,10 @@
 		.ctrl-dot:hover{
 			background-color: #aaa;
 		}
-		.ctrl-bot-this{
+		.ctrl-dot-this{
 			background-color: orange;
 		}
-		.ctrl-bot-this:hover{
+		.ctrl-dot-this:hover{
 			background-color: orange;
 		}
 
@@ -223,7 +223,7 @@
 					this.$slideCon.eq(this.prevPage(this.pageNow)).css(this.leftCss).css({"z-index":998,"visibility":"visible"});
 					this.$slideCon.eq(this.nextPage(this.nextPage(this.pageNow))).css(this.rightOutCss).css({"z-index":997,"visibility":"visible"});
 					this.$slideCon.eq(this.prevPage(this.prevPage(this.pageNow))).css(this.leftOutCss).css({"z-index":996,"visibility":"visible"});
-					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-bot-this");	
+					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-dot-this");	
 
 					this.$ctrlRightArrow.on("click",function(){
 						self.slideLeft();
@@ -306,8 +306,8 @@
 					this.$slideCon.eq(this.prevPage(thisPage)).css({"z-index":998,"visibility":"visible"}).animate(this.leftCss);
 					this.$slideCon.eq(this.nextPage(this.nextPage(thisPage))).css({"z-index":997,"visibility":"visible"}).animate(this.rightOutCss);
 					this.$slideCon.eq(this.prevPage(this.prevPage(thisPage))).css({"z-index":996,"visibility":"visible"}).animate(this.leftOutCss);
-					this.$ctrlDots.removeClass("ctrl-bot-this");
-					this.$ctrlDots.eq(thisPage).addClass("ctrl-bot-this");
+					this.$ctrlDots.removeClass("ctrl-dot-this");
+					this.$ctrlDots.eq(thisPage).addClass("ctrl-dot-this");
 				},
 				slideLeft:function(){
 					if(this.pageNow<this.pageNum-1){
