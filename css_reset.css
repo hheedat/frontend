@@ -14,3 +14,5 @@ a:hover{text-decoration:underline;}
 ::selection{background-color:#39f;color:#fff;}
 ::-moz-selection{background-color:#39f;color:#fff;}
 article, aside, dialog, footer, header, section, footer, nav, figure, hgroup{display:block;margin:0;padding:0;}
+.clearfix:after{content:"\0020";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{*zoom:1;}
