@@ -84,19 +84,19 @@
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
 			<a href=""><img src="http://p3.qhimg.com/t01c75f942add7c9f2d.png" alt="h"></a>
 			<a href=""><img src="http://p5.qhimg.com/t010551c78ee9877daa.jpg" alt="h"></a>
-			<!-- <a href=""><img src="http://p5.qhimg.com/t016ad521245e9ad4d1.jpg" alt="h"></a>
-			<a href=""><img src="http://p1.qhimg.com/t01d40d2a0e9a8ac4cb.jpg" alt="h"></a> -->
-			<!-- <a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
-			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a> -->
+			<a href=""><img src="http://p5.qhimg.com/t016ad521245e9ad4d1.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.qhimg.com/t01d40d2a0e9a8ac4cb.jpg" alt="h"></a>
+			<a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
+			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a>
 		</div>
 		<div class="slide-slide-dot-wrapper">
 			<span class="slide-dot"></span>
 			<span class="slide-dot"></span>
 			<span class="slide-dot"></span>
-			<!-- <span class="slide-dot"></span>
-			<span class="slide-dot"></span> -->
-			<!-- <span class="slide-dot"></span>
-			<span class="slide-dot"></span> -->
+			<span class="slide-dot"></span>
+			<span class="slide-dot"></span>
+			<span class="slide-dot"></span>
+			<span class="slide-dot"></span>
 		</div>
 	</div>
 
@@ -104,33 +104,38 @@
 	<script>
 		$(function(){			
 
-			function Slide(selector){
-				this.$slideCon = $(".slide-img-wrapper a",selector);
-				this.$slideDots = $(".slide-dot",selector); 
-				this.$slideWrapper = $(".slide-img-wrapper",selector);
+			function Slide(sec){
+				this.$slideCon = $(".slide-img-wrapper a",sec);
+				this.$ctrlDots = $(".slide-dot",sec); 
+				this.$slideWrapper = $(".slide-img-wrapper",sec);
 				this.pageNum = this.$slideCon.length;
-				this.winWidth = $(window).width();
 				this.$slideWrapper.prepend(this.$slideCon.eq(this.pageNum-1).clone());
 				this.$slideWrapper.append(this.$slideCon.eq(0).clone());
-				this.$slideCon = $(".slide-img-wrapper a",selector);
-				this.imgWrapperWidth = this.winWidth*(this.pageNum+2);
-				this.$slideWrapper.css({"width":this.imgWrapperWidth+"px"});
-				this.slideConWidth = this.winWidth;
-				this.$slideCon.css({"width":this.slideConWidth+"px","height":this.slideConWidth/2.5+"px"});
-				this.$slideWrapper.css({
-					"display":"block"
-				});
+				this.$slideCon = $(".slide-img-wrapper a",sec);
 			}
 
 			Slide.prototype = {
 				init:function(){
 					var self = this;
+					if(this.timer){
+						clearInterval(this.timer);
+						this.$ctrlDots.removeClass("slide-dot-this");
+						this.$slideWrapper.off("touchstart touchmove touchend");
+					}	
+					this.winWidth = $(window).width();	
+					this.imgWrapperWidth = this.winWidth*(this.pageNum+2);
+					this.$slideWrapper.css({"width":this.imgWrapperWidth+"px"});
+					this.slideConWidth = this.winWidth;
+					this.$slideCon.css({"width":this.slideConWidth+"px","height":this.slideConWidth/2.5+"px"});
+					this.$slideWrapper.css({
+						"display":"block"
+					});
 					this.pageNow = 0;
 					this.timer = null;
 					this.isLiner = true;
 					this.timeout = 3000;
 					this.$slideWrapper.css({"left":-(this.pageNow+1)*this.slideConWidth+"px"});
-					this.$slideDots.eq(0).addClass("slide-dot-this");
+					this.$ctrlDots.eq(0).addClass("slide-dot-this");
 					this.autoSlide();
 					this.addTouchEvent();
 				},
@@ -194,8 +199,8 @@
 					return -(this.pageNow+1)*this.slideConWidth;
 				},
 				slideDots:function(thisPage){
-					this.$slideDots.removeClass("slide-dot-this");
-					this.$slideDots.eq(thisPage).addClass("slide-dot-this");
+					this.$ctrlDots.removeClass("slide-dot-this");
+					this.$ctrlDots.eq(thisPage).addClass("slide-dot-this");
 				},
 				slideLeft:function(){
 					if(this.pageNow<this.pageNum-1){
