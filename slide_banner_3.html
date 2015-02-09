@@ -44,7 +44,12 @@
 			margin-top: -40px;
 			width: 41px;
 			height: 81px;
+			border-radius: 5px;
 			z-index: 1001;
+		}
+		.slide-ctrl-arrow:hover{
+			background-color: rgba(0,0,0,0.4);
+			opacity: 0.8;
 		}
 		.slide-left-arrow{
 			left: 5px;
@@ -78,10 +83,10 @@
 			background-color: #aaa;
 		}
 		.ctrl-dot-this{
-			background-color: orange;
+			background-color: #00c9bd;
 		}
 		.ctrl-dot-this:hover{
-			background-color: orange;
+			background-color: #00c9bd;
 		}
 
 	</style>
@@ -104,25 +109,26 @@
 			</div>
 		</div>
 		<div class="slide-ctrl-dot-wrapper">
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
-			<div class="ctrl-dot"> </div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
+			<div class="ctrl-dot"></div>
 		</div>
 	</div>
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
 	<script>
-		$(function(){			
+		$(function(){
 
 			function Slide(sec){
-				this.$slideImgs = $(".slide-imgs",sec);
-				this.$slideCon = $(".slide-imgs a",sec);
-				this.$ctrlDots = $(".ctrl-dot",sec); 
-				this.$ctrlLeftArrow = $(".slide-left-arrow",sec);
-				this.$ctrlRightArrow = $(".slide-right-arrow",sec);
+				this.$slide = $(sec);
+				this.$slideImgs = $(".slide-imgs",this.$slide);
+				this.$slideCon = $(".slide-imgs a",this.$slide);
+				this.$ctrlDots = $(".ctrl-dot",this.$slide); 
+				this.$ctrlLeftArrow = $(".slide-left-arrow",this.$slide);
+				this.$ctrlRightArrow = $(".slide-right-arrow",this.$slide);
 				this.pageNum = this.$slideCon.length;
 				this.$slideImgs.prepend(this.$slideCon.eq(this.pageNum-1).clone());
 				this.$slideImgs.append(this.$slideCon.eq(0).clone());
@@ -134,7 +140,8 @@
 					this.pageNow = 0;
 					this.timer = null;
 					this.iAutoSlide = false;
-					this.timeout = 2500;
+					this.iHover = false;
+					this.timeout = 3600;
 					this.slideTime = 800;
 					this.imgWidth = this.$slideCon.width();
 					this.$slideImgs.css({
@@ -147,6 +154,7 @@
 					}
 					this.addDotsEvent();
 					this.addArrowEvent();
+					this.addHoverEvent();
 					this.autoSlide();
 				},
 				addDotsEvent:function(){
@@ -190,9 +198,19 @@
 					this.$ctrlLeftArrow.off("click");
 					this.$ctrlRightArrow.off("click");
 				},
+				addHoverEvent:function(){
+					var self = this;
+					this.$slide.on("mouseenter",function(){
+						self.iHover = true;
+						self.stopAutoSlide();
+					}).on("mouseleave",function(){
+						self.iHover = false;
+						self.autoSlide();
+					});
+				},
 				autoSlide:function(){
 					var self = this;
-					if(!this.iAutoSlide){
+					if(!this.iAutoSlide && !this.iHover){
 						this.iAutoSlide = true;
 						this.timer = setInterval(function() {
 							self.slideLeft();
