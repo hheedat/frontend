@@ -5,24 +5,7 @@
 	<meta charset="utf-8">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
-	<style>
-		body, ul, ol, dl, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, button, textarea, p, blockquote, th, td{margin:0;padding:0;}
-		body{font:12px/1.5 Arial,SimSun,Tahoma,Microsoft YaHei;}
-		ul,ol{list-style:none;}
-		fieldset, img{border:none;}
-		em{font-style:normal;}
-		img, object, select, input, textarea, button{outline:0;vertical-align:middle;}
-		button{border:none;cursor:pointer;}
-		table{border-collapse:collapse;border-spacing:0;table-layout:fixed;}
-		caption, th{text-align:left;}
-		q:before, q:after{content:'';}
-		ins, s, u, del{text-decoration:none;}
-		a{text-decoration:none;cursor:pointer;}
-		a:hover{text-decoration:underline;}
-		::selection{background-color:#39f;color:#fff;}
-		::-moz-selection{background-color:#39f;color:#fff;}
-		article, aside, dialog, footer, header, section, footer, nav, figure, hgroup{display:block;margin:0;padding:0;}
-	</style>
+	<link rel="stylesheet" href="./css_reset.css">
 	<style>
 		#slide-banner{
 			position: relative;
@@ -44,16 +27,12 @@
 			width: 100%;
 			height: 100%;
 		}
-		.slide-slide-dot-wrapper{
+		.slide-dot-wrapper{
 			position: absolute;
 			height: 30px;
 			width: 100%;
 			bottom: 0px;
 			text-align: center;
-		}
-		.slide-slide-dots{
-			display: inline-block;
-			height: 30px;
 		}
 		.slide-dot{
 			cursor: pointer;
@@ -72,7 +51,7 @@
 	</style>
 </head>
 <body>
-	<h1> mobile </h1>
+	<h1>for mobile</h1>
 	<div id="slide-banner">
 		<div class="slide-img-wrapper">
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
@@ -83,15 +62,6 @@
 			<a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
 			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a>
 		</div>
-		<div class="slide-slide-dot-wrapper">
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-			<span class="slide-dot"></span>
-		</div>
 	</div>
 
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
@@ -99,13 +69,20 @@
 		$(function(){			
 
 			function Slide(sec){
-				this.$slideCon = $(".slide-img-wrapper a",sec);
-				this.$ctrlDots = $(".slide-dot",sec); 
-				this.$slideWrapper = $(".slide-img-wrapper",sec);
+				var dotstr = '<div class="slide-dot-wrapper">';
+				this.$slide = $(sec);
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
 				this.pageNum = this.$slideCon.length;
+				for(var i = this.pageNum ; i>0 ; --i){
+					dotstr += '<div class="slide-dot"></div>';
+				}
+				dotstr += '</div>';
+				this.$slide.append($(dotstr));
+				this.$ctrlDots = $(".slide-dot",this.$slide); 
+				this.$slideWrapper = $(".slide-img-wrapper",this.$slide);
 				this.$slideWrapper.prepend(this.$slideCon.eq(this.pageNum-1).clone());
 				this.$slideWrapper.append(this.$slideCon.eq(0).clone());
-				this.$slideCon = $(".slide-img-wrapper a",sec);
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
 			}
 
 			Slide.prototype = {
