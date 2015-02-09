@@ -4,38 +4,19 @@
 	<meta charset="utf-8">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<title>slide_banner_1</title>
-	<style>
-		body, ul, ol, dl, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, button, textarea, p, blockquote, th, td{margin:0;padding:0;}
-		body{font:12px/1.5 Arial,SimSun,Tahoma,Microsoft YaHei;}
-		ul,ol{list-style:none;}
-		fieldset, img{border:none;}
-		em{font-style:normal;}
-		img, object, select, input, textarea, button{outline:0;vertical-align:middle;}
-		button{border:none;cursor:pointer;}
-		table{border-collapse:collapse;border-spacing:0;table-layout:fixed;}
-		caption, th{text-align:left;}
-		q:before, q:after{content:'';}
-		ins, s, u, del{text-decoration:none;}
-		a{text-decoration:none;cursor:pointer;}
-		a:hover{text-decoration:underline;}
-		::selection{background-color:#39f;color:#fff;}
-		::-moz-selection{background-color:#39f;color:#fff;}
-		article, aside, dialog, footer, header, section, footer, nav, figure, hgroup{display:block;margin:0;padding:0;}
-	</style>
+	<link rel="stylesheet" href="./css_reset.css">
 	<style>
 		#slide-banner{
 			position: relative;
 			width:75%;
 			height:300px;
 			margin:0 auto;
-			/*background: gray;*/
 		}
 		#slide-banner-1{
 			position: relative;
 			width:85%;
 			height:300px;
 			margin:0 auto;
-			/*background: gray;*/
 		}
 		.slide-img-wrapper{
 			position: relative;
@@ -49,7 +30,6 @@
 			width:640px;
 			height:270px;
 			left: 10000px;
-			/*visibility: hidden;*/
 		}
 		.slide-img-wrapper img{
 			display: block;
@@ -59,12 +39,18 @@
 		.slide-ctrl-arrow{
 			cursor: pointer;
 			background: url(http://p9.qhimg.com/d/inn/1bba4a9f/dd.png) no-repeat 6px 9px;
+			_background:url(http://p5.qhimg.com/d/inn/83c91957/ddpng8.png) no-repeat 6px 9px;
 			position: absolute;
 			top: 50%;
 			margin-top: -40px;
 			width: 41px;
 			height: 81px;
+			border-radius: 5px;
 			z-index: 1001;
+		}
+		.slide-ctrl-arrow:hover{
+			background-color: rgba(0,0,0,0.4);
+			opacity: 0.8;
 		}
 		.slide-left-arrow{
 			left: 5px;
@@ -75,34 +61,33 @@
 		}
 		.slide-ctrl-dot-wrapper{
 			position: absolute;
-			height: 30px;
+			height: 10px;
 			width: 100%;
-			bottom: 0px;
-		}
-		.slide-ctrl-dots{
-			position:absolute;
-			height: 30px;
-			left: 50%;
-			margin-left: -7%;
+			bottom: 10px;
+			left: 0px;
+			text-align: center;
 		}
 		.ctrl-dot{
 			cursor: pointer;
-			float: left;
-			width: 14px;
-			height: 14px;
+			display: inline-block;
+			*display: inline;
+			*zoom:1;
+			width: 10px;
+			height: 10px;
+			overflow: hidden;
 			margin-right: 10px;
-			margin-top: 8px;
-			border-radius: 7px;
+			border-radius: 5px;
 			background-color: #c3c3c3;
+			opacity: 0.8;
 		}
 		.ctrl-dot:hover{
 			background-color: #aaa;
 		}
 		.ctrl-dot-this{
-			background-color: orange;
+			background-color: #00c9bd;
 		}
 		.ctrl-dot-this:hover{
-			background-color: orange;
+			background-color: #00c9bd;
 		}
 
 	</style>
@@ -122,19 +107,7 @@
 				<div class="slide-right-arrow slide-ctrl-arrow"></div>
 			</div>
 		</div>
-		<div class="slide-ctrl-dot-wrapper">
-			<div class="slide-ctrl-dots">
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-			</div>
-		</div>
 	</div>
-
 	<div id="slide-banner-1">
 		<div class="slide-img-wrapper">
 			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
@@ -149,77 +122,73 @@
 				<div class="slide-right-arrow slide-ctrl-arrow"></div>
 			</div>
 		</div>
-		<div class="slide-ctrl-dot-wrapper">
-			<div class="slide-ctrl-dots">
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-				<div class="ctrl-dot"></div>
-			</div>
-		</div>
 	</div>
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
 	<script>
 		$(function(){			
 
-			function Slide(id){
-				this.$slideCon = $(id+" .slide-img-wrapper a");
-				this.$ctrlDots = $(id+" .ctrl-dot"); 
-				this.$ctrlLeftArrow = $(id+" .slide-left-arrow");
-				this.$ctrlRightArrow = $(id+" .slide-right-arrow");
-				this.ctrlDotsAll = $(id+" .slide-ctrl-dots");
-				this.ctrlDotsAllWidth = $(id+" .slide-ctrl-dots").width();
+			function Slide(sec){
+				var dotstr = '<div class="slide-ctrl-dot-wrapper">';
+				this.$slide = $(sec);
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
+				this.$slideImgWrapper = $(".slide-img-wrapper",this.$slide);
 				this.pageNum = this.$slideCon.length;
-				this.bannerWidth = $(id).width();
-				this.bannerHeight = $(id).height();
-				this.imgWrapperWidth = $(id+" .slide-img-wrapper").width();
-				this.imgWrapperHeight = $(id+" .slide-img-wrapper").height();
-				this.imgWidth = $(id+" .slide-img-wrapper a").eq(0).width();
-				this.imgHeight = $(id+" .slide-img-wrapper a").eq(0).height();
-				this.scale = 0.8;
-				this.scaleOut = 0.5;
-				this.leftOutCss = {
-					height:this.imgHeight*this.scaleOut + "px",
-					width:this.imgWidth*this.scaleOut + "px",
-					top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
-					left:-this.imgWidth + "px"
-				};
-				this.leftCss = {
-					height:this.imgHeight*this.scale + "px",
-					width:this.imgWidth*this.scale + "px",
-					top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 + "px",
-					left:"0px"
-				},
-				this.middleCss = {
-					height:this.imgHeight + "px",
-					width:this.imgWidth + "px",
-					top:"0px",
-					left:(this.imgWrapperWidth-this.imgWidth)/2 + "px"
-				};
-				this.rightCss = {
-					height:this.imgHeight*this.scale +"px",
-					width:this.imgWidth*this.scale +"px",
-					top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 +"px",
-					left:(this.imgWrapperWidth-this.imgWidth*this.scale)+"px"
-				};
-				this.rightOutCss = {
-					height:this.imgHeight*this.scaleOut + "px",
-					width:this.imgWidth*this.scaleOut + "px",
-					top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
-					left:this.imgWrapperWidth + "px"
-				};
+				for(var i = this.pageNum ; i>0 ; --i){
+					dotstr += '<div class="ctrl-dot"></div>';
+				}
+				dotstr += '</div>';
+				this.$slide.append($(dotstr));
+				this.$ctrlDots = $(".ctrl-dot",this.$slide); 
+				this.$ctrlLeftArrow = $(".slide-left-arrow",this.$slide);
+				this.$ctrlRightArrow = $(".slide-right-arrow",this.$slide);
 			}
 
 			Slide.prototype = {
 				init:function(){
 					var self = this;
+					this.scale = 0.8;
+					this.scaleOut = 0.5;
 					this.pageNow = 0;
 					this.timer = null;
-					this.timeout = 2500;
-					this.ctrlDotsAll.css({"margin-left":-this.ctrlDotsAllWidth/2 +"px"});
+					this.iAutoSlide = false;
+					this.iHover = false;
+					this.timeout = 3600;
+					this.bannerWidth = this.$slide.width();
+					this.bannerHeight = this.$slide.height();
+					this.imgWrapperWidth = this.$slideImgWrapper.width();
+					this.imgWrapperHeight = this.$slideImgWrapper.height();
+					this.imgWidth = this.$slideCon.eq(0).width();
+					this.imgHeight = this.$slideCon.eq(0).height();
+					this.leftOutCss = {
+						height:this.imgHeight*this.scaleOut + "px",
+						width:this.imgWidth*this.scaleOut + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
+						left:-this.imgWidth + "px"
+					};
+					this.leftCss = {
+						height:this.imgHeight*this.scale + "px",
+						width:this.imgWidth*this.scale + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 + "px",
+						left:"0px"
+					},
+					this.middleCss = {
+						height:this.imgHeight + "px",
+						width:this.imgWidth + "px",
+						top:"0px",
+						left:(this.imgWrapperWidth-this.imgWidth)/2 + "px"
+					};
+					this.rightCss = {
+						height:this.imgHeight*this.scale +"px",
+						width:this.imgWidth*this.scale +"px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 +"px",
+						left:(this.imgWrapperWidth-this.imgWidth*this.scale)+"px"
+					};
+					this.rightOutCss = {
+						height:this.imgHeight*this.scaleOut + "px",
+						width:this.imgWidth*this.scaleOut + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
+						left:this.imgWrapperWidth + "px"
+					};
 					this.$slideCon.eq(this.pageNow).css(this.middleCss).css({"z-index":1000,"visibility":"visible"});
 					this.$slideCon.eq(this.nextPage(this.pageNow)).css(this.rightCss).css({"z-index":999,"visibility":"visible"});
 					this.$slideCon.eq(this.prevPage(this.pageNow)).css(this.leftCss).css({"z-index":998,"visibility":"visible"});
@@ -239,15 +208,21 @@
 					// 	if(event.data.self.timer){clearInterval(event.data.self.timer)};
 					// 	event.data.self.autoSlide();
 					// });
-					this.addEventArrow();
+
+					this.addDotsEvent();
+					this.addArrowEvent();
+					this.addHoverEvent();
+					this.autoSlide();
+				},
+				addDotsEvent:function(){
+					var self = this;
 					for(var i = 0 , len = this.pageNum ; i < len ; i++){
 						this.$ctrlDots.eq(i).data("indexNum",i);
 					}
 					this.$ctrlDots.on("click",function(event){
 						var indexNum = $(event.target).data("indexNum");
-						//console.log("data : " + indexNum);
 						if(self.pageNow == indexNum){
-
+							return false;
 						}else if(self.nextPage(self.pageNow) == indexNum){
 							self.slideLeft();
 						}else if(self.prevPage(self.pageNow) == indexNum){
@@ -269,35 +244,53 @@
 						if(self.timer){clearInterval(self.timer)};
 						self.autoSlide();
 					});
-					this.autoSlide();
 				},
-				addEventArrow:function(){
+				addArrowEvent:function(){
 					var self = this;
 					this.$ctrlRightArrow.on("click",$.proxy(function(){
 						this.slideLeft();
 						if(this.timer){clearInterval(this.timer)};
-						this.removeEventArrow();
-						setTimeout(function() {self.addEventArrow()}, 500);
+						this.removeArrowEvent();
+						setTimeout(function() {self.addArrowEvent()}, 500);
 						this.autoSlide();
 					},self));
 
 					this.$ctrlLeftArrow.on("click",function(){
 						self.slideRight();
 						if(self.timer){clearInterval(self.timer)};
-						self.removeEventArrow();
-						setTimeout(function() {self.addEventArrow()}, 500);
+						self.removeArrowEvent();
+						setTimeout(function() {self.addArrowEvent()}, 500);
 						self.autoSlide();
 					});
 				},
-				removeEventArrow:function(){
+				removeArrowEvent:function(){
 					this.$ctrlLeftArrow.off("click");
 					this.$ctrlRightArrow.off("click");
 				},
+				addHoverEvent:function(){
+					var self = this;
+					this.$slideCon.on("mouseenter",function(){
+						self.iHover = true;
+						self.stopAutoSlide();
+					}).on("mouseleave",function(){
+						self.iHover = false;
+						self.autoSlide();
+					});
+				},
 				autoSlide:function(){
 					var self = this;
-					this.timer = setInterval(function() {
-						self.slideLeft();
-					}, this.timeout);
+					if(!this.iAutoSlide && !this.iHover){
+						this.iAutoSlide = true;
+						this.timer = setInterval(function() {
+							self.slideLeft();
+						}, this.timeout);
+					}
+				},
+				stopAutoSlide:function(){
+					if(this.iAutoSlide && this.timer){
+						clearInterval(this.timer);
+						this.iAutoSlide = false;
+					}
 				},
 				nextPage:function(pageNow){
 					if(pageNow<this.pageNum-1){
