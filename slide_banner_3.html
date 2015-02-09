@@ -145,10 +145,6 @@
 						"width":this.imgWidth*(this.pageNum+2),
 						"left":-this.imgWidth
 					});
-					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-dot-this");
-					for(var i = 0 , len = this.pageNum ; i < len ; i++){
-						this.$ctrlDots.eq(i).data("indexNum",i);
-					}
 					this.addDotsEvent();
 					this.addArrowEvent();
 					this.addHoverEvent();
@@ -156,6 +152,10 @@
 				},
 				addDotsEvent:function(){
 					var self = this;
+					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-dot-this");
+					for(var i = 0 , len = this.pageNum ; i < len ; i++){
+						this.$ctrlDots.eq(i).data("indexNum",i);
+					}
 					this.$ctrlDots.on("click",function(){
 						var indexNum = $(this).data("indexNum");
 						if(self.pageNow == indexNum){
