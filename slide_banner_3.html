@@ -108,28 +108,25 @@
 				<div class="slide-right-arrow slide-ctrl-arrow"></div>
 			</div>
 		</div>
-		<div class="slide-ctrl-dot-wrapper">
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-			<div class="ctrl-dot"></div>
-		</div>
 	</div>
 	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
 	<script>
 		$(function(){
 
 			function Slide(sec){
+				var dotstr = '<div class="slide-ctrl-dot-wrapper">';
 				this.$slide = $(sec);
 				this.$slideImgs = $(".slide-imgs",this.$slide);
 				this.$slideCon = $(".slide-imgs a",this.$slide);
+				this.pageNum = this.$slideCon.length;
+				for(var i = this.pageNum ; i>0 ; --i){
+					dotstr += '<div class="ctrl-dot"></div>';
+				}
+				dotstr += '</div>';
+				this.$slide.append($(dotstr));
 				this.$ctrlDots = $(".ctrl-dot",this.$slide); 
 				this.$ctrlLeftArrow = $(".slide-left-arrow",this.$slide);
 				this.$ctrlRightArrow = $(".slide-right-arrow",this.$slide);
-				this.pageNum = this.$slideCon.length;
 				this.$slideImgs.prepend(this.$slideCon.eq(this.pageNum-1).clone());
 				this.$slideImgs.append(this.$slideCon.eq(0).clone());
 			}
