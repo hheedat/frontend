@@ -24,7 +24,7 @@
 			"height":winHeight
 		});
 
-		$win.resize(function(){
+		$win.on("resize",function(){
 			winHeight = $win.height();
 			winWidth = $win.width();
 			$slideList.css({
@@ -36,11 +36,11 @@
 			});
 		});
 		
-		$win.keydown(function(event){
-			var slide_direction = slideDec(event);
-			if(slide_direction === "down" || slide_direction === "right"){
+		$(document).on("keydown",function(event){
+			var dec = slideDec(event);
+			if(dec === "down" || dec === "right"){
 				slideDown();
-			}else if(slide_direction === "up" || slide_direction === "left"){
+			}else if(dec === "up" || dec === "left"){
 				slideUp();
 			}
 		});
@@ -94,13 +94,14 @@
 		        }
 		        prevent(ev);
 		    }
-		    function prevent(ev){
-			    if(ev.preventDefault){
-			        ev.preventDefault();
-			    }else{
-			        ev.returnValue = false;
-			    }
-			}
+		}
+
+		function prevent(ev){
+		    if(ev.preventDefault){
+		        ev.preventDefault();
+		    }else{
+		        ev.returnValue = false;
+		    }
 		}
 
 		function slideDec(event){
