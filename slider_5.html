@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>slide 4</title>
+<meta charset="utf-8">
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" href="./css_reset.css">
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+
+		var $win = $(window);
+		var winHeight = $win.height();
+		var winWidth = $win.width();
+		var $slides = $("#slides");
+		var $slideList = $(".slide",$slides);
+		var pageNow = 0;
+		var pageFirst = 0;
+		var pageLen = $slideList.length-1;
+		var slideTime = 1000;
+		
+		$slideList.css({
+			"width":winWidth,
+			"height":winHeight
+		});
+
+		$win.resize(function(){
+			winHeight = $win.height();
+			winWidth = $win.width();
+			$slideList.css({
+				"width":winWidth,
+				"height":winHeight
+			});
+			$slides.css({
+				"top":-pageNow*winHeight
+			});
+		});
+		
+		$win.keydown(function(event){
+			var slide_direction = slideDec(event);
+			if(slide_direction === "down" || slide_direction === "right"){
+				slideDown();
+			}else if(slide_direction === "up" || slide_direction === "left"){
+				slideUp();
+			}
+		});
+
+		wheel(document,slideUp,slideDown);
+
+		function slideDown(){
+			if(pageNow < pageLen){
+				++pageNow;
+				slideTo(-pageNow*winHeight);
+			}
+		}
+
+		function slideUp(){
+			if(pageNow > pageFirst){
+				--pageNow;
+				slideTo(-pageNow*winHeight);
+			}
+		}
+
+		function slideTo(position){
+			$slides.animate({
+				"top":position
+			},slideTime);
+		}
+
+		function wheel(obj,upFn,downFn,whell_level,timeout) {
+		    if(arguments.length < 3){
+		        return "wheel error : lack of arguments";
+		    }
+		    var bool = true;
+		    obj.onmousewheel = fn;  
+		    obj.addEventListener && obj.addEventListener('DOMMouseScroll',fn,false);
+		    function fn(ev){
+		        var ev = ev || window.event;
+		        var flag=false;
+		        var level = whell_level || 1;
+		        var time = timeout || 618;
+		        if(ev.wheelDelta){
+		            //console.log(ev.wheelDelta);
+		            (Math.abs(ev.wheelDelta)/120>=level) && (flag = ev.wheelDelta > 0 ? "up" : "down");
+		        }else if(ev.detail){
+		            //console.log(ev.detail);
+		            (Math.abs(ev.detail)/3>=level) && (flag = ev.detail < 0 ? "up" : "down");
+		        }
+		        if(bool&&flag){
+		        	flag==="up" && upFn();
+		        	flag==="down" && downFn();
+		        	bool = false;
+		        	setTimeout(function() { bool=true; }, time);
+		        }
+		        prevent(ev);
+		    }
+		    function prevent(ev){
+			    if(ev.preventDefault){
+			        ev.preventDefault();
+			    }else{
+			        ev.returnValue = false;
+			    }
+			}
+		}
+
+		function slideDec(event){
+            var code = event.keyCode;
+            switch(code){
+                //case 65://left
+                case 37:{
+                    return "left";
+                }
+                //case 87://up
+                case 38:{
+                    return "up";
+                }
+                //case 68://right
+                case 39:{
+                    return "right";
+                }
+                //case 83://down
+                case 40:{
+                    return "down";
+                }
+                // case 32:{//space
+                //     return "down";
+                // }
+            }
+        }
+
+	});
+</script>
+<style type="text/css">
+	#wrapper{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}#slides{
+		position: relative;
+		top: 0;
+	}
+	.slide{
+		position: relative;
+		background-color: #39f;
+	}
+	.slide p{
+	 	width:600px;
+	    height:300px;
+	    margin: auto;
+	    position: absolute;
+	    top: 0; left: 0; bottom: 0; right: 0;
+	    text-align: center;
+	    font-size: 50px;
+	    color: white;
+	}
+	.slide p span{
+		line-height: 300px;
+	}
+</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="nav-top">
+			
+		</div>
+		<div id="slides">
+			<div class="slide" id="slide-1"><p><span>content 1</span></p></div>
+			<div class="slide" id="slide-2"><p><span>content 2</span></p></div>
+			<div class="slide" id="slide-3"><p><span>content 3</span></p></div>
+			<div class="slide" id="slide-4"><p><span>content 4</span></p></div>
+		</div>
+	</div>
+</body>
+</html>
