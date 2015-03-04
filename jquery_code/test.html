@@ -39,7 +39,8 @@
 <body>
 	<div class="wp cf" onselectstart="return false" style="-moz-user-select:none;">
 		<div class="a" id="a1">a1</div>
-		<div class="a" id="a2">a2</div>
+		<div class="a aa" id="a2">a2</div>
+		<div class="a aa" id="a3">a3</div>
 	</div>
 	<div class="select">
 		<select name="" id="">
@@ -62,6 +63,12 @@
 		<button class="b7">test selector cache</button>
 		<button class="b8">remove/prepend a1</button>
 		<button class="b9">detach/prepend a1</button>
+		<button class="b10">clone a1 and after to a2</button>
+		<button class="b11">clone a1 true and after to a2</button>
+		<button class="b12">after a1 to aa</button>
+		<button class="b13">add &ltdiv class="a"&gtax&lt/div&gt after a1</button>
+		<button class="b14">add "apple" after a1</button>
+		<button class="b15">add a script</button>
   	</div>
 
 <script src="jquery-2.1.3.js"></script>
@@ -74,7 +81,9 @@ $(function(){
 	var $wp = $(".wp"),
 		$a1 = $("#a1"),
 		$a2 = $("#a2"),
+		$a3 = $("#a3"),
 		$a = $(".a"),
+		$aa = $(".aa"),
 		$select = $(".select"),
 		$radio = $(".radio");
 
@@ -134,6 +143,30 @@ $(function(){
 		}else{
 			b9_flag = $a1.detach();
 		}
+	});
+
+	$("button.b10").on("click",function(){
+		$a2.after($a1.clone());
+	});
+
+	$("button.b11").on("click",function(){
+		$a2.after($a1.clone(true));
+	});
+
+	$("button.b12").on("click",function(){
+		$aa.after($a1);
+	});
+
+	$("button.b13").on("click",function(){
+		$a1.after('<div class="a">ax</div>');
+	});
+
+	$("button.b14").on("click",function(){
+		$a1.after("apple");
+	});
+
+	$("button.b15").on("click",function(){
+		$a1.after('<script>alert("apple")<\/script>');
 	});
 });
 </script>
