@@ -7,7 +7,7 @@
     <script type="text/javascript" src="cocos2d-js-v3.3-lite.js" charset="UTF-8"></script>
 </head>
 <body>   
-    <canvas id="gameCanvas" width="640" height="1136"></canvas>
+    <canvas id="gameCanvas"></canvas>
     <script type="text/javascript">
         window.onload = function(){
 
@@ -27,7 +27,7 @@
 
             cc.game.onStart = function(){
                     cc.view.adjustViewPort(true);
-                    cc.view.setDesignResolutionSize(640,1136,cc.ResolutionPolicy.SHOW_ALL);
+                    cc.view.setDesignResolutionSize(640,1136,cc.ResolutionPolicy.EXACT_FIT);
                     cc.view.resizeWithBrowserSize(true);
                     cc.LoaderScene.preload(g_resources, function () {
                     cc.director.runScene(new StartScene());
