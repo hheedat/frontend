@@ -4,9 +4,9 @@
     "id"            : "gameCanvas",
     "renderMode"    : 1,
     "jsList"        : [
-    	"src/resource.js",
-        "src/StartScene.js",
-        "src/PlayScene.js",
-        "src/TargetSprite.js"
+    	// "src/resource.js",
+     //    "src/StartScene.js",
+     //    "src/PlayScene.js",
+     //    "src/TargetSprite.js"
     ]
 }
