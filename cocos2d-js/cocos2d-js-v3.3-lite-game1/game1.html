@@ -4,6 +4,13 @@
     <title>Cocos2d-JS game-1</title> 
     <meta charset="utf-8">
     <link href="../../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+    body{
+        background-image: url(res/background.jpg);
+        padding:0;
+        margin: 0;
+    }
+    </style>
     <script type="text/javascript" src="cocos2d-js-v3.3-lite.js" charset="UTF-8"></script>
 </head>
 <body>   
@@ -27,7 +34,7 @@
 
             cc.game.onStart = function(){
                     cc.view.adjustViewPort(true);
-                    cc.view.setDesignResolutionSize(640,1136,cc.ResolutionPolicy.EXACT_FIT);
+                    cc.view.setDesignResolutionSize(640,1136,cc.ResolutionPolicy.SHOW_ALL);
                     cc.view.resizeWithBrowserSize(true);
                     cc.LoaderScene.preload(g_resources, function () {
                     cc.director.runScene(new StartScene());
