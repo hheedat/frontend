@@ -112,16 +112,18 @@
                     
                     this.schedule(this.update, 1, 16*1024, 1);
                     
-                    this.scoreLabel = new cc.LabelTTF("score:0","Arial",20);
+                    this.scoreLabel = new cc.LabelTTF("score:0","Arial",36);
                     this.scoreLabel.attr({
-                        x:size.width - 50,
-                        y:size.height - 20
+                        x:size.width - 70,
+                        y:size.height - 20,
+                        fillStyle:cc.color("#000")
                     });
                     this.addChild(this.scoreLabel, 5);
                     
-                    this.timeoutLabel = new cc.LabelTTF(""+this.timeout,"Arial",30);
-                    this.timeoutLabel.x = 20;
+                    this.timeoutLabel = new cc.LabelTTF("time:"+this.timeout,"Arial",36);
+                    this.timeoutLabel.x = 70;
                     this.timeoutLabel.y = size.height - 20;
+                    this.timeoutLabel.fillStyle = cc.color("#000");
                     this.addChild(this.timeoutLabel,5);
                     
                     this.schedule(this.timer, 1, this.timeout, 1);
@@ -196,7 +198,7 @@
                         return ;
                     }
                     this.timeout -= 1;
-                    this.timeoutLabel.setString(""+this.timeout);
+                    this.timeoutLabel.setString("time:"+this.timeout);
                 }
             });
 
