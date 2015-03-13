@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Cocos2d-JS game-1-1</title> 
+    <title>game-1-1</title> 
     <meta charset="utf-8">
     <link href="../../favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <style>
@@ -233,7 +233,7 @@
                         if(cc.rectContainsPoint(target.getBoundingBox(), pos)){
                             console.log("touched");
                             target.removeTouchEventListenser();
-                            console.log("pos.x=" + pos.x + ",pos.y" + pos.y);
+                            console.log("pos.x=" + pos.x + ",pos.y=" + pos.y);
                             target.stopAllActions();
                             var ac = target.disappearAction;
                             var seqAc = cc.Sequence.create(ac,cc.CallFunc.create(function(){
