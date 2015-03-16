@@ -14664,7 +14664,8 @@ cc.RemoveSelf = cc.ActionInstant.extend({
         this.target.removeFromParent(this._isNeedCleanUp);
     },
     /**
-     * Initialization of the node, please do not call this function by yourself, you should pass the parameters to constructor to initialize it .
+     * Initialization of the node, please do not call this function by yourself, you should pass the parameters to constructor to initialize it
+.
      * @param isNeedCleanUp
      * @returns {boolean}
      */
