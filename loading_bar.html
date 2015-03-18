@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>loading bar</title>
+        <link rel="stylesheet" href="./css_reset.css">
+        <style>
+            .loading-bar{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                overflow-x: hidden;
+            }
+            .loading-banner{
+                position: relative;
+                left: 0;
+                top: 0;
+            }
+            .is-loading{
+                height: 2px;
+                z-index:10;
+                background:orange;
+                transform: translateX(-100%);
+                -webkit-animation-name:"loading";
+                -webkit-animation-duration:1s;
+                -webkit-animation-delay:0.1s;
+                -webkit-animation-iteration-count:infinite;
+                -webkit-animation-timing-function:ease-in-out;
+            }
+            @-webkit-keyframes "loading"{
+                0%{
+                    transform: translateX(-100%);
+                }
+                50%{
+                    transform: translateX(0);
+                }
+                100%{
+                    transform: translateX(100%);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loading-bar">
+            <div class="loading-banner is-loading"></div>
+        </div>
+        <h2> this is a loading bar demo...</h2>
+        <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+        <script>
+        $(function(){
+            setTimeout(function(){
+                $(".loading-banner").removeClass("is-loading");
+                console.log("remove class");
+            },2000);
+        });
+        </script>
+    </body> 
+</html>

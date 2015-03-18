@@ -139,7 +139,7 @@
 					this.iAutoSlide = false;
 					this.iHover = false;
 					this.timeout = 3600;
-					this.slideTime = 800;
+					this.slideTime = 600;
 					this.imgWidth = this.$slideCon.width();
 					this.$slideImgs.css({
 						"width":this.imgWidth*(this.pageNum+2),
@@ -235,7 +235,7 @@
 					if(isLiner){
 						this.$slideImgs.animate({
 							"left":-(thisPage+1)*this.imgWidth
-						},800,callback);
+						},this.slideTime,callback);
 					}else{
 						this.$slideImgs.css({
 							"left":-(thisPage+1)*this.imgWidth
