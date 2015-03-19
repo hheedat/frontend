@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>loading bar</title>
+        <title>loading bar 1</title>
         <link rel="stylesheet" href="./css_reset.css">
         <style>
             .loading-bar{
@@ -14,8 +14,9 @@
                 width: 100%;
                 overflow-x: hidden;
             }
-            .loading-banner{
-                position: relative;
+            .loading{
+                position: absolute;
+                width: 100%;
                 left: 0;
                 top: 0;
             }
@@ -24,36 +25,51 @@
                 z-index:10;
                 background:orange;
                 transform: translateX(-100%,2px);
-                -webkit-animation-name:"loading";
-                -webkit-animation-duration:1s;
+                -webkit-animation-name:"loading_a";
+                -webkit-animation-duration:5s;
                 -webkit-animation-delay:0.1s;
-                -webkit-animation-iteration-count:infinite;
-                -webkit-animation-timing-function:ease-in-out;
+                -webkit-animation-iteration-count:1;
+                -webkit-animation-timing-function:ease-out;
             }
-            @-webkit-keyframes "loading"{
+            .loading-complete{
+                height: 2px;
+                z-index:10;
+                background:orange;
+                -webkit-animation-name:"loading_b";
+                -webkit-animation-duration:0.2s;
+                -webkit-animation-delay:0;
+                -webkit-animation-iteration-count:1;
+                -webkit-animation-timing-function:ease-in;
+            }
+            @-webkit-keyframes "loading_a"{
                 0%{
                     transform: translate(-100%,2px);
                 }
-                50%{
-                    transform: translate(0,2px);
+                100%{
+                    transform: translate(-60%,2px);
+                }
+            }
+            @-webkit-keyframes "loading_b"{
+                0%{
+                    transform: translate(-60%,2px);
                 }
                 100%{
-                    transform: translate(100%,2px);
+                    transform: translate(0,2px);
                 }
             }
         </style>
     </head>
     <body>
         <div class="loading-bar">
-            <div class="loading-banner is-loading"></div>
+            <div class="loading is-loading"></div>
         </div>
         <h2> this is a loading bar demo...</h2>
         <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
         <script>
         $(function(){
             setTimeout(function(){
-                //$(".loading-banner").removeClass("is-loading");
-                console.log("remove class");
+                $(".loading").addClass("loading-complete");
+                console.log("add class");
             },2000);
         });
         </script>
