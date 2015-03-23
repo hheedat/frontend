@@ -1,3 +1,4 @@
+//ready
 function ready(callBack){
 	var bReady = true;
 	if(document.addEventListener){
@@ -42,3 +43,21 @@ function ready(callBack){
 	};
 };
 
+//addEvent
+function addEvent(target,type,handler){
+	if(target.addEventListener){
+		target.addEventListener(type,handler,false);
+	}else{
+		target.attachEvent("on"+type,function(event){
+			return handler.call(target,event);
+		});
+	}
+}
+//cancelHandler
+function prevent(event){
+	var event = event || window.event;
+	if(event.preventDefault) event.preventDefault();
+	if(event.returnValue) event.returnValue = false;
+	return false;
+}
+//
