@@ -103,6 +103,7 @@ function getByteLen(val) {
     return len; 
 } 
 
+
 // function getCookie(name){
 //     if (document.cookie.length>0){
 //         var start=document.cookie.indexOf(name + "=");
