@@ -43,6 +43,16 @@ function ready(callBack){
 	};
 };
 
+//other ready
+function onReady(fn) {
+    var readyState = document.readyState;
+    if (readyState === 'interactive' || readyState === 'complete') {
+        fn();
+    } else {
+        window.addEventListener('DOMContentLoaded', fn);
+    }
+}
+
 //addEvent
 function addEvent(target,type,handler){
 	if(target.addEventListener){
