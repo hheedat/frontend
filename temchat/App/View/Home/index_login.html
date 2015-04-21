@@ -1,7 +1,8 @@
-<h4>Please login</h4>
-<div>
-    <div>
-        <form action="/admin/index/login" method="POST">
+<%- include ../Common/header %>
+<div class="wrapper">
+    <h4><%=title%></h4>
+    <div class="login-box">
+        <form action="/home/index/login" method="POST">
             <div>
                 <input type="text" name="name" placeholder="username"/>
             </div>
@@ -12,3 +13,4 @@
         </form>
     </div>
 </div>
+<%- include ../Common/footer %>
