@@ -43,7 +43,7 @@ body {
 button {
   padding: 3px; }
 
-#warn-line {
+#warn-line, #email-used {
   color: red; }
 
 /*# sourceMappingURL=style.css.map */

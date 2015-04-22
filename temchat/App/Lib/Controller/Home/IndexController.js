@@ -27,7 +27,7 @@ module.exports = Controller("Home/BaseController", function() {
                             'info':'登录邮箱或者密码不正确',
                             'title':'登录'
                         });
-                        throw new Error('登录邮箱或者密码不正确');
+                        //throw new Error('登录邮箱或者密码不正确');
 						return self.display();
 					} else {
                         //用户登录成功写入Session
