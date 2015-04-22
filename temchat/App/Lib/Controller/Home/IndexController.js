@@ -14,7 +14,6 @@ module.exports = Controller("Home/BaseController", function() {
 
 			//页面post
 			if (self.isPost()) {
-				//用户登录成功写入Session
 				var name = self.post('name'); //获取post过来的用户名
 				var pwd = self.post('pwd'); //获取post过来的密码
 
@@ -23,24 +22,23 @@ module.exports = Controller("Home/BaseController", function() {
 					pwd: md5(pwd)
 				}).find().then(function(data) {
 					if (isEmpty(data)) {
-						//用户名或者密码不正确，返回错误信息
                         self.assign({
                             'info':'用户名或者密码不正确',
                             'title':'登录'
                         });
+                        throw new Error('用户名或者密码不正确');
 						return self.display();
 					} else {
+                        //用户登录成功写入Session
 						return self.session('userInfo', data);
 					}
 				}).then(function() {
-					//登录成功跳转
                     self.assign({
                         'info':"登录成功"
                     });
 					return self.display('index');
 				});
 			} else {
-				//页面加载
 				self.assign({
 					'title': '登录'
 				});
@@ -53,25 +51,37 @@ module.exports = Controller("Home/BaseController", function() {
 				var name = self.post('name');
 				var pwd = self.post('pwd');
 
-				return D('User').add({
-					name:name,
-					pwd:md5(pwd)
-				}).then(function(insertId){
-                    console.log("apple:"+insertId);
-                    if(insertId){
+                return D('User').where({
+                    name:name
+                }).find().then(function(data){
+                    if(!isEmpty(data)){
                         self.assign({
-                            'info':'注册成功'
+                            'info':'这个用户名已经被注册',
+                            'title':'注册'
                         });
-                        return self.display('index');
+                        self.display();
                     }else{
-                        throw new Error("注册似乎出了一些问题");
+                        return D('User').add({
+                            name:name,
+                            pwd:md5(pwd)
+                        }).then(function(insertId){
+                            console.log("apple:"+insertId);
+                            if(insertId){
+                                self.assign({
+                                    'info':'注册成功'
+                                });
+                                return self.display('index');
+                            }else{
+                                throw new Error("注册似乎出了一些问题");
+                            }
+                        }).catch(function(err){
+                            self.assign({
+                                'info':err
+                            });
+                            return self.display();
+                        });
                     }
-                }).catch(function(err){
-                    self.assign({
-                        'info':err
-                    });
-                    return self.display();
-                });
+                })
 			}else{
                 self.assign({
                     'title':'注册'
