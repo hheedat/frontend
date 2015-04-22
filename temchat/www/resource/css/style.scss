@@ -1,3 +1,5 @@
+$red : red;
+
 body{
   font-family: Microsoft YaHei,Arial,SimSun,Tahoma;
 }
@@ -16,4 +18,7 @@ body{
   div{
     margin: 15px auto;
   }
+}
+#warn-line{
+  color: $red;
 }

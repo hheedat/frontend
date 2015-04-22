@@ -13,4 +13,7 @@ body {
 .register-box div {
   margin: 15px auto; }
 
+#warn-line {
+  color: red; }
+
 /*# sourceMappingURL=style.css.map */
