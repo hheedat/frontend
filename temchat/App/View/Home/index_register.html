@@ -1,15 +1,17 @@
 <%- include ../Common/header %>
 <div class="wrapper">
     <h4><%=title%></h4>
-    <div class="login-box">
-        <form action="/home/index/login" method="POST">
+    <div class="register-box">
+        <form action="/home/index/register" method="post">
             <div>
                 <input type="text" name="name" placeholder="username"/>
             </div>
             <div>
                 <input type="password" name="pwd" placeholder="password"/>
             </div>
-            <button type="submit">登录</button>
+            <div>
+                <button type="submit">注册</button>
+            </div>
         </form>
     </div>
 </div>

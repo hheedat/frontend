@@ -24,13 +24,20 @@ module.exports = Controller("Home/BaseController", function() {
 				}).find().then(function(data) {
 					if (isEmpty(data)) {
 						//用户名或者密码不正确，返回错误信息
-						return self.error(403, '用户名或者密码不正确');
+                        self.assign({
+                            'info':'用户名或者密码不正确',
+                            'title':'登录'
+                        });
+						return self.display();
 					} else {
 						return self.session('userInfo', data);
 					}
 				}).then(function() {
 					//登录成功跳转
-					return self.redirect('index');
+                    self.assign({
+                        'info':"登录成功"
+                    });
+					return self.display('index');
 				});
 			} else {
 				//页面加载
@@ -39,6 +46,38 @@ module.exports = Controller("Home/BaseController", function() {
 				});
 				return self.display();
 			}
+		},
+		registerAction:function(){
+			var self = this;
+			if(self.isPost()){
+				var name = self.post('name');
+				var pwd = self.post('pwd');
+
+				return D('User').add({
+					name:name,
+					pwd:md5(pwd)
+				}).then(function(insertId){
+                    console.log("apple:"+insertId);
+                    if(insertId){
+                        self.assign({
+                            'info':'注册成功'
+                        });
+                        return self.display('index');
+                    }else{
+                        throw new Error("注册似乎出了一些问题");
+                    }
+                }).catch(function(err){
+                    self.assign({
+                        'info':err
+                    });
+                    return self.display();
+                });
+			}else{
+                self.assign({
+                    'title':'注册'
+                });
+                return self.display();
+            }
 		}
 	};
 });
