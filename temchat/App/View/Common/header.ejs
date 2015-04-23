@@ -10,8 +10,13 @@
 <div class="hd cf">
     <div class="user-status">
         <a href="/">首页</a>
-        <a href="/home/index/login">登录</a>
-        <a href="/home/index/register">注册</a>
+        <%if(locals.islogin){%>
+            <a href="/"><%=locals.name%></a>
+            <a href="/home/index/logout">退出</a>
+        <%}else{%>
+            <a href="/home/index/login">登录</a>
+            <a href="/home/index/register">注册</a>
+        <%}%>
         <a class="site-name" href="/">
             <span>t</span><span>e</span><span>m</span><span>p</span><span>c</span><span>h</span><span>a</span><span>t</span>
         </a>
