@@ -8,17 +8,16 @@ module.exports = Controller("Home/BaseController", function() {
 		indexAction: function() {
 			//render View/Home/index_index.html file
             var self = this;
-            return self.session('userInfo').then(function(data){
-                if(isEmpty(data)) {
-                    return self.display();
-                }else{
-                    self.assign({
-                        'islogin':true,
-                        'name':data.name
-                    })
-                    return self.display();
-                }
-            });
+            console.log("user info : "+self.userInfo);
+            if(isEmpty(self.userInfo)){
+                return self.display();
+            }else{
+                self.assign({
+                    'islogin':true,
+                    'name':self.userInfo.name
+                });
+                return self.display();
+            }
 		},
         logoutAction:function(){
             var self = this;
@@ -29,13 +28,20 @@ module.exports = Controller("Home/BaseController", function() {
 		loginAction: function() {
 			var self = this;
 
-			//页面post
 			if (self.isPost()) {
                 var email = self.post('email');
 				var pwd = self.post('pwd');
                 var name = null;
 
-				return D('User').where({ //根据用户名和密码查询符合条件的数据
+                if(isEmpty(email) || isEmpty(pwd)){
+                    return self.assign({
+                        'info':'您绕过了前端脚本检测提交了空信息？',
+                        'title':'登录-好好登录'
+                    });
+                    self.display();
+                }
+
+				return D('User').where({
 					email : email,
 					pwd : md5(pwd)
 				}).find().then(function(data) {
@@ -44,7 +50,6 @@ module.exports = Controller("Home/BaseController", function() {
                             'info':'登录邮箱或者密码不正确',
                             'title':'登录'
                         });
-                        //throw new Error('登录邮箱或者密码不正确');
 						return self.display();
 					} else {
                         //用户登录成功写入Session
@@ -52,11 +57,6 @@ module.exports = Controller("Home/BaseController", function() {
 						return self.session('userInfo', data);
 					}
 				}).then(function() {
-                    //self.assign({
-                    //    'islogin':true,
-                    //    'name':name
-                    //})
-                    //return self.display('index');
                     return self.redirect('index');
 				});
 			} else {
@@ -72,6 +72,14 @@ module.exports = Controller("Home/BaseController", function() {
                 var email = self.post('email');
 				var name = self.post('name');
 				var pwd = self.post('pwd');
+
+                if(isEmpty(email)||isEmpty(name)||isEmpty(pwd)){
+                    return self.assign({
+                        'info':'您绕过了前端脚本检测提交了空信息？',
+                        'title':'注册-好好注册'
+                    });
+                    self.display();
+                }
 
                 return D('User').where({
                     email : email
@@ -126,6 +134,11 @@ module.exports = Controller("Home/BaseController", function() {
                     }
                 });
             }
+        },
+        _404Action:function(){
+            var self = this;
+            self.status(404);
+            self.end('404 page not found');
         }
 	};
 });
