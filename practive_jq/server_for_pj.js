@@ -24,6 +24,11 @@ http.createServer(function(req,res){
         res_info = callback+"("+res_info+")";
     }
 
+    if(req_path==="/req3"){
+        var user_list = url_info.user_list;
+        res_info.user_list = user_list;
+    }
+
     function checkInfo(id){
         switch(id){
             case "1": return "Tom";
