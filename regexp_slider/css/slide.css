@@ -1,3 +1,13 @@
 body{
-  font-family: Consolas,Monaco,'Andale Mono',monospace;
+    font-family: Consolas,Monaco,'Andale Mono',monospace;
+}
+.code-wrapper{
+    margin: 30px auto;
+    width:900px;
+    height:400px;
+}
+#editor {
+    width:900px;
+    height:400px;
+    font-size: 16px;
 }
