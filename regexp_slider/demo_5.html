@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo 5</title>
+    <style>
+        .wrapper{
+            margin: 30px auto;
+            width:860px;
+            height:400px;
+        }
+        #editor {
+            width:860px;
+            height:400px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <div class="run-box">
+        <button id="run">RUN CODE</button>
+        <br/><br/>
+    </div>
+
+<div id="editor">var str = 'The name "McDonald\'s" is said "makudonarudo" in Japanese';
+var reg = /".*"/;
+
+console.log(reg.exec(str)[0]);</div>
+
+</div>
+<script src="./js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.$blockScrolling = Infinity;
+    editor.getSession().setMode("ace/mode/javascript");
+
+    var run = document.getElementById("run");
+    var result = document.getElementById("result");
+    run.addEventListener("click",runCode,false);
+
+    function runCode(){
+        eval(editor.getValue());
+    }
+</script>
+</body>
+</html>
