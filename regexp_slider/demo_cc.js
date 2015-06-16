@@ -1,3 +1,34 @@
+function f(str){
+    var res = str.match(/(([01]+?)[01]*?)\1+\2$/);
+    return {
+        src: str,
+        tail: res[0],
+        sub: res[1],
+        len: res[0].length / res[1].length
+    }
+}
+console.log(f('11111111101001001001001001'));
+
+
+
+var str = "apple1 banana apple2";
+var reg = /apple\w/g;
+
+console.log(reg.exec(str));
+console.log(reg.exec(str));
+console.log(str.match(reg));
+
+
+
+var str = "apple1 banana \napple2";
+var reg = /^apple\w/gm;
+
+console.log(reg.exec(str));
+console.log(reg.exec(str));
+console.log(str.match(reg));
+
+
+
 var re = /o/g; //全局匹配
 console.log(re.lastIndex); //0,lastIndex属性的初始值为0
 console.log(re.test("foo")); //true,匹配了第二个字符
@@ -10,6 +41,8 @@ console.log(re.test("foo")); //true,又一次重新开始匹配
 console.log(re.lastIndex); //2,一直循环下去
 re.lastIndex = 3; //手动修改为3
 console.log(re.test("foo")); //false,从第三个字符后开始匹配,所以匹配失败
+
+
 
 var re = /./y; //粘滞匹配
 console.log(re.test("foo")); //true
@@ -24,15 +57,19 @@ console.log(re.test("foo")); //false,所以匹配会一直失败下去
 re.lastIndex = 0; //同样可以手动修改lastIndex属性的值
 console.log(re.test("foo")); //true
 
+
+
 var re = /^./y;
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"))
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"))
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"))
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"))
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"));
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"));
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"));
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo"));
+
+
 
 var re = /o/y; //相当于/^o/y
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")) //false
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
 re.lastIndex = 1; //手动跳过了第一个字符f,^现在匹配的位置就是f和o之间的位置,所以^o能匹配.
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")) //false
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")) //false
-console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")) //false
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
+console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false

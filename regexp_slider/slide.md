@@ -7,7 +7,11 @@ files: /js/all.js,/css/slide.css
 
 [slide]
 # 正则表达式
-## 演讲者：赵宇翔
+#### 赵宇翔
+<br>
+#### 微信：[hheedat](http://p8.qhimg.com/d/inn/c25e09cc/wechat.png)    微博：[loadfail](http://weibo.com/zyxcomeon)    GitHub:[hheedat](https://github.com/hheedat)
+<br>
+![wechat](/img/wechat.png)
 
 [slide]
 # 主要内容： {:&.flexbox.vleft}
@@ -71,7 +75,13 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 ![兼容性视图](/img/compatibility1.png)
 
 [slide]
-<iframe class="code-iframe" data-src="/demo_1.html" src="about:blank;"></iframe>
+<iframe class="code-iframe" data-src="/demo_2.html" src="about:blank;"></iframe>
+
+[slide]
+<iframe class="code-iframe" data-src="/demo_3.html" src="about:blank;"></iframe>
+
+[slide]
+<iframe class="code-iframe" data-src="/demo_2.html" src="about:blank;"></iframe>
 
 [slide]
 # 表达式的匹配原理
@@ -106,6 +116,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 <iframe class="code-iframe" data-src="/demo_5.html" src="about:blank;"></iframe>
 
 [slide]
+![backtracking.png](/img/backtracking.png)
 
 [slide]
 
