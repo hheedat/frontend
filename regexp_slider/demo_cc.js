@@ -73,3 +73,64 @@ re.lastIndex = 1; //手动跳过了第一个字符f,^现在匹配的位置就是
 console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
 console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
 console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
+
+
+var testTime = 10000;
+var reg1 = /([a-g])+/;
+var reg2 = /(a|b|c|d|e|f|g)+/;
+
+var str = "aabceedffg";
+for(var i=0;i<10;++i){
+    str += str;
+}
+
+console.time("reg1 time");
+for(var i=0;i<testTime;++i){
+    reg1.exec(str);
+}
+console.timeEnd("reg1 time");
+
+console.time("reg2 time");
+for(var i=0;i<testTime;++i){
+    reg2.exec(str);
+}
+console.timeEnd("reg2 time");
+
+
+
+var str = "selectHomeClass";
+
+function formatStr(str){
+    var reg = /([A-Z])/g;
+    return str.replace(reg,function(re){
+        return "_"+re.toLowerCase();
+    });
+}
+
+function formatStr2(str){
+    return str.replace(/([a-z\d])([A-Z])/g, '$1_$2').toLowerCase();
+    //return str.replace(/([A-Z])(?=[a-z\d])/g, '_$1').toLowerCase();
+}
+
+console.log(formatStr(str));
+console.log(formatStr2(str));
+
+
+var reg = /water|to|watermelon/;
+var str = "a watermelon is a large, heavy fruit with green skin, pink flesh, and black seeds";
+
+console.log(str.match(reg));
+
+
+
+var reg = /^.*([0-9]+)/;
+var str = "Copyright 2015";
+
+console.log(reg.exec(str));
+
+
+
+var reg = /(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) *(?:0?[1-9]|[12][0-9]|3[01])/gi;
+var str = "Jan 1 Mar 04 Big 2333 Jun  23 Oct 10 hello world Dec 31";
+
+console.log(str.match(reg));
