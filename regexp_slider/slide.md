@@ -121,6 +121,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 [slide]
 
 [slide]
+<iframe class="code-iframe" data-src="/demo_word.html" src="about:blank;"></iframe>
 
 [slide]
 
