@@ -68,9 +68,9 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 | 参数 | 描述 |
 | :------------- | :------------- |
 | i       | 忽略大小写       |
-| m       | 让开始和结束字符（^ 和 $）工作在多行模式   |
-| g       | 全局匹配      |
-| y       | sticky 粘滞 [demo1](#9)       |  
+| m       | 让开始和结束字符（^ 和 $）工作在多行模式 [demo](#9)  |
+| g       | 全局匹配 [demo](#10)     |
+| y       | sticky 粘滞 [demo](#11) [demo](#12)      |  
 <br>
 ![兼容性视图](/img/compatibility1.png)
 
@@ -81,7 +81,10 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 <iframe class="code-iframe" data-src="/demo_3.html" src="about:blank;"></iframe>
 
 [slide]
-<iframe class="code-iframe" data-src="/demo_2.html" src="about:blank;"></iframe>
+<iframe class="code-iframe" data-src="/demo_4.html" src="about:blank;"></iframe>
+
+[slide]
+<iframe class="code-iframe" data-src="/demo_5.html" src="about:blank;"></iframe>
 
 [slide]
 # 表达式的匹配原理
@@ -113,48 +116,58 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 ###6.匹配彻底失败：如果从目标字符串的每一个字符（包括最后一个字符之后的位置）开始的尝试都失败了，就会报告匹配彻底失败。
 
 [slide]
-<iframe class="code-iframe" data-src="/demo_5.html" src="about:blank;"></iframe>
+<iframe class="code-iframe" data-src="/demo_6.html" src="about:blank;"></iframe>
 
 [slide]
 ![backtracking.png](/img/backtracking.png)
 
 [slide]
+{:&.flexbox.vleft}
+####回溯的陷阱
+<iframe class="code-iframe" data-src="/demo_7.html" src="about:blank;"></iframe>
 
 [slide]
+{:&.flexbox.vleft}
+####多选结构的陷阱
+<iframe class="code-iframe" data-src="/demo_8.html" src="about:blank;"></iframe>
+
+[slide]
+{:&.flexbox.vleft}
+####多选结构的陷阱
+<iframe class="code-iframe" data-src="/demo_9.html" src="about:blank;"></iframe>
+
+[slide]
+{:&.flexbox.vleft}
+###性能问题
+<iframe class="code-iframe" data-src="/demo_10.html" src="about:blank;"></iframe>
+
+[slide]
+{:&.flexbox.vleft}
+##常识性优化
+###避免重新编译
+###使用非捕获型括号 (?: )
+###不要滥用括号 (.)*
+###不要滥用字符组 ^.* [:]
+###使用起始锚点
+
+[slide]
+{:&.flexbox.vleft}
+##一些关于优化的关键字
 <iframe class="code-iframe" data-src="/demo_word.html" src="about:blank;"></iframe>
 
 [slide]
+###参考资料:
+
+{:&.flexbox.vleft}
+
+###[《精通正则表达式》](http://book.douban.com/subject/2154713/)
+
+###https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+
+###http://www.cnblogs.com/ziyunfei/archive/2012/12/07/2807313.html
 
 [slide]
+# Q&A
 
 [slide]
-
-[slide]
-
-[slide]
-
-[slide]
-
-[slide]
-
-[slide]
-
-
-
-
-
-
-
-```javascript
-alert('nodeppt');
-```
-
-[slide]
-
-## 主页面样式
-### ----是上下分界线
-----
-
-nodeppt是基于nodejs写的支持 **Markdown!** 语法的网页PPT，当前版本：1.2.3
-
-Github：https://github.com/ksky521/nodePPT
+# THANK U

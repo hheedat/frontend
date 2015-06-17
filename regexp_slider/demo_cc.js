@@ -76,8 +76,8 @@ console.log("lastIndex : ",re.lastIndex," result : ",re.exec("foo")); //false
 
 
 var testTime = 10000;
-var reg1 = /([a-g])+/;
-var reg2 = /(a|b|c|d|e|f|g)+/;
+var reg1 = /(?:[a-g])+/;
+var reg2 = /([a-g])+/;
 
 var str = "aabceedffg";
 for(var i=0;i<10;++i){
