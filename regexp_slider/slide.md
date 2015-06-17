@@ -166,6 +166,8 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 
 ###http://www.cnblogs.com/ziyunfei/archive/2012/12/07/2807313.html
 
+###http://regexper.com/
+
 [slide]
 # Q&A
 
