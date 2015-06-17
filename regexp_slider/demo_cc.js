@@ -116,13 +116,6 @@ console.log(formatStr(str));
 console.log(formatStr2(str));
 
 
-var reg = /water|to|watermelon/;
-var str = "a watermelon is a large, heavy fruit with green skin, pink flesh, and black seeds";
-
-console.log(str.match(reg));
-
-
-
 var reg = /^.*([0-9]+)/;
 var str = "Copyright 2015";
 
@@ -130,7 +123,14 @@ console.log(reg.exec(str));
 
 
 
-var reg = /(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) *(?:0?[1-9]|[12][0-9]|3[01])/gi;
-var str = "Jan 1 Mar 04 Big 2333 Jun  23 Oct 10 hello world Dec 31";
+var reg = /water|to|watermelon/;
+var str = "a watermelon is a large, heavy fruit with green skin, pink flesh, and black seeds";
+
+console.log(str.match(reg));
+
+
+
+var reg = /jan *(?:0?[1-9]|[12][0-9]|3[01])/gi;
+var str = "Jan 01 Mar 04 Big 2333 jan  9 Jun  23 Oct 10 hello world Jan 31";
 
 console.log(str.match(reg));

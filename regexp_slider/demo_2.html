@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>demo 2</title>
-    <style>
-        .wrapper{
-            margin: 30px auto;
-            width:860px;
-            height:400px;
-        }
-        #editor {
-            width:860px;
-            height:400px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/demo.css">
 </head>
 <body>
 <div class="wrapper">
@@ -31,19 +20,6 @@ console.log(str.match(reg));</div>
 
 </div>
 <script src="./js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.$blockScrolling = Infinity;
-    editor.getSession().setMode("ace/mode/javascript");
-
-    var run = document.getElementById("run");
-    var result = document.getElementById("result");
-    run.addEventListener("click",runCode,false);
-
-    function runCode(){
-        eval(editor.getValue());
-    }
-</script>
+<script src="./js/demo.js"></script>
 </body>
 </html>
