@@ -169,7 +169,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 ###http://regexper.com/
 
 [slide]
-# Q&A
+# Q & A
 
 [slide]
 # THANK U
