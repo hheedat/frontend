@@ -134,8 +134,42 @@ function getByteLen(val) {
             len += 1; 
     }; 
     return len; 
-} 
+}
 
+//得到当前日期前后delta天的日期
+function getFormatTimeAfterDay(delta){
+    var date = new Date();
+    if(delta){
+        date.setTime(date.getTime()+delta*(1000*60*60*24));
+    }
+    var formatYear = date.getFullYear();
+    var formatMonth = date.getMonth()+1;
+    if(formatMonth<10) formatMonth = "0" + formatMonth;
+    var formatDate = date.getDate();
+    if(formatDate<10) formatDate = "0" + formatDate;
+    var formatTime = formatYear + "-" + formatMonth + "-" + formatDate;
+    return formatTime;
+}
+
+//判断日期是否合法
+function isLegalDate(year,month,date){
+    var monthList = [31,28,31,30,31,30,31,31,30,31,30,31];
+    if(arguments.length<3){
+        return false;
+    }
+    for(var len=arguments.length-1 ; len>=0 ; --len){
+        if(arguments[len] <= 0){
+            return false;
+        }
+    }
+    if(year%4===0 && year%100!==0 || year%400 == 0){
+        monthList[1]=29;
+    }
+    if(month <= 12 && date <= monthList[month-1]){
+        return true;
+    }
+    return false;
+}
 
 // function getCookie(name){
 //     if (document.cookie.length>0){
