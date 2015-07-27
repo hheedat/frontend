@@ -7,37 +7,41 @@
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<style>
 	.center{
-	    position: absolute;
-		width:300px;
-	    height:100px;
-	    line-height: 100px;
-	    text-align: center;
-	    margin: auto;
-	    top: 0; left: 0; bottom: 0; right: 0;
+		position: absolute;
+		width: 300px;
+		height: 100px;
+		line-height: 100px;
+		text-align: center;
+		margin: auto;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 	</style>
 </head>
 <body>
-<p class="center">在一起 <span id="time"> </span> 天啦</p>
-<script>
-	window.onload = function(){
+	<p class="center">在一起 <span id="time"> </span> 天啦</p>
 
-		var time = document.getElementById('time');
-		var thatDay = new Date(2012,3,16); 
+	<script>
+		window.onload = function(){
 
-		(function setTime(){
+			var time = document.getElementById('time');
+			var thatDay = Date.parse("Apr 16, 2012");
 
-			var thisDay = new Date();
-			var deltaMillSeconds = thisDay - thatDay;
-			var deltaDay = deltaMillSeconds / (1000*60*60*24);
+			(function setTime(){
 
-			time.textContent = deltaDay.toFixed(10);
+				var thisDay = Date.now();
+				var deltaMillSeconds = thisDay - thatDay;
+				var deltaDay = deltaMillSeconds / (1000*60*60*24);
 
-			setTimeout(setTime, 100);
-			
-		})();
+				time.textContent = deltaDay.toFixed(10);
 
-	}
-</script>
+				setTimeout(setTime, 100);
+				
+			})();
+
+		}
+	</script>
 </body>
 </html>
