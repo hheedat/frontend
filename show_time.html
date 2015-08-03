@@ -27,13 +27,14 @@
 		window.onload = function(){
 
 			var time = document.getElementById('time');
-			var thatDay = Date.parse("Apr 16, 2012");
+			var thatDayMS = Date.parse("Apr 16, 2012");
+			var oneDayMS = 1000*60*60*24;
 
 			(function setTime(){
 
-				var thisDay = Date.now();
-				var deltaMillSeconds = thisDay - thatDay;
-				var deltaDay = deltaMillSeconds / (1000*60*60*24);
+				var thisDayMS = Date.now();
+				var deltaMS = thisDayMS - thatDayMS;
+				var deltaDay = deltaMS / oneDayMS;
 
 				time.textContent = deltaDay.toFixed(10);
 
