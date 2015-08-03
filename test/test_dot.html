@@ -52,9 +52,13 @@
 <script>
     $(function () {
 
+        var testTime = 0;
+        var time1, time2, time3, time4;
 
         function addDOM(num) {
             var list = [];
+
+            time1 = Date.now();
 
             for (var i = 0; i < num; ++i) {
                 list.push({
@@ -63,25 +67,33 @@
                 })
             }
 
+            time2 = Date.now();
+
             var mytpl = $("#mytpl").text();
             var tempFn = doT.template(mytpl);
             var resultText = tempFn(list);
 
+            time3 = Date.now();
+
             $(".b").html(resultText);
+
+            time4 = Date.now();
         }
 
         function start() {
-            var time1 = Date.now();
+
+            ++testTime;
 
             addDOM(parseInt($("#num").val()));
 
-            var time2 = Date.now();
+            var consoleStr = "array list build use : " + (time2 - time1)
+                    + "ms ,\ndom str build use : " + (time3 - time2)
+                    + "ms ,\ninnerHTML use : " + (time4 - time3)
+                    + "ms ,\nall use : " + (time4 - time1)
+                    + "ms ,\n";
 
-            var timeUse = time2 - time1;
-
-            console.log("use : " + timeUse);
-
-            $(".time-use").text("use : " + timeUse + "ms");
+            console.log("test %d : " + consoleStr, testTime);
+            $(".time-use").text("test " + testTime + " : " + consoleStr);
         }
 
         var timer;
