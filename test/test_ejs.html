@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>test doT</title>
+    <title>test ejs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
     <style>
         .cf:after {
@@ -37,17 +37,25 @@
 
 </div>
 <script src="http://s9.qhimg.com/lib/jquery/1102.js"></script>
-<script src="http://s2.qhimg.com/!e8b528bc/doT.js"></script>
+<script src="http://s3.qhimg.com/!507708dd/ejs.min.js"></script>
 <script type="text/html" id="mytpl">
-    {{~it :value:index}}
+    <%
+    list.map(function(value,index,array){
+    %>
     <div class="item">
-        {{ for(var i in value){ }}
-        <h1>{{=i }}</h1>
+        <%
+        for(var i in value){
+        %>
+        <h1><%=i%></h1>
 
-        <p>{{=value[i]}}</p>
-        {{ } }}
+        <p><%=value[i]%></p>
+        <%
+        }
+        %>
     </div>
-    {{~}}
+    <%
+    })
+    %>
 </script>
 <script>
     $(function () {
@@ -70,15 +78,15 @@
 
             time2 = Date.now();
 
-            var tempFn = doT.template(mytpl);
+            var template = ejs.compile(mytpl);
 
             time3_0 = Date.now();
 
-            var resultText = tempFn(list);
+            var htmlStr = template({list: list});
 
             time3 = Date.now();
 
-            $(".b").html(resultText);
+            $(".b").html(htmlStr);
 
             time4 = Date.now();
         }
