@@ -4,7 +4,8 @@ require_once("6.php");
 
 class MyNum extends Num
 {
-    public function square(){
+    public function square()
+    {
         $this->num *= $this->num;
     }
 }

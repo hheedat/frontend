@@ -23,7 +23,8 @@ class Num
         }
     }
 
-    function __toString(){
+    function __toString()
+    {
         return (string)$this->num;
     }
 
