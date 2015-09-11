@@ -1,16 +1,5 @@
 <?php
 
-//$a = array(1, 2, 3);
-//
-//
-//$b = array(
-//    'a' => 'apple',
-//    'b' => 'banana'
-//);
-//
-//echo var_dump($a);
-//echo var_dump($b);
-
 class A
 {
     function aa()
@@ -27,3 +16,11 @@ class A
 $aa = new A();
 
 $aa->aa();
+
+$re = "" == trim("    ");
+
+echo $re . "\n";
+
+if ($re) {
+    echo "equal\n";
+}
