@@ -1,9 +1,26 @@
 <?php
 
-$re =  "" == trim("  1  ");
+class A
+{
+    function aa()
+    {
+        $this->b("apple watch\n");
+    }
 
-echo $re;
+    function b($info)
+    {
+        echo $info;
+    }
+}
 
-if($re){
-    echo "apple watch";
+$aa = new A();
+
+$aa->aa();
+
+$re = "" == trim("    ");
+
+echo $re . "\n";
+
+if ($re) {
+    echo "equal\n";
 }
