@@ -22,4 +22,6 @@ foreach ($arr as &$item) {
     $item = $item + 1;
 }
 
+unset($item);
+
 var_dump($arr);
