@@ -1,5 +1,32 @@
 <?php
 
-echo date_create()->format('Y-m-d H:i:s');
+$arr = array(
+    'a' => 'aa',
+    'b' => 'bb',
+    'c' => 'cc'
+);
 
-echo date("Y-m-d H:i:s");
+$str_json = json_encode($arr);
+//echo $str_json;
+
+$str_json = addslashes($str_json);
+var_dump($str_json);
+
+
+$conn = new mysqli('localhost', 'root', '', 'think_list');
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "INSERT INTO nice_a (title, content) VALUES (" . "'John'" . ", '" . $str_json . "')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+
+echo "success";
