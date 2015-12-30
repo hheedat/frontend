@@ -17,6 +17,7 @@ helloPromise('1.txt').then(function(){
 }).catch(function(err){
     console.log('出错了');
     console.error(err);
+    
 }).then(function(){
     return helloPromise('3.txt');
 });
