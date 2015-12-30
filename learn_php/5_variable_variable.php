@@ -2,7 +2,7 @@
 
 function say_hello($a)
 {
-    $a();
+    ${$a}();
 }
 
 function a()
@@ -10,4 +10,4 @@ function a()
     echo "hello php\n";
 }
 
-say_hello(a);
+say_hello("a");

@@ -15,5 +15,5 @@ class Foo
 }
 
 $foo = new Foo();
-$funcname = "Variable";
-$foo->$funcname();
+$funcName = "Variable";
+$foo->$funcName();

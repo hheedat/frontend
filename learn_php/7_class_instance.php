@@ -1,6 +1,6 @@
 <?php
 
-require_once("6.php");
+require_once("6_class.php");
 
 $num1 = new Num(2);
 

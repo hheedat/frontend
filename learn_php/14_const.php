@@ -12,8 +12,8 @@ class MyClass
 
 echo MyClass::constant . "\n";
 
-$classname = "MyClass";
-echo $classname::constant . "\n";
+$className = "MyClass";
+echo $className::constant . "\n";
 
 $class = new MyClass();
 $class->showConstant();

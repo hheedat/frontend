@@ -1,6 +1,6 @@
 <?php
 
-require("18.php");
+require("18_namespace.php");
 
 Foo\Foo::sayHello();
 

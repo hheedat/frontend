@@ -1,8 +1,8 @@
 <?php
 
-echo (null == NULL) . "\n";
+var_dump(null == NULL);
 
-echo (null === NULL) . "\n";
+var_dump(null === NULL);
 
 if (null) {
     echo "null is true";

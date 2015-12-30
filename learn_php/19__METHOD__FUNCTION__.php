@@ -1,6 +1,6 @@
 <?php
 
-class classname
+class ClassName
 {
     function __construct()
     {
@@ -8,14 +8,14 @@ class classname
     }
 }
 
-function funcname()
+function FunName()
 {
     echo __FUNCTION__, "\n";
 }
-const constname = "global";
+const CONST_NAME = "global";
 
-$a = 'classname';
+$a = 'ClassName';
 $obj = new $a;
-$b = 'funcname';
+$b = 'FunName';
 $b();
-echo constant('constname'), "\n";
+echo constant('CONST_NAME'), "\n";
