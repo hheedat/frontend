@@ -14,7 +14,7 @@ func WordCount(s string) map[string]int {
 
 	for _, v := range sli {
 		if _, ok := myMap[v]; ok {
-			myMap[v] = myMap[v] + 1
+			myMap[v] += 1
 		} else {
 			myMap[v] = 1
 		}
