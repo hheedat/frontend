@@ -2,11 +2,10 @@
 
 $str = "hello ";
 
-$message = function($msg) use ($str)
-{
+$message = function ($msg) use ($str) {
     return $str . $msg;
 };
 
-$str1 =  $message("php");
+$str1 = $message("php");
 
 echo $str1 . "\n";
