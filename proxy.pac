@@ -142,6 +142,6 @@ var FindProxyForURL = function(init, profiles) {
     "+\u5185\u7f51\u4ee3\u7406": function(url, host, scheme) {
         "use strict";
         if (host === "127.0.0.1" || host === "::1" || host.indexOf(".") < 0) return "DIRECT";
-        return "PROXY proxy.corp.qihoo.net:8080";
+        return "PROXY 10.16.13.18:8080";
     }
 });
