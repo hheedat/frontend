@@ -1,4 +1,6 @@
 demo
 ====
 
-一些小demo，主要在gh-pages分支下
+一些小demo
+
+前端相关的在gh-pages分支下
