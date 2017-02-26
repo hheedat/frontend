@@ -1,3 +1,5 @@
 .idea/
 */.idea/
 .DS_store
+temchat/
+regexp_slider/

@@ -1,0 +1,12 @@
+{
+    "debugMode"     : 1,
+    "frameRate"     : 60,
+    "id"            : "gameCanvas",
+    "renderMode"    : 1,
+    "jsList"        : [
+        "resource.js",
+        "StartScene.js",
+        "PlayScene.js",
+        "TargetSprite.js"
+    ]
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert string to insert sql</title>
+    <style>
+        .item {
+            padding: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="item">
+        <label for="mysql-g">sql string for MySQL \G</label>
+        <div>
+            <textarea name="str" id="mysql-g" cols="100" rows="30"></textarea>
+        </div>
+    </div>
+    <div class="item">
+        <label for="table-name">table name</label>
+        <div>
+            <input type="text" id="table-name">
+        </div>
+    </div>
+    <div class="item hidden" id="result">
+        <label for="result-str">result</label>
+        <div>
+            <textarea name="" id="result-str" cols="100" rows="30"></textarea>
+        </div>
+    </div>
+    <div class="item">
+        <button id="convert-btn">Convert</button>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var btn = document.getElementById("convert-btn");
+        btn.addEventListener("click", function () {
+            var mysqlG = document.getElementById("mysql-g");
+            var tableName = document.getElementById("table-name");
+            var result = document.getElementById("result");
+            var resultText = document.getElementById("result-str");
+
+            var mysqlStr = mysqlG.value;
+            var tableNameStr = tableName.value;
+
+            var res = convertStrToSQL(mysqlStr, tableNameStr);
+
+            resultText.value = res;
+            result.style.display = "block";
+        });
+    }
+
+    function convertStrToSQL(sql, tableName) {
+        var arr = sql.split(/\n\s*\b/);
+        var key, value, index, str;
+        key = value = "(";
+
+        for (var i in arr) {
+            index = arr[i].indexOf(":");
+            str = arr[i];
+            key += str.slice(0, index).trim() + ",";
+            value += "'" + str.slice(index + 1, str.length).addSlashes().trim() + "',";
+        }
+        key = key.slice(0, -1) + ")";
+        value = value.slice(0, -1) + ")";
+
+        return "insert into " + tableName + " " + key + " values " + value + ";";
+    }
+
+    String.prototype.addSlashes = function () {
+        return this.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+    }
+</script>
+</body>
+</html>

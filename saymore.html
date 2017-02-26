@@ -1,0 +1,79 @@
+
+<html>
+<head>
+	<title>wish we could say more</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script type="text/javascript">
+		
+
+		$(function() {
+
+			// var canvas = document.body.appendChild(document.createElement('canvas')),
+		 //    context = canvas.getContext('2d'),
+		 //    t = 0,
+		 //    w, h;
+			// context.globalCompositeOperation = 'lighter';
+			// window.addEventListener('resize', resize, false);
+			// resize();
+			// animate();
+
+			// function resize() {
+			//     w = canvas.width = window.innerWidth;
+			//     h = canvas.height = window.innerHeight;
+			// }
+
+			// function animate() {
+			//     context.clearRect(0, 0, w, h);
+			//     t += 0.1;
+			//     for (var i = 0; i < 10000; i++) {
+
+			//         var f = 0.05 + ((Math.sin(t * 0.00002) / Math.PI) * 0.2);
+
+			//         var r = (Math.min(w, h)) * (Math.cos((t + i) * f) / Math.PI * 1.5);
+			//         var x = Math.sin(i) * r + (canvas.width / 2);
+			//         var y = Math.cos(i) * r + (canvas.height / 2);
+
+			//         context.fillStyle = 'rgba(200,200,200,0.7)';
+			//         context.fillRect(x, y, 1.5, 1.5);
+			//     }
+			//     setTimeout(animate, 1);
+			// }
+		});
+	</script>
+	<style type="text/css">
+		body{
+			background:black;
+		}
+		.wrapper{
+		    width:800px;
+		    height:600px;
+		    margin: auto;
+		    position: absolute;
+		    top: 0; left: 0; bottom: 0; right: 0;
+		}
+		.box-1 p,.box-2 p,#timer{
+			line-height: 100px;
+			text-align: center;
+			color: white;
+		}
+		.box-1 p{
+			font-size: 5em;
+		}
+		.box-2 p{
+			font-size: 3em;
+		}
+		#timer{
+			font-size: 3em;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="box-1"><p>hackathon</p></div>
+		<div id="timer"></div>
+		<div class="box-2"><p>come on DR.King</p></div>
+	</div>
+</body>
+</html>

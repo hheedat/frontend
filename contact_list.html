@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>通讯录</title>
+	<meta charset="utf-8">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script>
+		$(function(){
+			var $all_lst = $("#name-list");
+			var $lst = $("#name-list li");
+			var $search_input = $("#search-input");
+			$search_input.focus(function(){
+				var str = $search_input.val().trim();
+				//$search_input.keydown(check);
+				$search_input.keyup(check);
+				function check(){
+
+					var temp = $search_input.val().trim();console.log(temp);
+
+					var str_new = $search_input.val().trim();
+					if(str!==str_new){
+						str = str_new;
+						var reg = new RegExp(str);
+						var result = [];
+						for(var i = 0,j = $lst.length;i<j;i++){
+							if($($lst[i]).text().match(reg)){
+								result.push($lst[i])
+							}
+						}
+						$all_lst.html(result);
+					}
+				}
+			});
+			$search_input.blur(function(){
+				$search_input.unbind("keydown keyup");
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div id="search-box">
+			<input type="text" id="search-input">
+		</div>
+	</div>
+	<ul id="name-list">
+		<li class="name">张三</li>
+		<li class="name">李四</li>
+		<li class="name">王五</li>
+		<li class="name">赵六</li>
+		<li class="name">Tom</li>
+		<li class="name">Jack</li>
+		<li class="name">阿童木</li>
+	</ul>
+</body>
+</html>

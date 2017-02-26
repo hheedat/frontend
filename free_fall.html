@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<title>free fall</title>
+	<style>
+		body{
+		  background:black;
+		}
+		#myCanvas{
+		  margin: auto;
+		  position: absolute;
+		  top: 0; left: 0; bottom: 0; right: 0;
+		  border:2px solid white;
+		}
+	</style>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="600">
+    您的浏览器不支持canvas！
+</canvas>
+<script>
+	window.onload = function(){
+	  var w_height = document.documentElement.clientHeight*0.95;
+	  var w_width = document.documentElement.clientWidth*0.95;
+	  var canvas = document.getElementById('myCanvas');
+	  canvas.setAttribute('width', w_width);
+	  canvas.setAttribute('height',w_height);
+	  if (canvas.getContext) {
+	    var ctx = canvas.getContext('2d');
+	  }
+	  var posX = w_width/2,
+	      posY = 100,
+	      ym = w_height-10,
+	      g = 9.8/6,
+	      t = 0,
+	      g05 = (1/2)*g,
+	      vt = 0,
+	      v0 = 0,
+	      hm = ym,
+	      fraction = 0.75,
+	      flag = true;
+	  setInterval(function() {
+	    ctx.fillStyle = "black";
+	    ctx.fillRect(0,0,canvas.width, canvas.height);
+	    if(flag){
+	      posY = (ym-hm) + g05*t*t;
+	      if(posY<ym){  
+	        t+=0.1;
+	      }else{
+	        posY = ym;
+	        vt = v0 = g*t*fraction;
+	        flag = false;
+	        t=0;
+	      }
+	    }else{
+	      if(vt>0){
+	        t += 0.1;
+	        vt = v0 - g*t;
+	        posY = ym - (v0*t-g05*t*t);
+	      }else{
+	        t=0;
+	        hm = ym - posY;
+	        flag = true;
+	      }       
+	    }   
+
+	    ctx.beginPath();
+	    ctx.fillStyle = "white";
+	    ctx.arc(posX, posY, 10, 0, Math.PI*2, true); 
+	    ctx.fill();
+	    ctx.closePath();
+	  }, 5);
+	};
+</script>
+</body>
+</html>

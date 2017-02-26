@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>test doT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <style>
+        .cf:after {
+            content: "\0020";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .cf {
+            *zoom: 1;
+        }
+
+        .item {
+            float: left;
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+<div class="a">
+    <p><a class="start" href="">click me to start</a></p>
+
+    <p>enter the dom number you want to create : <input type="text" id="num" value="1"/></p>
+
+    <p><span class="time-use"></span></p>
+</div>
+<div class="b cf">
+
+</div>
+<script src="http://s9.qhimg.com/lib/jquery/1102.js"></script>
+<script src="http://s2.qhimg.com/!e8b528bc/doT.js"></script>
+<script type="text/html" id="mytpl">
+    {{~it :value:index}}
+    <div class="item">
+        {{ for(var i in value){ }}
+        <h1>{{=i }}</h1>
+
+        <p>{{=value[i]}}</p>
+        {{ } }}
+    </div>
+    {{~}}
+</script>
+<script>
+    $(function () {
+
+        var testTime = 0;
+        var time1, time2, time3, time3_0, time4;
+
+        function addDOM(num) {
+            var mytpl = $("#mytpl").text();
+            var list = [];
+
+            time1 = Date.now();
+
+            for (var i = 0; i < num; ++i) {
+                list.push({
+                    num: i,
+                    content: Math.random()
+                })
+            }
+
+            time2 = Date.now();
+
+            var tempFn = doT.template(mytpl);
+
+            time3_0 = Date.now();
+
+            var resultText = tempFn(list);
+
+            time3 = Date.now();
+
+            $(".b").html(resultText);
+
+            time4 = Date.now();
+        }
+
+        function start() {
+
+            ++testTime;
+
+            addDOM(parseInt($("#num").val()));
+
+            var consoleStr = "array list build use : " + (time2 - time1)
+                    + "ms ,\ntpl build use : " + (time3_0 - time2)
+                    + "ms ,\ndom str build use : " + (time3 - time3_0)
+                    + "ms ,\ninnerHTML use : " + (time4 - time3)
+                    + "ms ,\nall use : " + (time4 - time1)
+                    + "ms ,\n";
+
+            console.log("test %d : " + consoleStr, testTime);
+            $(".time-use").text("test " + testTime + " : " + consoleStr);
+        }
+
+        var timer;
+        var flag = false;
+
+        $(".start").on("click", function (event) {
+
+            event.preventDefault();
+
+            if (flag) {
+                clearInterval(timer);
+            } else {
+                start();
+                timer = setInterval(start, 2000);
+            }
+            flag = !flag;
+            $(this).text("click me to " + (flag ? "stop" : "start"));
+
+
+        });
+
+    });
+</script>
+</body>
+</html>

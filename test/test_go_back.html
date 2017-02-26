@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<title>back test</title>
+</head>
+<body>
+	<ul>
+		<li><a href="javascript:history.go(-1)">javascript:history.go(-1)</a></li>
+		<li><a href="javascript:history.back()">javascript:history.back()</a></li>
+		<li><a href="javascript:location.href=document.referrer">javascript:location.href=document.referrer</a></li>
+		<li><a href="javascript:history.go(-1);return false;">javascript:history.go(-1);return false;</a></li>
+		<li><a href="www.so.com" onclick="window.history.go(-1); return false;">onclick="window.history.go(-1); return false;"</a></li>
+	</ul>
+</body>
+</html>

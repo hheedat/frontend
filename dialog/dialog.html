@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>dialog</title>
+	<link href="../favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+	<link  rel="stylesheet" href="../css_reset.css">
+	<style>
+		.wrapper{
+			height: 3600px;
+			background: orange;
+		}
+		.dialog-cover{
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background:rgba(0,0,0,0.5);
+			z-index: 10;
+		}
+		.dialog-box{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 400px;
+			width: 600px;
+			padding: 15px;
+		    margin-left: -300px;
+		    margin-top: -200px;
+		    background-color:white;
+		    border: 1px solid #e0e0e0;
+		    box-shadow: 0 0 10px #e0e0e0;
+		}
+		.dialog-close{
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			height: 16px;
+			width: 16px;
+			background: url(http://p0.qhimg.com/d/inn/843c333d/close_03.png);
+		}
+		.show-dialog{
+            -webkit-animation-name:"show_dialog";
+            -webkit-animation-duration:0.1s;
+            -webkit-animation-delay:0;
+            -webkit-animation-iteration-count:1;
+            -webkit-animation-timing-function:ease-in;
+        }
+        @-webkit-keyframes "show_dialog"{
+            0%{
+                transform: scale(0,0);
+            }
+            40%{
+                transform: scale(0.6,0.6);
+            }
+            80%{
+                transform: scale(1.1,1.1);
+            }
+            100%{
+                transform: scale(1,1);
+            }
+        }
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<button class="show">show dialog</button>
+	</div>
+	<div class="dialog-cover" style="display:none">
+		<div class="dialog-box show-dialog">
+			<a class="dialog-close" href="javascript:void(0)"></a>
+			<div>
+				
+			</div>
+		</div>
+	</div>
+	<script src="http://s8.qhimg.com/static/637d69428758a564/jquery/1.9.1/jquery.js"></script>
+	<script>
+		$(function(){
+			var $dialogCover = $(".dialog-cover");
+			var $dialogBox = $(".dialog-box");
+			var $dialogClose = $(".dialog-close");
+
+			function showDialog(){
+				$dialogCover.show();
+			}
+			function hideDialog(){
+				$dialogCover.hide();
+			}
+
+			$dialogClose.on("click",function(){
+				hideDialog();
+			});
+
+			$(".show").on("click",function(){
+				showDialog();
+			})
+
+		});
+	</script>
+</body>
+</html>

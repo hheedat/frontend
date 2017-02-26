@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<title>slider 1</title>
+	<link rel="stylesheet" href="./css_reset.css">
+	<style>
+		#slide-banner{
+			position: relative;
+			width:75%;
+			height:300px;
+			margin:0 auto;
+		}
+		#slide-banner-1{
+			position: relative;
+			width:85%;
+			height:300px;
+			margin:0 auto;
+		}
+		.slide-img-wrapper{
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+			height: 270px;
+		}
+		.slide-img-wrapper a{
+			position: absolute;
+			display: block;
+			width:640px;
+			height:270px;
+			left: 10000px;
+		}
+		.slide-img-wrapper img{
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+		.slide-ctrl-arrow{
+			cursor: pointer;
+			background: url(http://p9.qhimg.com/d/inn/1bba4a9f/dd.png) no-repeat 6px 9px;
+			_background:url(http://p5.qhimg.com/d/inn/83c91957/ddpng8.png) no-repeat 6px 9px;
+			position: absolute;
+			top: 50%;
+			margin-top: -40px;
+			width: 41px;
+			height: 81px;
+			border-radius: 5px;
+			z-index: 1001;
+		}
+		.slide-ctrl-arrow:hover{
+			background-color: rgba(0,0,0,0.4);
+			opacity: 0.8;
+		}
+		.slide-left-arrow{
+			left: 5px;
+		}
+		.slide-right-arrow{
+			right: 5px;
+			background-position: -35px 9px;
+		}
+		.slide-ctrl-dot-wrapper{
+			position: absolute;
+			height: 10px;
+			width: 100%;
+			bottom: 10px;
+			left: 0px;
+			text-align: center;
+		}
+		.ctrl-dot{
+			cursor: pointer;
+			display: inline-block;
+			*display: inline;
+			*zoom:1;
+			width: 10px;
+			height: 10px;
+			overflow: hidden;
+			margin-right: 10px;
+			border-radius: 5px;
+			background-color: #c3c3c3;
+			opacity: 0.8;
+		}
+		.ctrl-dot:hover{
+			background-color: #aaa;
+		}
+		.ctrl-dot-this{
+			background-color: #00c9bd;
+		}
+		.ctrl-dot-this:hover{
+			background-color: #00c9bd;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="slide-banner" onselectstart="return false" style="-moz-user-select:none;">
+		<div class="slide-img-wrapper">
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<div class="slide-ctrl-arrow-wrapper">
+				<div class="slide-left-arrow slide-ctrl-arrow"></div>
+				<div class="slide-right-arrow slide-ctrl-arrow"></div>
+			</div>
+		</div>
+	</div>
+	<div id="slide-banner-1">
+		<div class="slide-img-wrapper">
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.bpimg.com/4851/f4efa284d84a6349.jpg" alt="h"></a>
+			<div class="slide-ctrl-arrow-wrapper">
+				<div class="slide-left-arrow slide-ctrl-arrow"></div>
+				<div class="slide-right-arrow slide-ctrl-arrow"></div>
+			</div>
+		</div>
+	</div>
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
+	<script>
+		$(function(){			
+
+			function Slide(sec){
+				var dotstr = '<div class="slide-ctrl-dot-wrapper">';
+				this.$slide = $(sec);
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
+				this.$slideImgWrapper = $(".slide-img-wrapper",this.$slide);
+				this.pageNum = this.$slideCon.length;
+				for(var i = this.pageNum ; i>0 ; --i){
+					dotstr += '<div class="ctrl-dot"></div>';
+				}
+				dotstr += '</div>';
+				this.$slide.append($(dotstr));
+				this.$ctrlDots = $(".ctrl-dot",this.$slide); 
+				this.$ctrlLeftArrow = $(".slide-left-arrow",this.$slide);
+				this.$ctrlRightArrow = $(".slide-right-arrow",this.$slide);
+			}
+
+			Slide.prototype = {
+				init:function(){
+					var self = this;
+					this.scale = 0.8;
+					this.scaleOut = 0.5;
+					this.pageNow = 0;
+					this.timer = null;
+					this.iAutoSlide = false;
+					this.iHover = false;
+					this.timeout = 3600;
+					this.bannerWidth = this.$slide.width();
+					this.bannerHeight = this.$slide.height();
+					this.imgWrapperWidth = this.$slideImgWrapper.width();
+					this.imgWrapperHeight = this.$slideImgWrapper.height();
+					this.imgWidth = this.$slideCon.eq(0).width();
+					this.imgHeight = this.$slideCon.eq(0).height();
+					this.leftOutCss = {
+						height:this.imgHeight*this.scaleOut + "px",
+						width:this.imgWidth*this.scaleOut + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
+						left:-this.imgWidth + "px"
+					};
+					this.leftCss = {
+						height:this.imgHeight*this.scale + "px",
+						width:this.imgWidth*this.scale + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 + "px",
+						left:"0px"
+					},
+					this.middleCss = {
+						height:this.imgHeight + "px",
+						width:this.imgWidth + "px",
+						top:"0px",
+						left:(this.imgWrapperWidth-this.imgWidth)/2 + "px"
+					};
+					this.rightCss = {
+						height:this.imgHeight*this.scale +"px",
+						width:this.imgWidth*this.scale +"px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scale)/2 +"px",
+						left:(this.imgWrapperWidth-this.imgWidth*this.scale)+"px"
+					};
+					this.rightOutCss = {
+						height:this.imgHeight*this.scaleOut + "px",
+						width:this.imgWidth*this.scaleOut + "px",
+						top:(this.imgWrapperHeight-this.imgHeight*this.scaleOut)/2 + "px",
+						left:this.imgWrapperWidth + "px"
+					};
+					this.$slideCon.eq(this.pageNow).css(this.middleCss).css({"z-index":1000,"visibility":"visible"});
+					this.$slideCon.eq(this.nextPage(this.pageNow)).css(this.rightCss).css({"z-index":999,"visibility":"visible"});
+					this.$slideCon.eq(this.prevPage(this.pageNow)).css(this.leftCss).css({"z-index":998,"visibility":"visible"});
+					this.$slideCon.eq(this.nextPage(this.nextPage(this.pageNow))).css(this.rightOutCss).css({"z-index":997,"visibility":"visible"});
+					this.$slideCon.eq(this.prevPage(this.prevPage(this.pageNow))).css(this.leftOutCss).css({"z-index":996,"visibility":"visible"});
+					this.$ctrlDots.eq(this.pageNow).addClass("ctrl-dot-this");	
+
+					// this.$ctrlRightArrow.on("click",$.proxy(function(){
+					// 	this.slideLeft();
+					// 	if(this.timer){clearInterval(this.timer)};
+					// 	this.autoSlide();
+					// },self));
+					
+					// this.$ctrlRightArrow.on("click",{self:this},function(event){
+					// 	console.log(event.data.self.timer);
+					// 	event.data.self.slideLeft();
+					// 	if(event.data.self.timer){clearInterval(event.data.self.timer)};
+					// 	event.data.self.autoSlide();
+					// });
+
+					this.addDotsEvent();
+					this.addArrowEvent();
+					this.addHoverEvent();
+					this.autoSlide();
+				},
+				addDotsEvent:function(){
+					var self = this;
+					for(var i = 0 , len = this.pageNum ; i < len ; i++){
+						this.$ctrlDots.eq(i).data("indexNum",i);
+					}
+					this.$ctrlDots.on("click",function(event){
+						var indexNum = $(event.target).data("indexNum");
+						if(self.pageNow == indexNum){
+							return false;
+						}else if(self.nextPage(self.pageNow) == indexNum){
+							self.slideLeft();
+						}else if(self.prevPage(self.pageNow) == indexNum){
+							self.slideRight();
+						}else{
+							self.pageNow = indexNum;
+							self.$slideCon.css("z-index",function(i,curval){
+								return curval-1;
+							});
+							self.$slideCon.animate({
+								height:self.imgHeight*self.scaleOut + "px",
+								width:self.imgWidth*self.scaleOut + "px",
+								top:(self.imgWrapperHeight-self.imgHeight*self.scaleOut)/2 + "px"
+							},{
+								duration:"fast"
+							});
+							self.slide(self.pageNow);
+						}
+						if(self.timer){clearInterval(self.timer)};
+						self.autoSlide();
+					});
+				},
+				addArrowEvent:function(){
+					var self = this;
+					this.$ctrlRightArrow.on("click",$.proxy(function(){
+						this.slideLeft();
+						if(this.timer){clearInterval(this.timer)};
+						this.removeArrowEvent();
+						setTimeout(function() {self.addArrowEvent()}, 500);
+						this.autoSlide();
+					},self));
+
+					this.$ctrlLeftArrow.on("click",function(){
+						self.slideRight();
+						if(self.timer){clearInterval(self.timer)};
+						self.removeArrowEvent();
+						setTimeout(function() {self.addArrowEvent()}, 500);
+						self.autoSlide();
+					});
+				},
+				removeArrowEvent:function(){
+					this.$ctrlLeftArrow.off("click");
+					this.$ctrlRightArrow.off("click");
+				},
+				addHoverEvent:function(){
+					var self = this;
+					this.$slideCon.on("mouseenter",function(){
+						self.iHover = true;
+						self.stopAutoSlide();
+					}).on("mouseleave",function(){
+						self.iHover = false;
+						self.autoSlide();
+					});
+				},
+				autoSlide:function(){
+					var self = this;
+					if(!this.iAutoSlide && !this.iHover){
+						this.iAutoSlide = true;
+						this.timer = setInterval(function() {
+							self.slideLeft();
+						}, this.timeout);
+					}
+				},
+				stopAutoSlide:function(){
+					if(this.iAutoSlide && this.timer){
+						clearInterval(this.timer);
+						this.iAutoSlide = false;
+					}
+				},
+				nextPage:function(pageNow){
+					if(pageNow<this.pageNum-1){
+						return pageNow+1;
+					}else if(pageNow===this.pageNum-1){
+						return 0;
+					}
+				},
+				prevPage:function(pageNow){
+					if(pageNow>0){
+						return pageNow-1;
+					}else if(pageNow===0){
+						return this.pageNum-1;
+					}
+				},
+				slide:function(thisPage){
+					this.$slideCon.eq(thisPage).css({"z-index":1000,"visibility":"visible"}).animate(this.middleCss);
+					this.$slideCon.eq(this.nextPage(thisPage)).css({"z-index":999,"visibility":"visible"}).animate(this.rightCss);
+					this.$slideCon.eq(this.prevPage(thisPage)).css({"z-index":998,"visibility":"visible"}).animate(this.leftCss);
+					this.$slideCon.eq(this.nextPage(this.nextPage(thisPage))).css({"z-index":997,"visibility":"visible"}).animate(this.rightOutCss);
+					this.$slideCon.eq(this.prevPage(this.prevPage(thisPage))).css({"z-index":996,"visibility":"visible"}).animate(this.leftOutCss);
+					this.$ctrlDots.removeClass("ctrl-dot-this");
+					this.$ctrlDots.eq(thisPage).addClass("ctrl-dot-this");
+				},
+				slideLeft:function(){
+					if(this.pageNow<this.pageNum-1){
+						++this.pageNow;
+					}else{
+						this.pageNow = 0;
+					}
+					this.slide(this.pageNow);
+				},
+				slideRight:function(){
+					if(this.pageNow>0){
+						--this.pageNow;
+					}else{
+						this.pageNow = this.pageNum-1;
+					}
+					this.slide(this.pageNow);
+				}
+			}
+
+			var slide  = new Slide("#slide-banner");
+
+			slide.init();
+
+			var slide1 = new Slide("#slide-banner-1");
+
+			slide1.init();
+
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

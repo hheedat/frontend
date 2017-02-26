@@ -1,6 +1,5 @@
-demo
+frontend
 ====
+一些小前端demo
 
-一些小demo
-
-前端相关的在gh-pages分支下
+拥有 gh-pages 分支，可以按照路径查看页面效果

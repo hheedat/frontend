@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>days</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<style>
+	.center{
+		position: absolute;
+		width: 300px;
+		height: 100px;
+		line-height: 100px;
+		text-align: center;
+		margin: auto;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	</style>
+</head>
+<body>
+	<p class="center">在一起 <span id="time"> </span> 天啦</p>
+
+	<script>
+		window.onload = function(){
+
+			var time = document.getElementById('time');
+			var thatDayMS = Date.parse("Apr 16, 2012");
+			var oneDayMS = 1000*60*60*24;
+
+			(function setTime(){
+
+				var thisDayMS = Date.now();
+				var deltaMS = thisDayMS - thatDayMS;
+				var deltaDay = deltaMS / oneDayMS;
+
+				time.textContent = deltaDay.toFixed(10);
+
+				setTimeout(setTime, 100);
+				
+			})();
+
+		}
+	</script>
+</body>
+</html>

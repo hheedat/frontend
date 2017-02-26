@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>faceup</title>
+	<meta charset="utf-8">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function(){
+			var move_flag = false;
+			var box_left = 0;
+			var box_left_now;
+			var mouse_left;
+			var $pull_box = $("#pull-box");
+			var $face = $("#circle");
+			var $say = $("#content");
+
+			$pull_box.mousedown(function(e){
+				$say.css("display","block");
+				mouse_left = e.pageX;
+				// console.log("mouse_left : " + mouse_left);
+				$(document).mousemove(function(e){
+					var mouse_left_now = e.pageX;
+					var diff = mouse_left_now - mouse_left;
+					box_left_now = box_left + diff;
+					// console.log("mouse_left_now : " + mouse_left_now);
+					// console.log("box_left_now : " + box_left_now);
+					// console.log("box_left : " + box_left);
+					if(box_left_now>940){
+						box_left_now = 940;
+					}else if(box_left_now<0){
+						box_left_now = 0;
+					}
+					$pull_box.css({
+						"left":box_left_now+"px"
+					});
+					$face.css({
+						"top":box_left_now/5+100+"px"
+					});
+
+				});
+			});
+
+			$(document).mouseup(function(){
+				box_left = box_left_now;
+				$say.css("display","none");
+				$(document).unbind("mousemove");
+			});
+
+		});
+	</script>
+	<style type="text/css">
+		#wrapper{
+			width: 960px;
+			margin: 0 auto;
+		}
+		#circle{
+			position:relative;
+			top:100px;
+			margin:0 auto;
+			width:200px;
+			height:200px;
+			background:yellow;
+			border-radius:100px;
+		}
+		#eye-1,#eye-2{
+			position:absolute;
+			top:45px;
+			width:50px;
+			height:50px;
+			background:black;
+			border-radius:25px;
+		}
+		#eye-1{
+		  	left:35px;
+		}
+		#eye-2{
+		  	right:35px;
+		}
+		#mouth{
+			position:relative;
+			width:100px;
+			height:30px;
+			background:yellow;
+			top:135px;
+			margin:0 auto;
+			overflow: hidden;
+		}
+		#mouth-2{
+			width: 120px;
+			height: 120px;
+			background: red;
+			border-radius: 60px;
+			margin-left: -10px;
+			margin-top: -93px;
+		}
+		#content{
+			position: absolute;
+			right: -200px;
+			padding: 10px;
+			font-weight: bold;
+			background: #F0F0F0;
+			color: gray;
+			display: none;
+		}
+		.triangle{
+			border-color: white #F0F0F0 #F0F0F0 white;
+			border-style: solid;
+			border-width: 7px 15px;
+			height: 0px;
+			width: 0px;
+		}
+		#tri1{
+			position: absolute;
+			left: -30px;
+			bottom: 0px;
+		}
+		#pull-box-range{
+			position: fixed;
+			bottom: 100px;
+			width: 960px;
+			height: 20px;
+			background: #F0F0F0;
+			border-radius: 15px;
+			padding: 3px;
+			box-shadow: 0px 0px 5px #000 inset;
+		}
+		#pull-box{
+			position: relative;
+			width: 20px;
+			height: 20px;
+			border-radius: 10px;
+			background: gray;
+			border-style: none;
+			cursor:move;
+		}
+
+
+		body,
+		div,
+		ul,
+		ol,
+		li,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		form,
+		input,
+		p,
+		th,
+		td {
+		  padding: 0;
+		  margin: 0;
+		}
+		fieldset,
+		img {
+		  border: 0;
+		}
+		ul,
+		li {
+		  list-style: none;
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+		  font-weight: normal;
+		  font-size: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+	    <div id="circle">
+	      	<div id="eye-1"></div>
+	      	<div id="eye-2"></div>
+	    	<div id="mouth">
+	    		<div id="mouth-2"></div>
+	    	</div>
+	    	<div id="content">
+	    		<div class="triangle" id="tri1"></div>
+	    		<p>臭蕾头！动动看！</p>
+	    	</div>
+	    </div>
+	    <div id="pull-box-wrapper">
+	    	<div id="pull-box-range">
+		    	<button type="button" id="pull-box"></button>
+		    </div>
+	    </div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slider 2 for mobile</title>
+	<meta charset="utf-8">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="./css_reset.css">
+	<style>
+		#slide-banner{
+			position: relative;
+			width:100%;
+			margin:0 auto;
+			overflow: hidden;
+		}
+		.slide-img-wrapper{
+			position: relative;
+			display: none;
+			overflow: hidden;
+		}
+		.slide-img-wrapper a{
+			display: block;
+			float:left;
+		}
+		.slide-img-wrapper img{
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+		.slide-dot-wrapper{
+			position: absolute;
+			height: 30px;
+			width: 100%;
+			bottom: 0px;
+			text-align: center;
+		}
+		.slide-dot{
+			cursor: pointer;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			margin-right: 10px;
+			margin-top: 15px;
+			border-radius: 5px;
+			background-color: #c3c3c3;
+			opacity: 0.8;
+		}
+		.slide-dot-this{
+			background-color: #00c9bd;
+		}
+	</style>
+</head>
+<body>
+	<h1>for mobile</h1>
+	<div id="slide-banner">
+		<div class="slide-img-wrapper">
+			<a href=""><img src="http://p3.qhimg.com/t018dfeb89972d385aa.jpg" alt="h"></a>
+			<a href=""><img src="http://p3.qhimg.com/t01c75f942add7c9f2d.png" alt="h"></a>
+			<a href=""><img src="http://p5.qhimg.com/t010551c78ee9877daa.jpg" alt="h"></a>
+			<a href=""><img src="http://p5.qhimg.com/t016ad521245e9ad4d1.jpg" alt="h"></a>
+			<a href=""><img src="http://p1.qhimg.com/t01d40d2a0e9a8ac4cb.jpg" alt="h"></a>
+			<a href=""><img src="http://p7.qhimg.com/t01ca4ea4917896f5d7.png" alt="h"></a>
+			<a href=""><img src="http://p4.qhimg.com/t010a388c43ce8d6c11.jpg" alt="h"></a>
+		</div>
+	</div>
+
+	<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.0.min.js"></script>
+	<script>
+		$(function(){			
+
+			function Slide(sec){
+				var dotstr = '<div class="slide-dot-wrapper">';
+				this.$slide = $(sec);
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
+				this.pageNum = this.$slideCon.length;
+				for(var i = this.pageNum ; i>0 ; --i){
+					dotstr += '<div class="slide-dot"></div>';
+				}
+				dotstr += '</div>';
+				this.$slide.append($(dotstr));
+				this.$ctrlDots = $(".slide-dot",this.$slide); 
+				this.$slideWrapper = $(".slide-img-wrapper",this.$slide);
+				this.$slideWrapper.prepend(this.$slideCon.eq(this.pageNum-1).clone());
+				this.$slideWrapper.append(this.$slideCon.eq(0).clone());
+				this.$slideCon = $(".slide-img-wrapper a",this.$slide);
+			}
+
+			Slide.prototype = {
+				init:function(){
+					var self = this;
+					if(this.timer){
+						clearInterval(this.timer);
+						this.$ctrlDots.removeClass("slide-dot-this");
+						this.$slideWrapper.off("touchstart touchmove touchend");
+					}	
+					this.winWidth = $(window).width();	
+					this.imgWrapperWidth = this.winWidth*(this.pageNum+2);
+					this.$slideWrapper.css({"width":this.imgWrapperWidth+"px"});
+					this.slideConWidth = this.winWidth;
+					this.$slideCon.css({"width":this.slideConWidth+"px","height":this.slideConWidth/2.5+"px"});
+					this.$slideWrapper.css({
+						"display":"block"
+					});
+					this.pageNow = 0;
+					this.timer = null;
+					this.isLiner = true;
+					this.timeout = 3000;
+					this.$slideWrapper.css({"left":-(this.pageNow+1)*this.slideConWidth+"px"});
+					this.$ctrlDots.eq(0).addClass("slide-dot-this");
+					this.autoSlide();
+					this.addTouchEvent();
+				},
+				addTouchEvent:function(){
+					this.$slideWrapper.on("touchstart", $.proxy(function(event) {
+						clearInterval(this.timer);
+						this.slideWrapperStartX = this.$slideWrapper.offset().left;
+						this.touchStartX = event.originalEvent.changedTouches[0].clientX;
+					},this)).on("touchmove",$.proxy(function(event){
+						this.slideWrapperX = this.slideWrapperStartX + (event.originalEvent.changedTouches[0].clientX-this.touchStartX);
+						this.slide(this.slideWrapperX,false);
+						event.preventDefault();
+					},this)).on("touchend",$.proxy(function(event){
+						this.touchEndX = event.originalEvent.changedTouches[0].clientX;
+						this.slideWrapperEndX = this.$slideWrapper.offset().left;
+						if(this.touchEndX-this.touchStartX<-50){
+							this.slideLeft();
+						}else if(this.touchEndX-this.touchStartX>50){
+							this.slideRight();
+						}else{
+							this.slide(this.slideWrapperStartX,true);
+						}
+						this.autoSlide();
+					},this));
+				},
+				removeTouchEvent:function(){
+					this.$slideWrapper.off("touchstart touchmove touchend");
+				},
+				autoSlide:function(){
+					var self = this;
+					this.timer = setInterval(function() {
+						self.slideLeft();
+					}, this.timeout);
+				},
+				nextPage:function(pageNow){
+					return pageNow+1;
+				},
+				prevPage:function(pageNow){
+					return pageNow-1;
+				},
+				slide:function(positionX,isLiner){
+					if(isLiner){
+						this.$slideWrapper.css({
+							"-moz-transition":"left 0.5s ease-out",
+						    "-webkit-transition":"left 0.5s ease-out",
+						    "-o-transition": "left 0.5s ease-out",
+						    "transition":"left 0.5s ease-out",
+						    "left":positionX+"px"
+						});
+					}else{
+						this.$slideWrapper.css({
+							"-moz-transition":"none",
+						    "-webkit-transition":"none",
+						    "-o-transition": "none",
+						    "transition":"none",
+						    "left":positionX+"px"
+						});
+					}
+				},
+				slideX:function(thisPage){
+					return -(this.pageNow+1)*this.slideConWidth;
+				},
+				slideDots:function(thisPage){
+					this.$ctrlDots.removeClass("slide-dot-this");
+					this.$ctrlDots.eq(thisPage).addClass("slide-dot-this");
+				},
+				slideLeft:function(){
+					if(this.pageNow<this.pageNum-1){
+						++this.pageNow;
+						this.slide(this.slideX(this.pageNow),true);
+						this.slideDots(this.pageNow);
+					}else if(this.pageNow === this.pageNum-1){
+						++this.pageNow;
+						this.removeTouchEvent();
+						this.slide(this.slideX(this.pageNow),true);
+						this.slideDots(0);
+						var self = this;
+						this.$slideWrapper.on("transitionend",function(){
+							self.pageNow = 0;
+							self.slide(self.slideX(self.pageNow),false);
+							self.$slideWrapper.off("transitionend");
+							self.addTouchEvent();
+						});
+						// setTimeout(function(){
+						// 	self.pageNow = 0;
+						// 	self.slide(self.slideX(self.pageNow),false);
+						// },500);
+					}
+				},
+				slideRight:function(){
+					if(this.pageNow>0){
+						--this.pageNow;
+						this.slide(this.slideX(this.pageNow),true);
+						this.slideDots(this.pageNow);
+					}else if(this.pageNow === 0){
+						--this.pageNow;
+						this.removeTouchEvent();
+						this.slide(this.slideX(this.pageNow),true);
+						this.slideDots(this.pageNum-1);
+						var self = this;
+						this.$slideWrapper.on("transitionend",function(){
+							self.pageNow = self.pageNum-1;
+							self.slide(self.slideX(self.pageNow),false);
+							self.$slideWrapper.off("transitionend");
+							self.addTouchEvent();
+						});
+						// setTimeout(function(){
+						// 	self.pageNow = self.pageNum-1;
+						// 	self.slide(self.slideX(self.pageNow),false);
+						// },500);
+					}
+				}
+			}
+
+			var slide  = new Slide("#slide-banner");
+
+			slide.init();
+
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

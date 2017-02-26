@@ -1,0 +1,28 @@
+@mixin arrow-up($x:9px,$y:15px,$color:black){
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) $color;
+  border-style: solid;
+  border-width:0px $x $y;
+  height: 0px;
+  width: 0px;
+}
+@mixin arrow-right($x:15px,$y:9px,$color:black){
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) $color;
+  border-style: solid;
+  border-width:$y 0px $y $x;
+  height: 0px;
+  width: 0px;
+}
+@mixin arrow-down($x:9px,$y:15px,$color:black){
+  border-color:$color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width:$y $x 0px;
+  height: 0px;
+  width: 0px;
+}
+@mixin arrow-left($x:15px,$y:9px,$color:black){
+  border-color: rgba(0, 0, 0, 0) $color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width:$y $x $y 0px;
+  height: 0px;
+  width: 0px;
+}
