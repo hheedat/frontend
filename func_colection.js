@@ -170,3 +170,17 @@ function isLegalDate(year,month,date){
     }
     return false;
 }
+
+//驼峰转下划线
+var str = "selectHomeClass";
+function formatStr(str){
+    var reg = /([A-Z])/g;
+    return str.replace(reg,function(re){
+        return "_"+re.toLowerCase();
+    });
+}
+function formatStr2(str){
+    return str.replace(/([a-z\d])([A-Z])/g, '$1_$2').toLowerCase();
+}
+console.log(formatStr(str));
+console.log(formatStr2(str));
