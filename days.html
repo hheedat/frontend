@@ -1,48 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>days</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
-	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
-	<style>
-	.center{
-		position: absolute;
-		width: 300px;
-		height: 100px;
-		line-height: 100px;
-		text-align: center;
-		margin: auto;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-	}
-	</style>
+    <meta charset="utf-8">
+    <title>days</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .center {
+            position: absolute;
+            width: 380px;
+            height: 100px;
+            line-height: 50px;
+            text-align: center;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-	<p class="center">在一起 <span id="time"> </span> 天啦</p>
 
-	<script>
-		window.onload = function(){
+<div class="center">
+    <p>过了 <span id="time"> </span> 天啦</p>
+    <p>
+        即 <span id="year"></span> 年 <span id="month"></span> 个月 <span id="day"></span> 天
+        <span id="hour"></span> 小时 <span id="minute"></span> 分钟
+        <span id="second"></span>.<span id="millisecond"></span> 秒
+    </p>
+</div>
 
-			var time = document.getElementById('time');
-			var thatDayMS = Date.parse("Apr 16, 2012");
-			var oneDayMS = 1000*60*60*24;
+<script>
+    window.onload = function () {
 
-			(function setTime(){
+        var time = document.getElementById('time');
+        var year = document.getElementById('year');
+        var month = document.getElementById('month');
+        var day = document.getElementById('day');
+        var hour = document.getElementById('hour');
+        var minute = document.getElementById('minute');
+        var second = document.getElementById('second');
+        var millisecond = document.getElementById('millisecond');
 
-				var thisDayMS = Date.now();
-				var deltaMS = thisDayMS - thatDayMS;
-				var deltaDay = deltaMS / oneDayMS;
+        var thatDayMS = Date.parse("Apr 16, 2012");
+        var thatDate = new Date(thatDayMS);
+        var thatYear = thatDate.getFullYear();
+        var thatMonth = thatDate.getMonth() + 1;
+        var thatDay = thatDate.getDate();
+        var oneDayMS = 1000 * 60 * 60 * 24;
 
-				time.textContent = deltaDay.toFixed(10);
+        (function setTime() {
 
-				setTimeout(setTime, 100);
-				
-			})();
+            var thisDate = new Date();
+            var thisDayMS = thisDate.getTime();
+            var deltaMS = thisDayMS - thatDayMS;
+            var deltaDay = deltaMS / oneDayMS;
 
-		}
-	</script>
+            time.textContent = deltaDay.toFixed(10);
+
+            var thisYear = thisDate.getFullYear();
+            var thisMonth = thisDate.getMonth() + 1;
+            var thisDay = thisDate.getDate();
+            var thisHour = thisDate.getHours();
+            var thisMinute = thisDate.getMinutes();
+            var thisSecond = thisDate.getSeconds();
+            var thisMillisecond = thisDate.getMilliseconds();
+
+            var deltaYear = thisYear - thatYear;
+            var deltaMonth = thisMonth - thatMonth;
+            if (deltaMonth < 0) {
+                --deltaYear;
+                deltaMonth = 12 - thatMonth + thisMonth;
+            }
+            var deltaDayN = thisDay - thatDay;
+            if (deltaDayN < 0) {
+                --deltaMonth;
+                deltaDayN = getMonthDays(thatYear, thatMonth) - thatDay + thisDay;
+            }
+
+            year.textContent = deltaYear.toString();
+            month.textContent = deltaMonth.toString();
+            day.textContent = deltaDayN.toString();
+            hour.textContent = thisHour.toString();
+            minute.textContent = thisMinute.toString();
+            second.textContent = thisSecond.toString();
+            millisecond.textContent = leftpad(thisMillisecond.toString(), 3, 0);
+
+            setTimeout(setTime, 100);
+
+        })();
+
+        function getMonthDays(year, month) {
+            var monthDaysList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if ((year % 4 === 0 && year % 100 !== 0 ) || year % 400 == 0) {
+                monthDaysList[1] = 29;
+            }
+            return monthDaysList[month - 1];
+        }
+
+        function leftpad(str, len, ch) {
+            str = String(str);
+            var i = -1;
+            if (!ch && ch !== 0) ch = ' ';
+            len = len - str.length;
+            while (++i < len) {
+                str = ch + str;
+            }
+            return str;
+        }
+
+    }
+</script>
 </body>
 </html>
