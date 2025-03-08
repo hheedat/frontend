@@ -50,8 +50,8 @@
 - [range](https://hheedat.github.io/frontend/range.html) 
 
 ### Canvas
-- [渲染引擎测试](https://hheedat.github.io/frontend/canvas_practice/canvas_filter.html) - dot
-- [渲染引擎测试](https://hheedat.github.io/frontend/canvas_practice/canvas_put_image_data.html) - dot
+- [滤镜](https://hheedat.github.io/frontend/canvas_practice/canvas_filter.html)
+- [读取图片重新绘制](https://hheedat.github.io/frontend/canvas_practice/canvas_put_image_data.html)
 
 
 
