@@ -10,10 +10,10 @@
 - [快存](https://hheedat.github.io/frontend/quicksave/)
 
 ### Cocos2d
-- [game1](https://hheedat.github.io/frontend/cocos2d-js/game_1/game_1_1.html)
-- [game2](https://hheedat.github.io/frontend/cocos2d-js/game_2/game_2.html)
-- [game3](https://hheedat.github.io/frontend/cocos2d-js/game_3/game_3.html)
-- [game4](https://hheedat.github.io/frontend/cocos2d-js/game_4/game_4_2.html)
+- [Game 1](https://hheedat.github.io/frontend/cocos2d-js/game_1/game_1_1.html)
+- [Game 2](https://hheedat.github.io/frontend/cocos2d-js/game_2/game_2.html)
+- [Game 3](https://hheedat.github.io/frontend/cocos2d-js/game_3/game_3.html)
+- [Game 4](https://hheedat.github.io/frontend/cocos2d-js/game_4/game_4_2.html)
 
 ### 工具类
 - [NT字符串转换](https://hheedat.github.io/frontend/convert_nt_string.html) - NT字符串转换工具
@@ -30,24 +30,24 @@
 - [3D旋转效果](https://hheedat.github.io/frontend/rotate3d.html) - CSS 3D旋转动画展示
 
 ### 滑块演示
-- [滑块效果1](https://hheedat.github.io/frontend/slider/slider_1.html) - 滑块动画示例1
-- [滑块效果2](https://hheedat.github.io/frontend/slider/slider_2.html) - 滑块动画示例2
-- [滑块效果3](https://hheedat.github.io/frontend/slider/slider_3.html) - 滑块动画示例3
-- [滑块效果4](https://hheedat.github.io/frontend/slider/slider_3.html) - 滑块动画示例4
-- [滑块效果5](https://hheedat.github.io/frontend/slider/slider_3.html) - 滑块动画示例5
-- [滑块效果5](https://hheedat.github.io/frontend/slide1.html) - 滑块动画示例5
-- [滑块效果5](https://hheedat.github.io/frontend/slide2.html) - 滑块动画示例5
-- [滑块效果5](https://hheedat.github.io/frontend/slide3.html) - 滑块动画示例5
+- [滑块效果 1](https://hheedat.github.io/frontend/slider/slider_1.html)
+- [滑块效果 2](https://hheedat.github.io/frontend/slider/slider_2.html)
+- [滑块效果 3](https://hheedat.github.io/frontend/slider/slider_3.html)
+- [滑块效果 4](https://hheedat.github.io/frontend/slider/slider_3.html)
+- [滑块效果 5](https://hheedat.github.io/frontend/slider/slider_3.html)
+- [幻灯片效果 1](https://hheedat.github.io/frontend/slide1.html)
+- [幻灯片效果 2](https://hheedat.github.io/frontend/slide2.html)
+- [幻灯片效果 3](https://hheedat.github.io/frontend/slide3.html)
 
 ### 布局演示
-- [CSS网格布局](https://hheedat.github.io/frontend/css_grid.html) - CSS Grid 布局示例
+- [CSS 网格布局](https://hheedat.github.io/frontend/css_grid.html) - CSS Grid 布局示例
 - [联系人列表](https://hheedat.github.io/frontend/contact_list.html) - 联系人列表布局示例
 
 ### 测试页面
 - [渲染引擎测试](https://hheedat.github.io/frontend/test/test_dot.html) - dot
 - [渲染引擎测试](https://hheedat.github.io/frontend/test/test_ejs.html) - ejs
 - [浏览器回退测试](https://hheedat.github.io/frontend/test/test_go_back.html) 
-- [range](https://hheedat.github.io/frontend/range.html) 
+- [Range](https://hheedat.github.io/frontend/range.html) 
 
 ### Canvas
 - [滤镜](https://hheedat.github.io/frontend/canvas_practice/canvas_filter.html)
