@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Convert \n\t</title>
+    <style>
+        .item {
+            padding: 5px;
+
+        }
+
+        .item textarea {
+            font-size: 16px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="item">
+            <label for="input-g">convert \n\t</label>
+            <div>
+                <textarea name="str" id="input-g" cols="100" rows="30"></textarea>
+            </div>
+        </div>
+        <div class="item">
+            <button id="convert-btn">convert</button>
+        </div>
+        <div class="item hidden" id="result">
+            <label for="result-str">result</label>
+            <div>
+                <textarea name="" id="result-str" cols="230" rows="200"></textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("convert-btn");
+            btn.addEventListener("click", function () {
+                var inputG = document.getElementById("input-g");
+                var result = document.getElementById("result");
+                var resultText = document.getElementById("result-str");
+
+                var inputStr = inputG.value;
+
+                var res = convert(inputStr);
+
+                resultText.value = res;
+                result.style.display = "block";
+            });
+        }
+
+        function convert(inputStr) {
+            console.log(inputStr)
+            return inputStr.replace(/\\n/g, "\n").replace(/\\t/g, "         ")
+        }
+    </script>
+</body>
+
+</html>

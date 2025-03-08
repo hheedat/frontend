@@ -6,120 +6,384 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <style>
+        :root {
+            --text-color: #2c3e50;
+            --bg-color: #fff1f1;
+            --primary-color: #ff6b6b;
+            --secondary-color: #ff8e8e;
+            --accent-color: #ffd93d;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+            --heart-color: #ff6b6b;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #fff1f1;
+                --bg-color: #2c1f1f;
+                --primary-color: #ff6b6b;
+                --secondary-color: #ff8e8e;
+                --accent-color: #ffd93d;
+                --card-bg: rgba(44, 31, 31, 0.95);
+                --card-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+            }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float-hearts {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(var(--tx)) rotate(var(--r));
+                opacity: 0;
+            }
+        }
+
         html, body {
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            overflow: hidden;
+        }
+
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float-hearts 4s linear infinite;
+            opacity: 0.8;
         }
 
         .center {
-            position: absolute;
-            width: 380px;
-            height: 100px;
-            line-height: 50px;
+            position: fixed;
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
             text-align: center;
-            margin: auto;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            background: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
         }
 
-        p {
+        .title {
+            font-size: 2rem;
+            margin-bottom: -0.5rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .title::after {
+            content: '⭐';
+            margin: 0 10px;
+            font-size: 1.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .time-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .time-unit {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-unit::before {
+            content: '❤️';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .time-unit:hover::before {
+            opacity: 1;
+        }
+
+        .time-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
             margin: 0;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .total-days {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 2rem 0;
+            animation: pulse 2s infinite ease-in-out;
+            position: relative;
+            display: inline-block;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .center {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .time-display {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .time-value {
+                font-size: 1.4rem;
+            }
+
+            .total-days {
+                font-size: 2rem;
+            }
+
+            .message {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
 
+<div class="hearts-container" id="hearts-container"></div>
+
 <div class="center">
-    <p>过了 <span id="time"> </span> 天啦</p>
-    <p>
-        即 <span id="year"></span> 年 <span id="month"></span> 个月 <span id="day"></span> 天
-        <span id="hour"></span> 小时 <span id="minute"></span> 分钟
-        <span id="second"></span>.<span id="millisecond"></span> 秒
-    </p>
+    <div class="title"></div>
+    <div class="total-days">
+        已经在一起 <span id="time"></span> 天
+    </div>
+    <div class="time-display">
+        <div class="time-unit">
+            <div class="time-value"><span id="year"></span></div>
+            <div class="time-label">年</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value"><span id="month"></span></div>
+            <div class="time-label">月</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value"><span id="day"></span></div>
+            <div class="time-label">天</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value"><span id="hour"></span></div>
+            <div class="time-label">小时</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value"><span id="minute"></span></div>
+            <div class="time-label">分钟</div>
+        </div>
+        <div class="time-unit">
+            <div class="time-value"><span id="second"></span>.<span id="millisecond"></span></div>
+            <div class="time-label">秒</div>
+        </div>
+    </div>
+    <div class="message">❤️❤️❤️❤️❤️❤️</div>
 </div>
 
 <script>
-    window.onload = function () {
+    window.onload = () => {
+        // DOM elements
+        const elements = {
+            time: document.getElementById('time'),
+            year: document.getElementById('year'),
+            month: document.getElementById('month'),
+            day: document.getElementById('day'),
+            hour: document.getElementById('hour'),
+            minute: document.getElementById('minute'),
+            second: document.getElementById('second'),
+            millisecond: document.getElementById('millisecond')
+        };
 
-        var time = document.getElementById('time');
-        var year = document.getElementById('year');
-        var month = document.getElementById('month');
-        var day = document.getElementById('day');
-        var hour = document.getElementById('hour');
-        var minute = document.getElementById('minute');
-        var second = document.getElementById('second');
-        var millisecond = document.getElementById('millisecond');
+        // Constants
+        const START_DATE = new Date("Apr 16, 2012");
+        const ONE_DAY_MS = 1000 * 60 * 60 * 24;
 
-        var thatDayMS = Date.parse("Apr 16, 2012");
-        var thatDate = new Date(thatDayMS);
-        var thatYear = thatDate.getFullYear();
-        var thatMonth = thatDate.getMonth() + 1;
-        var thatDay = thatDate.getDate();
-        var oneDayMS = 1000 * 60 * 60 * 24;
+        // Create floating hearts
+        const heartsContainer = document.getElementById('hearts-container');
+        const HEART_EMOJIS = ['❤️', '💖', '💗', '💓', '💝'];
+        
+        const createHeart = () => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.setProperty('--tx', (Math.random() * 200 - 100) + 'px');
+            heart.style.setProperty('--r', (Math.random() * 360) + 'deg');
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        };
 
-        (function setTime() {
+        // Create hearts at random intervals
+        const createHeartsRandomly = () => {
+            createHeart();
+            setTimeout(createHeartsRandomly, Math.random() * 500 + 300);
+        };
 
-            var thisDate = new Date();
-            var thisDayMS = thisDate.getTime();
-            var deltaMS = thisDayMS - thatDayMS;
-            var deltaDay = deltaMS / oneDayMS;
+        createHeartsRandomly();
 
-            time.textContent = deltaDay.toFixed(10);
+        // Helper functions
+        const getMonthDays = (year, month) => {
+            const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
+                monthDays[1] = 29;
+            }
+            return monthDays[month - 1];
+        };
 
-            var thisYear = thisDate.getFullYear();
-            var thisMonth = thisDate.getMonth() + 1;
-            var thisDay = thisDate.getDate();
-            var thisHour = thisDate.getHours();
-            var thisMinute = thisDate.getMinutes();
-            var thisSecond = thisDate.getSeconds();
-            var thisMillisecond = thisDate.getMilliseconds();
+        const leftpad = (str, len, ch = '0') => {
+            str = String(str);
+            return str.padStart(len, ch);
+        };
 
-            var deltaYear = thisYear - thatYear;
-            var deltaMonth = thisMonth - thatMonth;
+        const calculateTimeDifference = (startDate, currentDate) => {
+            const deltaMS = currentDate.getTime() - startDate.getTime();
+            const deltaDay = deltaMS / ONE_DAY_MS;
+
+            let deltaYear = currentDate.getFullYear() - startDate.getFullYear();
+            let deltaMonth = currentDate.getMonth() - startDate.getMonth();
+            let deltaDay_n = currentDate.getDate() - startDate.getDate();
+
             if (deltaMonth < 0) {
                 --deltaYear;
-                deltaMonth = 12 - thatMonth + thisMonth;
+                deltaMonth = 12 - startDate.getMonth() + currentDate.getMonth();
             }
-            var deltaDayN = thisDay - thatDay;
-            if (deltaDayN < 0) {
+
+            if (deltaDay_n < 0) {
                 --deltaMonth;
-                deltaDayN = getMonthDays(thatYear, thatMonth) - thatDay + thisDay;
+                if (deltaMonth < 0) {
+                    --deltaYear;
+                    deltaMonth = 11;
+                }
+                deltaDay_n = getMonthDays(startDate.getFullYear(), startDate.getMonth() + 1) - 
+                            startDate.getDate() + currentDate.getDate();
             }
 
-            year.textContent = deltaYear.toString();
-            month.textContent = deltaMonth.toString();
-            day.textContent = deltaDayN.toString();
-            hour.textContent = thisHour.toString();
-            minute.textContent = thisMinute.toString();
-            second.textContent = thisSecond.toString();
-            millisecond.textContent = leftpad(thisMillisecond.toString(), 3, 0);
+            return {
+                totalDays: deltaDay,
+                years: deltaYear,
+                months: deltaMonth,
+                days: deltaDay_n,
+                hours: currentDate.getHours(),
+                minutes: currentDate.getMinutes(),
+                seconds: currentDate.getSeconds(),
+                milliseconds: currentDate.getMilliseconds()
+            };
+        };
 
-            setTimeout(setTime, 100);
+        const updateDisplay = () => {
+            try {
+                const now = new Date();
+                const diff = calculateTimeDifference(START_DATE, now);
 
-        })();
+                elements.time.textContent = diff.totalDays.toFixed(10);
+                elements.year.textContent = diff.years;
+                elements.month.textContent = diff.months;
+                elements.day.textContent = diff.days;
+                elements.hour.textContent = diff.hours;
+                elements.minute.textContent = diff.minutes;
+                elements.second.textContent = diff.seconds;
+                elements.millisecond.textContent = leftpad(diff.milliseconds, 3);
 
-        function getMonthDays(year, month) {
-            var monthDaysList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            if ((year % 4 === 0 && year % 100 !== 0 ) || year % 400 == 0) {
-                monthDaysList[1] = 29;
+                requestAnimationFrame(updateDisplay);
+            } catch (error) {
+                console.error('Error updating time display:', error);
             }
-            return monthDaysList[month - 1];
-        }
+        };
 
-        function leftpad(str, len, ch) {
-            str = String(str);
-            var i = -1;
-            if (!ch && ch !== 0) ch = ' ';
-            len = len - str.length;
-            while (++i < len) {
-                str = ch + str;
-            }
-            return str;
-        }
-
-    }
+        // Start the animation
+        updateDisplay();
+    };
 </script>
 </body>
 </html>
